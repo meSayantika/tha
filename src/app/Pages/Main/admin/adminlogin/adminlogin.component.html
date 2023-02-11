@@ -1,0 +1,43 @@
+<div class="mainContainer">
+
+  <div class="loginSec">
+    <div class="column middle">
+      <!-- template driven form for loggin in -->
+      <form [formGroup]="loginForm" (ngSubmit)="logSubmit()">
+        <div class="imgcontainer">
+
+        <!-- <img src="/assets/images/sll_logo.png" alt="Avatar" class="avatar"> -->
+        <h2 class="text-center"> <label>
+          The Hotel Assistant Concierge
+        </label> </h2>
+        </div>
+        <div class="container">
+          <label for="uname">Admin ID</label>
+          <input type="text" formControlName="email_address">
+          <div *ngIf="f.email_address.errors?.required  && (f.email_address.dirty || f.email_address.touched)" class="text-danger">
+            <small [hidden]="!f.email_address.errors?.required">
+            <i>Email is required </i>  
+            </small>
+            <small [hidden]="!f.email_address.errors?.email">
+             <i>
+              Not a valid email
+             </i> 
+            </small>
+          </div>
+          <!-- field for password -->
+          <label for="psw">Password</label>
+          <input type="password" formControlName="password">
+          <small *ngIf="f.password.errors?.required && (f.password.touched || f.password.dirty)" class="text-danger">
+          <i>
+            Password is required
+          </i>  
+          </small>
+          <!-- <button type="submit" [disabled]="loginForm.invalid">Login</button> -->
+          <button mat-raised-button [disabled]="loginForm.invalid" type="submit" >Login</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,1556 @@
+
+<div *ngIf="cov==undefined" class="bgimgBreakFast" [ngStyle]="{'background-image': 'url(' + cov + ')'}">
+
+ <div class="topNav">
+   <ul class="w3-animate-opacity">
+     <li *ngIf="overlap==false && emptymenu==false && menu_show=='A' && sp_only==false">
+     
+         <a style="cursor: pointer;" (click)="open_modal()" >Menu</a>
+
+     
+     </li>
+     <li *ngIf="overlap==false && emptymenu==true && menu_show=='A'&& sp_only==false">
+<!-- when there is no menu (not even special menu) -->
+        
+         <a style="cursor: pointer;" (click)="open_modal1()">Menu</a>
+     
+     
+     </li>
+     <li *ngIf="overlap==true && menu_show=='A'&& sp_only==false">
+<!-- more than one menu including special menu -->
+        
+      <a style="cursor: pointer;" (click)="open_modal2()">Menu</a>
+  
+  
+  </li>
+  <li *ngIf="sp_only && !overlap">
+
+      <!-- there is only special menu and no regular menu -->
+    <a style="cursor: pointer;" (click)="openmodal4()">Menu</a>
+
+
+
+</li>
+<!-- button for special menu -->
+  <li *ngIf="special_flag=='Y' && menu_show=='A'" ><a style="cursor:pointer" (click)="openmodal4()">Special Menu</a></li>
+
+  <!-- only case of exclusive special menu -->
+  <li *ngIf="special_flag=='Y' && menu_show=='E' && sp_only==true" ><a style="cursor:pointer" (click)="openmodal4()">Menu</a></li>
+  <!-- for birthday/anniversary promotions -->
+     <li *ngIf="promo_flag=='Y'"><a style="cursor:pointer" (click)="openmodal6()">Birthday/Anniversary</a></li>
+    <!-- additional menu with overlap -->
+     <li ><a style="cursor:pointer" (click)="open_more()" *ngIf="more_overlap==true">More</a></li>
+    <!-- additional menu with no overlap -->
+     <li ><a style="cursor:pointer" (click)="open_menu(more_menu_id,more_st_time,more_end_time)" *ngIf="is_more!='N' && more_overlap==false">More</a></li>
+   </ul>
+ </div>
+ <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+ <!-- Modal -->
+ <div class="modal fade modalCustom" id="MyModal" role="dialog">
+   <div class="modal-dialog modalDialogCustom">
+
+     <div class="modal-content">
+
+       <button type="button" class="close closeCustom" data-dismiss="modal">&times;</button>
+
+
+       <div class="modal-body">
+         <div>
+           <div class="menuSecGroup">
+             <div class="menuSecGroupImg"><img src="../../../assets/dynemicmenu/images/breakfast_2.jpg" alt=""></div>
+             <div class="menuSecGroupTitle">
+               <h5></h5>
+             </div>
+             <div class="menuSecGroupList">
+               <div class="menuSecGroupListGroup">
+                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                   <tr >
+                     <td class="menuName"></td>
+                     <td class="menuPrice">$12</td>
+                   </tr>
+
+                 </table>
+                 <p class="descroption">Choice of bacon or chorizo with scrambled eggs, potatoes & cheese, wrapped in a
+                   flour tortilla Served with breakfast potatoes or fresh fruit</p>
+               </div>
+
+               <div class="menuSecGroupListGroup">
+                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                   <tr>
+                     <td class="menuName">LOX BAGEL</td>
+                     <td class="menuPrice">$12</td>
+                   </tr>
+
+                 </table>
+                 <p class="descroption">Cold smoked salmon, tomato, cucumber, avocado, capers, red onion & cream cheese
+                 </p>
+               </div>
+
+               <div class="menuSecGroupListGroup">
+                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                   <tr>
+                     <td class="menuName">STEEL CUT OATS BREAKFAST</td>
+                     <td class="menuPrice">$12</td>
+                   </tr>
+
+                 </table>
+                 <p class="descroption">Warm oats, brown sugar, dried cranberries & candied pecans. One egg any style
+                   and choice of bacon, ham or sausage</p>
+               </div>
+
+             </div>
+
+           </div>
+
+         </div>
+       </div>
+
+     </div>
+
+   </div>
+ </div>
+<!-- navigation bar -->
+ <!-- <div class="navbarBotomNav" [ngStyle]="{'background-color':bgcol}"> -->
+  <div class="navbarBotomNav w3-animate-opacity" [ngStyle]="{'background-color':menubodCol}">
+   <ul> 
+     <li><a [ngStyle]="{'color':menutextCol}">Laguna Village Shops</a></li>
+     <li *ngIf="event_flag=='Y'"><a [ngStyle]="{'color':menutextCol}"(click)="open_calendar()" style="cursor:pointer">Entertainment</a></li>
+     <li><a [ngStyle]="{'color':menutextCol}" (click)="go_to_user_cal()" style="cursor:pointer">Laguna Beach FUN Directory</a></li>
+   </ul>
+ </div>
+
+ <div class="mainContainerFront text-center" >
+   <!-- top image -->
+   <!-- logoImg  -->
+   <!-- <img src="../../../assets/dynemicmenu/images/the_cliff_logo.png" alt="" class="logoImg">  -->
+  <!-- logo image -->
+   <div *ngIf="topimage!=''"  class="w3-animate-opacity"><img *ngIf="topimage!=''" src="{{topimage}}" style="border-radius: 50%;" height="120" width="120" class="topSectionLogo" alt=""></div>
+   <!-- <div class="notificationBelowLogo w3-animate-opacity"  *ngIf="sp_posid==1" [ngStyle]="{'background-color':sp_back}">
+    <h2 [ngStyle]="{'color':sp_font}"><i class="fa fa-bell" aria-hidden="true"></i>  {{sp_head}}</h2>
+    <p [ngStyle]="{'color':sp_font}">{{sp_notice}}</p>
+ 
+  </div> -->
+ </div>
+ <!-- <center> -->
+   <!-- greeting message -->
+  <p class="dayMsg w3-animate-bottom" *ngIf="greet == 2" [ngStyle]="{'color':greettextCol}"> Good Afternoon </p>
+  <p class="dayMsg w3-animate-bottom" *ngIf="greet == 3" [ngStyle]="{'color':greettextCol}"> Good Evening</p>
+ <p class="dayMsg w3-animate-bottom" *ngIf="greet == 1" [ngStyle]="{'color':greettextCol}"> Good Morning </p> 
+ <p class="dayMsg w3-animate-bottom" *ngIf="greet == 5" [ngStyle]="{'color':greettextCol}"> Welcome
+
+ </p> 
+
+
+ <!-- </center> -->
+ <!-- footer content -->
+ <footer class="footerFront w3-animate-opacity" [ngStyle]="{'background-color':menubodCol}">
+  <span name="footer_id" [innerHTML]="editorText" [ngStyle]="{'color':menutextCol}">
+  </span>
+ </footer>
+ <!-- <footer class="footerFront">
+   <p>Powered by 
+     <li>
+      <a >Shop Local Laguna</a> 
+     </li>and 
+     <li>
+      <a >Info Quick</a>
+     </li><br>
+     <li>
+      <a >Cindy Ferguson</a> 
+     </li>
+   </p>
+ </footer> -->
+</div>
+<!-- page view when there is a cover image -->
+<div *ngIf="cov!=undefined" class="bgimgBreakFast" [ngStyle]="{'background-image': 'url(' + cov + ')'}" >
+
+<!-- <div class="bgimgBreakFast"> -->
+
+
+<div class="topNav">
+ <ul class="w3-animate-opacity">
+   <li *ngIf="overlap==false && emptymenu==false && menu_show=='A' && sp_only==false">
+     
+<!-- for a single menu -->
+       <a style="cursor: pointer;" (click)="open_modal()" >Menu</a>
+
+   
+   </li>
+   <li *ngIf="overlap==false && emptymenu==true && menu_show=='A' &&sp_only==false">
+<!-- when there is no menu -->
+      
+       <a style="cursor: pointer;" (click)="open_modal1()">Menu</a>
+   
+   
+   </li>
+   <li *ngIf="overlap==true && menu_show=='A' &&sp_only==false">
+<!-- there is more than one menu -->
+      
+    <a style="cursor: pointer;" (click)="open_modal2()">Menu</a>
+
+
+
+</li>
+<li *ngIf="sp_only && !overlap">
+<!-- when there is only special menu and no overlap -->
+      
+  <a style="cursor: pointer;" (click)="openmodal4()">Menu</a>
+
+
+
+</li>
+<!-- <li *ngIf="special_flag=='Y'"><a style="cursor:pointer" (click)="openmodal4()">Special Menu</a></li> -->
+<!-- for only special menu -->
+<li *ngIf="special_flag=='Y' && menu_show=='A'" ><a style="cursor:pointer" (click)="openmodal4()">Special Menu</a></li>
+<!-- for showing special menu when it is exlusive -->
+<li *ngIf="special_flag=='Y' && menu_show=='E' && sp_only==true" ><a style="cursor:pointer" (click)="openmodal4()">Menu</a></li>
+<!-- for opening modals for birthday and anniversary -->
+   <li *ngIf="promo_flag=='Y'"><a style="cursor:pointer" (click)="openmodal6()">Birthday/Anniversary</a></li>
+   <!-- <li ><a style="cursor:pointer" (click)="open_more()" *ngIf="more_overlap==true"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a></li>
+   <li ><a style="cursor:pointer" (click)="open_menu(more_menu_id,more_st_time,more_end_time)" *ngIf="is_more!='N' && more_overlap==false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a></li> -->
+  <!-- for overlapping additional menus -->
+   <li ><a style="cursor:pointer" (click)="open_more()" *ngIf="more_overlap==true">More</a></li>
+  <!-- for a single additional menu -->
+   <li ><a style="cursor:pointer" (click)="open_menu(more_menu_id,more_st_time,more_end_time)" *ngIf="is_more!='N' && more_overlap==false">More</a></li>
+ </ul>
+</div>
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+<!-- Modal -->
+<div class="modal fade modalCustom" id="MyModal" role="dialog">
+ <div class="modal-dialog modalDialogCustom">
+
+   <div class="modal-content">
+
+     <button type="button" class="close closeCustom" data-dismiss="modal">&times;</button>
+
+
+     <div class="modal-body">
+       <div>
+         <div class="menuSecGroup">
+           <div class="menuSecGroupImg"><img src="../../../assets/dynemicmenu/images/breakfast_2.jpg" alt=""></div>
+           <div class="menuSecGroupTitle">
+             <h5></h5>
+           </div>
+           <div class="menuSecGroupList">
+             <div class="menuSecGroupListGroup">
+               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                 <tr >
+                   <td class="menuName"></td>
+                   <td class="menuPrice">$12</td>
+                 </tr>
+
+               </table>
+               <p class="descroption">Choice of bacon or chorizo with scrambled eggs, potatoes & cheese, wrapped in a
+                 flour tortilla Served with breakfast potatoes or fresh fruit</p>
+             </div>
+
+             <div class="menuSecGroupListGroup">
+               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                 <tr>
+                   <td class="menuName">LOX BAGEL</td>
+                   <td class="menuPrice">$12</td>
+                 </tr>
+
+               </table>
+               <p class="descroption">Cold smoked salmon, tomato, cucumber, avocado, capers, red onion & cream cheese
+               </p>
+             </div>
+
+             <div class="menuSecGroupListGroup">
+               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                 <tr>
+                   <td class="menuName">STEEL CUT OATS BREAKFAST</td>
+                   <td class="menuPrice">$12</td>
+                 </tr>
+
+               </table>
+               <p class="descroption">Warm oats, brown sugar, dried cranberries & candied pecans. One egg any style
+                 and choice of bacon, ham or sausage</p>
+             </div>
+
+           </div>
+
+         </div>
+
+       </div>
+     </div>
+     
+   </div>
+
+ </div>
+ 
+</div>
+
+<!-- <div class="navbarBotomNav" [ngStyle]="{'background-color':bgcol}"> -->
+<!-- navigation bar -->
+<div class="navbarBotomNav w3-animate-opacity" [ngStyle]="{'background-color':menubodCol}">
+
+ <ul>
+   <li><a [ngStyle]="{'color':menutextCol}">Laguna Village Shops</a></li>
+   <li *ngIf="event_flag=='Y'"><a [ngStyle]="{'color':menutextCol}" (click)="open_calendar()" style="cursor:pointer">Entertainment</a></li>
+   <li><a [ngStyle]="{'color':menutextCol}" (click)="go_to_user_cal()" style="cursor:pointer">Laguna Beach FUN Directory</a></li>
+ </ul>
+</div>
+
+<div class="mainContainerFront text-center"  >
+ <!-- top image -->
+ <!-- logoImg -->
+ <!-- <img src="../../../assets/dynemicmenu/images/the_cliff_logo.png" alt="" class="logoImg">  -->
+<!-- logo image -->
+ <div *ngIf="topimage!=''"  class="w3-animate-opacity"><img *ngIf="topimage!=''" style="border-radius: 50%;" height="120" width="120" src="{{topimage}}" class="topSectionLogo" alt=""></div>
+ <!-- <div class="notificationBelowLogo w3-animate-opacity" *ngIf="sp_posid==1" [ngStyle]="{'background-color':sp_back}">
+  <h2 [ngStyle]="{'color':sp_font}"><i class="fa fa-bell" aria-hidden="true"></i> {{sp_head}}</h2>
+  <p [ngStyle]="{'color':sp_font}">{{sp_notice}}</p>
+
+</div> -->
+</div>
+<!-- <center> -->
+ <!-- greeting message -->
+<p class="dayMsg w3-animate-bottom" *ngIf="greet == 2" [ngStyle]="{'color':greettextCol}"> Good Afternoon</p>
+    <p class="dayMsg w3-animate-bottom" *ngIf="greet == 3"  style="margin:0; padding:0"  [ngStyle]="{'color':greettextCol}"> Good Evening</p>
+   <p class="dayMsg w3-animate-bottom" *ngIf="greet == 1"  style="margin:0; padding:0"  [ngStyle]="{'color':greettextCol}"> Good Morning </p> 
+   <p class="dayMsg w3-animate-bottom" *ngIf="greet == 5"  style="margin:0; padding:0"  [ngStyle]="{'color':greettextCol}"> Welcome
+
+    
+    </p> 
+<!-- </center> -->
+<!-- footer content -->
+<footer class="footerFront w3-animate-opacity" [ngStyle]="{'background-color':menubodCol}">
+ <span name="footer_id" [innerHTML]="editorText" [ngStyle]="{'color':menutextCol}">
+ </span>
+</footer>
+<!-- <footer class="footerFront">
+<p>Powered by 
+  <li>
+   <a >Shop Local Laguna</a> 
+  </li>and 
+  <li>
+   <a >Info Quick</a>
+  </li><br>
+  <li>
+   <a >Cindy Ferguson</a> 
+  </li>
+</p>
+</footer> -->
+</div>
+<!-- <ngx-spinner bdColor = "rgb(244,81,30)" size = "default" color = "#fff" template={{template_spinner}} [type] = "tp" [fullScreen] = "true"> -->
+<!-- <ngx-spinner bdColor ="{{bgspinner}}" size = "default" color = "#000000" template={{template_spinner}} [type] = "tp" [fullScreen] = "true">
+
+
+<p [ngStyle]="{'color':f_col}" > {{t}}
+
+</p>
+
+</ngx-spinner>
+-->
+
+
+<div id="id01" class="modal">
+ <div class="w3-modal-content modulCustom w3-animate-zoom">
+
+   <div class="modal-dialog modalDialogCustom">
+
+     <div class="modal-content">
+
+       <button type="button" class="close closeCustom" (click)="modalclose()">&times;</button>
+
+      <!-- data for the menu -->
+       <div class="modal-body">
+         <div class="menuSecGroup" *ngFor="let m of keyData;let i=index">
+           <!-- section image -->
+           <div class="menuSecGroupImg"><img [src]="url1+'/'+m.img" width="100%" alt=""></div> 
+           <!-- notice under header image -->
+           <div class="notificationBelowLogo w3-animate-opacity"  *ngIf="sp_posid==1&&i==0" [ngStyle]="{'background-color':sp_back}">
+            <h2 [ngStyle]="{'color':sp_font}"><i class="fa fa-bell" aria-hidden="true"></i>  {{sp_head}}</h2>
+            <p [ngStyle]="{'color':sp_font}">{{sp_notice}}</p>
+         
+          </div>
+           <div class="menuSecGroupTitle">
+             <!-- section -->
+             <h5 class="to_upper">{{m.sec}}</h5>
+           </div>
+           <div class="menuSecGroupList">
+           <div *ngFor="let m1 of m.itm; let i=index" class="menuSecGroupListGroup">
+           <!-- <div class="menuSecGroupList"> -->
+             
+               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+<!-- item name and item price -->
+                 <tr>
+                   <td class="menuName">{{m1.item_name}}</td>
+                   <td class="menuPrice">${{m1.item_price}}</td>
+                 </tr>
+
+               </table>
+               <!-- item description -->
+               <p class="descroption" *ngIf="m1.item_desc!=''">{{m1.item_desc}}</p>
+               <!-- additional notes -->
+               <div class="customNotes" *ngIf="m1.item_note!=''" [ngStyle]="{'color':m1.note_color,'background-color':m1.note_back_color}">*Notes: {{m1.item_note}}</div>
+             <!-- </div> -->
+
+
+
+           
+</div></div>
+<!-- notification after each section -->
+<div class="notification" *ngIf="sp_posid==3" [ngStyle]="{'background-color':sp_back}">
+ <h2 [ngStyle]="{'color':sp_font}"><i class="fa fa-bell" aria-hidden="true"></i> {{sp_head}}</h2>
+ <p [ngStyle]="{'color':sp_font}">{{sp_notice}}</p>
+
+</div>
+
+
+         </div>
+<!-- notification after last section -->
+         <div class="notification" *ngIf="sp_posid==2" [ngStyle]="{'background-color':sp_back}">
+          <h2 [ngStyle]="{'color':sp_font}"><i class="fa fa-bell" aria-hidden="true"></i> {{sp_head}}</h2>
+          <p [ngStyle]="{'color':sp_font}">{{sp_notice}}</p>
+       
+        </div>
+
+
+       </div>
+       
+
+     </div>
+
+   </div>
+
+ </div>
+</div>
+
+<div id="id02" class="modal modalCustom">
+<div class="w3-modal-content modalDialogCustom w3-animate-zoom">
+
+  <div class="modal-dialog modalDialogCustom">
+
+    <div class="modal-content">
+
+      <button type="button" class="close closeCustom" (click)="modalclose1()">&times;</button>
+
+<!-- modal to show no menu -->
+      <div class="modal-body">
+        <div class="noMenuSecGroup" >
+          <div class="noMenuImg"><img _ngcontent-chx-c163="" alt="" src="/assets/images/noMenu.png"></div>
+          <div class="noMenuImgtitle">
+            <h2>Oops! No Menu Available Right Now...</h2>
+          </div>
+          <div>
+          
+</div>
+        </div>
+
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+<div id="id03" class="modal modalCustom">
+ <div class="w3-modal-content modalDialogCustom w3-animate-zoom">
+
+   <div class="modal-dialog modalDialogCustom">
+
+     <div class="modal-content">
+
+       <button type="button" class="close closeCustom" (click)="modalclose2()">&times;</button>
+
+
+       <div class="modal-body">
+         <div class="menuSecGroup" >
+           <div class="menuSecGroupImg"><img _ngcontent-chx-c163="" alt="" src=""></div>
+          <!-- modal to show overlap of menu -->
+           <div class="menuSecGroupTitle">
+             <h6>Please make a choice:</h6>
+           </div>
+           <div>
+           <div class="menuSecGroupListNew">
+             <div class="menuSecGroupListGroupNew">
+               <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+<!-- list of menus that are overlapping -->
+                 <tr *ngFor="let i of overlapData" class="menuAllListTr">
+                   <td class="menuAllList">
+                     <h3>{{i.menu_description}} <span>{{i.start_time}} to {{i.end_time}} </span></h3>
+                     <button *ngIf="i.menu_id!=5" (click)="open_menu(i.menu_id,i.start_time,i.end_time);modalclose2()">
+                       View Menu
+                     </button>
+                     <button *ngIf="i.menu_id==5" (click)="openmodal4();modalclose2()">
+                      View Menu
+                    </button>
+                    
+                    </td>
+                   
+                 </tr>
+
+               </table>
+               <!-- <p class="descroption">{{m1.item_desc}}</p> -->
+             </div>
+
+
+
+           </div>
+</div>
+         </div>
+
+
+       </div>
+       
+
+     </div>
+
+   </div>
+
+ </div>
+</div>
+<div id="id04" class="modal modalCustom">
+<div class="w3-modal-content modalDialogCustom modalDialogCustomSps w3-animate-zoom">
+
+  <div class="modal-dialog modalDialogCustom modalDialogCustomSps">
+
+    <div class="modal-content">
+
+      <button type="button" class="close closeCustom" (click)="closemodal4()">&times;</button>
+<!-- special menu -->
+
+      <div class="modal-body">
+        <div class="spsMenuSecGroup" >
+          <div class="spsMenuImg">
+            <img _ngcontent-chx-c163="" alt="" [src]="spstockImg">
+            <div class="spsMenuImgtitle" style="margin-bottom: -35px;;">
+              <!-- occasion -->
+                <h2>{{cat_name}}</h2>
+              </div>
+          </div >
+
+          <!-- <div class="spsMenuImgContent"> -->
+            <div style="margin-top:45px">
+            <!-- <textarea name="introduction" maxlength="150" rows="6" cols="25" class="formCssTextArea splMenuDescrip"
+                           readonly>{{spdesc_text_readonly}}</textarea> -->
+                           <!-- special menu text -->
+
+                           <!-- to be uncommented -->
+                           <!-- <angular-editor [(ngModel)]="spdesc_text_readonly" [config]="config1"></angular-editor>   -->
+
+          </div>
+          
+          <div>
+          
+</div>
+        </div>
+
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+<div id="id05" class="modal modalCustom">
+<div class="w3-modal-content modalDialogCustom modalDialogCustomSps w3-animate-zoom">
+
+  <div class="modal-dialog modalDialogCustom modalDialogCustomSps">
+<!-- modal to display full calendar -->
+    <div class="modal-content" style="padding:16px;">
+  <div class="row">
+    <div class="col-6">
+      <!-- <button type="btn btn-primary add_event" (click)="openuserevent()" ><i class="fa fa-plus" aria-hidden="true"></i></button> -->
+      <!-- tooltip to show the message as to what the add option does -->
+      <i matTooltip="Add your event which is going to be added in the Laguna fun directory!"
+        matTooltipPosition="right" #tooltip="matTooltip" id="load_img"
+        class="fa fa-plus-square fa-10x " style="cursor:pointer" (click)="openuserevent()" aria-hidden="true"></i>
+        
+    </div>
+  
+      
+   
+    <div class="col-6">
+      <button type="button" class="close closeCustom" (click)="closemodal5()">&times;</button>
+
+    </div>
+  </div>
+
+      
+      <div class="modal-body">
+        <div class="noMenuSecGroup popupCalender">
+           <!-- full calendar  to be uncommented-->
+        <!-- <full-calendar id="cal" [options]="calendarOptions"></full-calendar> -->
+</div>
+<!-- <img class="feedback" id="mybutton" src="/assets/images/eventmusic.jpg" alt="" height="1500" width="600" > -->
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+
+
+
+<button hidden type="button" id="modalbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+Open modal
+</button>
+
+<!-- The Modal -->
+<div class="modal modalCustom modalCustomEvent" id="myModal">
+<div class="modal-dialog-lg modal-dialog calenderEvent">
+<div class="modal-content calenderEventContent">
+
+  <!-- Modal Header -->
+  <!-- <div class="modal-header"> -->
+    <!-- <h4 class="modal-title">Events/Calendar</h4> -->
+    <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+   
+  <!-- </div> -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <a type="button" class="close closeEvent" data-bs-dismiss="modal"><i class="fa fa-close"></i></a> 
+    <div class="eventCalImg"><img id="imgeve" class="topSectionLogo" alt=""></div>
+  <h3 class="eventTitle"><span class="iconEvent"><i class="fa fa-square" aria-hidden="true"></i></span>{{event_name}}</h3>
+   <!-- <input type='text' id="event" class="form-control" readonly [(ngModel)]="event_name" /> -->
+
+   <div class="eventSubTitle"><span class="iconEvent"><i class="fa fa-align-left" aria-hidden="true"></i></span> <span>Title:</span>{{headliner}}</div>
+
+ <div class="dateTimeevent">
+  <div class="dateEvent"><span class="iconEvent"><i class="fa fa-calendar" aria-hidden="true"></i></span>{{this.start_date | date:'dd/MM/YYYY'}}</div>
+  <div class="timeEvent"><span class="iconEvent"><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{time}}</div>
+ </div>
+ 
+
+ <div class="eventUrl"><span class="iconEvent"><i class="fa fa-link" aria-hidden="true"></i></span><a href="{{Url}}"> {{Url}} </a></div>
+   
+ <div class="eventDescription"><span class="iconEvent"><i class="fa fa-comment-o" aria-hidden="true"></i></span>{{desc}}</div>
+   <!-- <input type="text" id="url" readonly class="form-control" [(ngModel)]="Url"> -->
+
+  
+   <!-- <textarea  id="description" readonly rows="4" cols="5"  class="form-control" [(ngModel)]="desc"></textarea> -->
+  </div>
+
+  <!-- Modal footer -->
+  <!-- <div class="modal-footer"> -->
+    <!-- <button type="button"class="btn1 btn-danger btn-sm text-decoration-none" data-bs-dismiss="modal" >Close</button> -->
+
+    <!-- <button type="button" class="btn1 btn-danger btn-sm text-decoration-none" data-bs-dismiss="modal">Close</button> -->
+  <!-- </div> -->
+
+</div>
+</div>
+</div>
+
+
+<div id="id07" class="modal modalCustom">
+<div class="w3-modal-content modalDialogCustom modalDialogCustomSps">
+
+<div class="modal-dialog modalDialogCustom modalDialogCustomSps">
+
+  <div class="modal-content" >
+
+    <button type="button" class="close closeCustom"  style="padding: 16px;" (click)="closemodal6()">&times;</button>
+
+
+    <div class="modal-body">
+      <div class="spsMenuSecGroup" >
+        <div class="spsMenuImg">
+          <img _ngcontent-chx-c163="" alt="" [src]="spstockImg">
+          <div class="spsMenuImgtitle">
+              <!-- <h2>{{cat_name}}</h2> -->
+            </div>
+        </div>
+
+        <div class="spsMenuImgContent">
+          <div class="menuSecGroup">
+            
+            <div class="menuSecGroupTitle">
+              <h5>some data</h5>
+              </div>
+            <div class="menuSecGroupList">
+            <div  class="menuSecGroupListGroup">
+            <!-- <div class="menuSecGroupList"> -->
+              
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                  <tr>
+                    <td class="menuName"></td>
+                    <td class="menuPrice"></td>
+                  </tr>
+
+                </table>
+                <p class="descroption"></p>
+                <!-- <div class="customNotes" >*Notes: {{m1.item_note}}</div> -->
+              <!-- </div> -->
+
+
+
+            
+</div></div>
+
+          </div>
+        </div>
+        
+
+      </div>
+      <!-- callout -->
+      <div class="callout">
+        <div class="callout-header">Popup Offer</div>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <div class="callout-container">
+          <p>Some text...</p>
+        </div>
+      </div>
+      <!-- callout ends -->
+
+    </div>
+    
+
+  </div>
+
+</div>
+
+</div>
+</div>
+<div id="id06" class="modal">
+
+<div class="modal-dialog modalDialogCustom">
+
+  <div class="modal-content">
+
+    <button type="button" class="close closeCustomBirth closeTop" (click)="closemodal6()">&times;</button>
+<!-- modal to show birthday/anniversary -->
+
+    <div class="modal-body">
+      <div class="menuBirthday">
+        <div class="menuBirthdayTitle">
+          <h5>Birthday/Anniversary</h5>
+        </div>
+        <div class="menuBirthdayImg">
+          <!-- <img [src]="url1+'/'+m.img" alt=""> -->
+          <img _ngcontent-chx-c163="" alt="" [src]="promo_img">
+
+        </div>
+        <!-- celebration -->
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <div class="confetti" [hidden]="show_anim">
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+          <div class="confetti"></div>
+        </div>
+        <!-- celebration -->
+        <div class="menuBirthdayTxtArea"  style="padding: 16px;">
+          <p>{{promo_intro}} </p>
+        </div>
+
+        <div class="formSec"  style="padding: 16px;" [ngStyle]="{'background-color':col}">
+          <ul>
+            <li class="halfForm">
+              <!-- <label for="fn"> First Name</label> -->
+              <input type="text" placeholder="First Name" #fname id="fn" class="formCss p-2"></li>
+            <li class="halfForm">
+              <!-- <label for="ln"> Last Name</label> -->
+              <input type="text" #lname placeholder="Last Name" id="ln" class="formCss p-2">
+           </li>
+            <li class="fullForm">
+              <!-- <label for="em"> Email</label> -->
+              <input type="email" #email id="em" placeholder="Email" class="formCss p-2">
+            </li>
+            <li class="halfForm">
+              <label for="bdate"> Birthday:</label>
+              <input type="date" #bd id="bdate" class="formCss p-2"></li>
+            <li class="halfForm">
+              <label for="adate"> Anniversary:</label>
+              <input type="date" #ad id="adate" class="formCss p-2">
+           </li>
+          <li  class="fullForm" *ngIf="promo_q1">
+            <!-- <label for="p_q1"> {{promo_q1}}</label> <br> -->
+            <input type="text" #pq1 id="p_q1" placeholder="{{promo_q1}}" class="formCss p-2">
+          </li>
+          <li  class="fullForm" *ngIf="promo_q2">
+            <!-- <label for="p_q2"> {{promo_q2}}</label> <br> -->
+            <input type="text" #pq2 id="p_q2" placeholder="{{promo_q2}}" class="formCss p-2">
+          </li>
+          <li class="fullForm" *ngIf="promo_q3">
+            <!-- <label for="p_q3"> {{promo_q3}}</label> <br> -->
+            <input type="text" #pq3 id="p_q3" placeholder="{{promo_q3}}" class="formCss p-2">
+          </li>
+           
+          </ul>
+          <div class="privaceTxt">
+          <h3>PRIVACY</h3>
+          <p>{{privacy}}</p></div>
+        </div>
+        <div class="checkBox"  style="padding: 16px;" [ngStyle]="{'background-color':col}">
+        <input type="checkbox" (click)="auth_click()" id="auth" name="privacy" value="Agree" required="">
+        <label for="privacy"> {{auth}}</label>
+      </div>
+      <div class="formSec"  style="padding: 16px;" [ngStyle]="{'background-color':col}">
+      <ul>
+        <li class="fullForm">
+          <!-- <label for="mb"> Phone</label> -->
+          <input type="tel"  #mobile id="mb" placeholder="Phone No." class="formCss p-2"></li>
+        <li class="fullForm">
+           
+            <button class="button"  type="submit" (click)="submit_promo_data()">ADD MY DATES</button>
+         
+ </li>     </ul>
+      <!-- <button  class="w3-button w3-orange" type="submit" (click)="submit_promo_data()">Add My Dates </button> -->
+    </div>
+
+
+
+<!-- callout -->
+<div class="calloutCustom">
+<div class="callout-header">{{promo_pop_title}}</div>
+<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+<div class="callout-container">
+  <p>{{promo_pop_body}} </p>
+</div>
+</div>
+<!-- callout ends -->
+
+        
+
+
+      </div>
+
+     
+
+
+    </div>
+    
+
+  </div>
+
+</div>
+
+
+</div>
+<div id="usereventmodal" class="modal">
+
+
+<div class="modal-dialog modalDialogCustom">
+
+  <div class="modal-content" style="padding:16px;">
+<!-- modal for adding event by user -->
+    <button type="button" class="close closeCustomBirth" (click)="closemodal7()">&times;</button>
+
+
+    <div class="modal-body">
+      <div class="menuBirthday">
+        <div class="menuBirthdayTitle">
+          <h5>Add events</h5>
+        </div>
+        
+        <!-- celebration -->
+      
+    
+        
+        <!-- celebration -->
+      <div class="formSec">
+          <ul>
+            <li class="fullForm">
+              <!-- <label for="fn"> First Name</label> -->
+              <input type="text" placeholder="Event Name" #ename id="en" class="formCss p-2"></li>
+            <li class="halfForm">
+              <label for="edt"> Date:</label>
+              <input type="date" #edate id="edt" class="formCss p-2">
+           </li>
+            <li class="halfForm">
+              <label for="etm"> Time:</label>
+              <input type="time" #etime id="etm" class="formCss p-2">
+            </li>
+            <li class="fullForm">
+              <!-- <label for="uem"> :</label> -->
+              <input type="url" #uem placeholder="URL" id="uurl" class="formCss p-2"></li>
+       
+          </ul>
+          <ul>
+            <li class="fullForm">
+              <!-- <label for="uem"> :</label> -->
+              <input type="email" #uem placeholder="Email" id="uem" class="formCss p-2"></li>
+           
+         
+         
+          
+           
+          </ul>
+         
+          
+  
+  </div>
+        </div>
+        
+      <div class="formSec">
+      <ul>
+        
+        <li class="fullForm">
+           
+            <button class="w3-button w3-orange"  type="submit" (click)="submit_user_event()">Add my event</button>
+         
+ </li>     </ul>
+      <!-- <button  class="w3-button w3-orange" type="submit" (click)="submit_promo_data()">Add My Dates </button> -->
+    </div>
+
+
+
+<!-- callout -->
+
+<!-- callout ends -->
+
+        
+
+
+      </div>
+
+     
+
+
+    </div>
+    
+
+  </div>
+
+
+<div id="snackbar">{{m}}</div>
+</div>
+<div id="more_modal" class="modal modalCustom">
+
+
+  <div class="modal-dialog modalDialogCustom">
+
+    <div class="modal-content">
+
+      <button type="button" class="close closeCustom" (click)="close_more()">&times;</button>
+
+<!-- modal to show the list of available additional menus -->
+      <div class="modal-body">
+        <div class="menuSecGroup" >
+          <div class="menuSecGroupImg"><img _ngcontent-chx-c163="" alt="" src=""></div>
+          <div class="menuSecGroupTitle">
+            <h6>Please make a choice:</h6>
+          </div>
+          <div>
+          <div class="menuSecGroupListNew">
+            <div class="menuSecGroupListGroupNew">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                <tr *ngFor="let i of moremenu" class="menuAllListTr">
+                  <td class="menuAllList">
+                    <h3>{{i.menu_name}} <span>{{i.start_time}} to {{i.end_time}} </span></h3>
+                    <button *ngIf="i.menu_id!=5" (click)="open_menu(i.menu_id,i.start_time,i.end_time);close_more()">
+                      View Menu
+                    </button>
+                    <button *ngIf="i.menu_id==5" (click)="openmodal4();close_more()">
+                     View Menu
+                   </button>
+                   
+                   </td>
+                  
+                </tr>
+
+              </table>
+              <!-- <p class="descroption">{{m1.item_desc}}</p> -->
+            </div>
+
+
+
+          </div>
+</div>
+        </div>
+
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+
+</div>
+<div id="ev_dtls_modal" class="modal modalCustom">
+
+  <div class="modal-dialog modalDialogCustom">
+
+    <div class="modal-content" >
+
+      <button type="button" class="close closeCustom" (click)="close_ev_dtls()">&times;</button>
+
+<!-- modal to show event list on a particular day -->
+      <div class="modal-body">
+        <div class="menuSecGroup" >
+          <div class="menuSecGroupImg"><img _ngcontent-chx-c163="" alt="" src=""></div>
+          <div class="menuSecGroupTitle">
+            <!-- To be uncommented -->
+            <!-- <h6 *ngIf="Event1.length!=0">Event(s) on {{ev_dt | date}}:</h6> -->
+            <!-- <h6 *ngIf="Event1.length==0" >No Events on {{ev_dt | date}}</h6> -->
+           <!-- to be uncommented -->
+          </div>
+          <div>
+          <div class="menuSecGroupListNew">
+            <div class="menuSecGroupListGroupNew">
+              <!-- to be uncommentd -->
+              <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0" class="menuTable">
+
+                <tr matTooltip="click to view details of {{i.event_title}}"
+                matTooltipPosition="after" *ngFor="let i of Event1" class="menuAllListTr" style="cursor: pointer;" (click)="eventclick(i.id)">
+                  <td style="padding:20px" class="menuAllList">
+                    <img  *ngIf="i.imageUrl" height="60" width='60' src="{{url1+'/'+i.imageUrl}}" alt="">
+                    <h3 class="ev-dtls">{{i.event_title}}</h3>
+                              
+                   </td>
+                  
+                </tr>
+
+              </table> -->
+              <!-- <p class="descroption">{{m1.item_desc}}</p> -->
+            </div>
+
+
+
+          </div>
+</div>
+        </div>
+
+
+      </div>
+      
+
+    </div>
+
+  </div>
+
+
+</div>
+<!-- </div> -->
+<!-- snackbar to show confirmation messages -->
+<div id="snackbar">{{m}}
+
+
+</div>
+
+<!-- celebration -->
+
+<!-- celebration -->
+
+

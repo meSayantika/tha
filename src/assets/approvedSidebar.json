@@ -1,0 +1,13 @@
+[
+    {
+        "id":"hotelDashboard",
+         "name":"Dashboard",
+         "ref":"/hotel/dashboard"
+    },
+    {
+        "id":"hotelCalendar",
+        "name":"Event Calendar",
+        "ref":"/hotel/calendar"
+    }
+
+]

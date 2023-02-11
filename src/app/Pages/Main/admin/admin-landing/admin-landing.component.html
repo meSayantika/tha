@@ -1,0 +1,219 @@
+<!-- dashboard having hard coded data -->
+<div class=" content-div">
+  <header style="padding-top:22px">
+   <strong> <h2><b><mat-icon>dashboard</mat-icon> Home </b></h2></strong>
+  </header>
+<!--   
+  <div class="row">
+    <div class="col-3">
+      <mat-card class="example-card1">
+        <mat-card-header>
+          <mat-card-content class="pull-start">Sales Agents</mat-card-content>
+          <mat-card-content>2</mat-card-content>
+          <mat-icon>flag</mat-icon>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div class="col-3">
+      <mat-card class="example-card2">
+        <mat-card-header>
+          <mat-card-content class="pull-start">Artists</mat-card-content>
+          <mat-card-content>23</mat-card-content>
+          <mat-icon>brush</mat-icon>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div class="col-3">
+      <mat-card class="example-card3">
+        <mat-card-header>
+          <mat-card-content>Restaurants</mat-card-content>
+          <mat-card-content>99</mat-card-content>
+          <mat-icon> restaurant</mat-icon>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <div class="col-3">
+      <mat-card class="example-card4">
+        <mat-card-header>
+          <mat-card-content>Merchants</mat-card-content>
+          <mat-card-content>50</mat-card-content>
+          <mat-icon>business_center</mat-icon>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-6 p-4">
+      <mat-card class="example-card">
+  <strong>      <mat-card-header>
+          <div mat-card-avatar class="example-header-image"><mat-icon>location_city</mat-icon></div>
+          <mat-card-content> City</mat-card-content>
+        </mat-card-header></strong>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d52442.2640614262!2d-117.79475052577696!3d33.54638513790316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRestaurants!5e1!3m2!1sen!2suk!4v1628523410979!5m2!1sen!2suk"
+          width="100%" height="330px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
+      </mat-card>
+
+    </div>
+    <div class="col-6 p-4">
+
+    <mat-card>
+  <strong>  <mat-card-header>	
+    <div mat-card-avatar class="example-header-image"> <mat-icon>notifications_active</mat-icon></div>
+    
+   
+        <mat-card-content> Alerts</mat-card-content>
+      </mat-card-header></strong>  
+      <mat-card-content>
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    
+            <ng-container matColumnDef="text">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="time">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+            </ng-container>
+    
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    
+      </mat-card-content>
+    </mat-card>
+  </div>
+   
+    <hr>
+    <mat-card>
+   
+      <div class="row" style="margin-left:0.5%">
+        <div class="col-12">
+          <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+            <ng-container matColumnDef="picture">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element"> <img src="https://www.w3schools.com/w3images/avatar5.png" style="width:35px;border-radius: 50%;" >  <span style="font-size:large"> {{element.name}} </span>  </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let element"> &nbsp; </td>
+            </ng-container>
+    
+            <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+          </table>
+          
+        </div>
+      </div>
+     
+      
+    </mat-card>
+   
+    <br>
+  </div> -->
+  <div class="row container">
+    <div class="col-7">
+      <div class="card">
+        <img src="./assets/images/angular-line-chart.png" width="490" height="270"  alt="">
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-6">
+          <!-- <div class="card">
+            
+          </div> -->
+          <mat-card class="example-card1">
+            <mat-card-header>
+              <mat-icon class="ex3">view_list</mat-icon>
+            </mat-card-header>
+            <mat-card-content>2</mat-card-content>
+
+            <mat-card-actions class="shift">House Accounts</mat-card-actions>
+
+          </mat-card>
+
+        </div>
+        <div class="col-6">
+          <!-- <div class="card">
+            
+          </div> -->
+          <mat-card class="example-card2">
+          <mat-card-header>
+            <mat-icon class="ex2">perm_phone_msg</mat-icon>
+          </mat-card-header>
+          <mat-card-content>23</mat-card-content>
+
+          <mat-card-actions class="shift">Sales Accounts</mat-card-actions>
+
+        </mat-card>
+
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col-12">
+          <!-- <div class="card">
+           </div> -->
+           <mat-card class="example-card3">
+            <mat-card-header>
+              <mat-icon class="ex1"> room_service</mat-icon>
+            </mat-card-header>
+            <mat-card-content style="margin-top:10%; margin-left:10%; font-size:200px">25</mat-card-content>
+
+            <mat-card-actions class="shift1">All Accounts</mat-card-actions>
+
+          </mat-card>
+        </div>
+      </div>
+    </div> </div>
+    <br>
+
+  <div class="row container">
+    <div class="col-5">
+      <div class="card">
+        <img class="pl-3" src="./assets/images/pie.png" style="padding-left:15%" width="300" height="180"  alt="">
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="card">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Sales Agent</th>
+              <th scope="col">Address</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Texas</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Utah</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>California</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</div>

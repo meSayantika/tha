@@ -1,0 +1,485 @@
+<div class="content-div">
+  <mat-card>
+    <h2><strong> <mat-icon> restaurant</mat-icon> Order Setup</strong></h2>
+
+  </mat-card>
+
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Stock Images">
+      <ng-template mat-tab-label>
+        <mat-icon> collections</mat-icon> &nbsp;
+        Stock Images
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong>Upload a stock image for special menu and birthday/anniversary.</strong>
+          <form>
+            <div class="rowCustomFour">
+              <div class="fieldSecFull">
+                <label class="titleCustom">Category</label>
+                <select id="pickup_place_stock_img" #cat_name name="pickup_place" (change)="cat_select()"
+                  class="form-control">
+                  <option value="" selected="selected">Select One</option>
+                  <option *ngFor="let c of categories" value="{{c.id}}">{{c.name}}</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <button hidden  id="logo_crop" (click)="open_crop_modal()" ></button>
+          <div class="stockDiv pb-4">
+            <input type="file" class="form-control" #stock_name id="headTitle_stock" name="headTitle"
+              (change)="stock_image_change($event)">
+          </div>
+          <div class="stockDiv pb-4">
+            <!-- <button type="submit" class="btn btn-default saveCustom" (click)="submit_stock_image(cat_name.value)">Submit</button> &nbsp;
+                  <button type="submit" class="btn btn-danger" (click)="reset_stock()">Reset</button> -->
+            <button type="submit" mat-raised-button (click)="submit_stock_image(cat_name.value)" class="btn btn-success">Submit</button> &nbsp;
+            <button type="submit" mat-raised-button (click)="reset_stock()" class="btn btn-danger">Reset</button>
+          </div>
+         <div class="prvImgCustom">
+            <div class="rowCustomFour">
+              <div class="fieldSecHalf">
+                <div class="row">
+                  <div class="col-4">
+                    <select id="pickup_place" class="form-control" #cat name="pickup_place_stock"
+                      (change)="pic_select(cat.value)" class="formCss">
+                      <option value="" selected>Show all</option>
+                      <option *ngFor="let c of categories" value="{{c.id}}">{{c.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="thumImgContainer" (mouseenter)="show_cross()" (mouseleave)="hide_cross()"
+                *ngIf="imageData?.length!=0">
+                <div class="thumImgSm" *ngFor="let i of imageData">
+                  <!-- <span class="close" (click)="deleteImg(i.id);openDeleteModal();">&times;</span> -->
+                  <span class="close" (click)="deleteImg(i.id)" data-bs-toggle="modal"
+                    data-bs-target="#myModal_delete">&times;</span>
+                  <!-- <img [src]="url1+i.img_path" class="stockimgPrev " height="100" width="100" alt="" (click)="open_preview_modal(url1+i.img_path)"> -->
+                  <!-- <img [src]="url1+i.img_path" class="stockimgPrev " height="100" width="100" alt="" (click)="openDialog(url1+i.img_path)> -->
+                  <img [src]="url1+i.img_path" class="stockimgPrev " height="100" width="100" alt="" (click)="openDialog('imgPrev',url1+i.img_path)" style="cursor:pointer">
+                </div>
+              </div>
+              <div class="row" *ngIf="imageData?.length==0">
+                <div class="col-4"></div>
+                <div class="col-6 mb-4">
+                  <!-- <img [src]="url1+i.img_path" class="stockimgPrev" height="100" width="100" alt="" (click)="open_preview_modal(url1+i.img_path)"> -->
+                  <strong>
+                    There are no images under this category.
+                  </strong>
+                </div>
+                <div class="col-2"></div>
+              </div>
+              <br>
+            </div>
+            <!-- <img alt=""> -->
+          </div>
+        <!-- </div> -->
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Email">
+      <ng-template mat-tab-label>
+        <mat-icon> email</mat-icon> &nbsp;
+        Email
+      </ng-template>
+      <!-- <div style="overflow-x:auto;"> -->
+      <mat-card>
+        <strong>Add Emails in accordance with the categories.</strong>
+        <div class="rowCustomFour">
+          <div class="fieldSecFull">
+            <div class="row">
+              <div class="col-6">
+                <label class="titleCustom">Category</label>
+                <select id="pickup_place_email_body" #em_body_name name="pickup_place"
+                  (change)="em_select(em_body_name.value)" class="formCss">
+                  <option value="" selected="selected">Select One</option>
+                  <option *ngFor="let c of emailtype" value="{{c.id}}">{{c.type_name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+             <div class="col-6">
+                <div class="aboutLeft">
+                   <angular-editor [(ngModel)]="editorText3" [config]="config3"></angular-editor>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="alert alert-warning pt-2" *ngIf="emailType==5" role="alert">
+
+                  Dear <b> #[contact-person] </b> at the <b> #[hotel-name] </b>
+                  We would like to thank you for your interest in the above platform ad confirm we will be in contact
+                  with you very shortly to discuss this in more detail.
+                  <br>
+                  If for any reason your schedule changes and you would like to re-arrange the day and time you
+                  indicated for us to call, which was <b> #[contact-time] </b> , then please do not hesitate to reply to
+                  this email.
+                  <br>
+                  Kind regards <br>
+                  Cindy Ferguson
+                </div>
+                <div class="alert alert-warning pt-2" *ngIf="emailType==6" role="alert">
+                  Please refer to the following for composing the email body:
+                  An enquiry form has just been completed by the following Hotel, Please make contact with them to
+                  discuss their requirement on the date and time indicated. <br>
+                  Hotel Name: <b> #[hotel-name] </b> <br>
+                  Address: <b> #[address] </b> <br>
+                  Zip Code: <b> #[zip-code] </b> <br>
+                  Contact Person: <b> #[contact-person] </b> <br>
+                  Mobile: <b>#[mobile] </b> <br>
+                  Email: <b>#[email] </b> <br>
+                  Best Day to contact: <b> #[contact-time] </b>
+                </div>
+              </div>
+            </div>
+            </div>
+          <br>
+        </div>
+       <div class="stockDiv">
+          <!-- <button type="submit" class="btn btn-default saveCustom" (click)="post_em_body(em_body_name.value)">Submit</button> &nbsp;
+    <button type="submit" class="btn btn-danger" (click)="reset_email_body()">Reset</button> -->
+          <button type="submit" mat-raised-button (click)="post_em_body(em_body_name.value)" class="btn btn-success">Submit</button> &nbsp;
+          <button type="submit" mat-raised-button (click)="reset_email_body()" class="btn btn-danger">Reset</button>
+        </div>
+      </mat-card>
+      <!-- </div> -->
+    </mat-tab>
+    <mat-tab label="Instructions">
+      <ng-template mat-tab-label>
+        <mat-icon> list_alt</mat-icon> &nbsp;
+        Instructions
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong>Add instructions in accordance with the menu.</strong>
+          <form>
+            <div class="rowCustomFour">
+              <div class="fieldSecFull">
+                <label class="titleCustom">Menu</label>
+                <select id="pickup_place_menu_ins" name="pickup_place" class="formCss" #Menu
+                  (change)="menu_sel(Menu.value)">
+                  <option value="">Select One</option>
+                  <option *ngFor="let mnc of menuchoiceData" value="{{mnc.id}}">{{mnc.menu_description}}</option>
+                </select>
+                <div class="aboutLeft">
+                  <label class="titleCustom">Instructions <b>({{concatdatalength3}}/250)</b></label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25"
+                    (input)="restrict3($event)" (change)="restrict3($event)" class="formCssTextArea"
+                    #about_ins_txt>{{menu_instruction}}</textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- <button type="submit" class="btn btn-default saveCustom" (click)="post_ins_body(Menu.value,about_ins_txt.value)">Submit</button> &nbsp;
+    <button type="submit" class="btn btn-danger" (click)="reset_ins()">Reset</button> -->
+          <button type="submit" mat-raised-button  (click)="post_ins_body(Menu.value,about_ins_txt.value)" class="btn btn-success">Submit</button> &nbsp;
+          <button type="submit" mat-raised-button (click)="reset_ins()" class="btn btn-danger">Reset</button>
+        <!-- </div> -->
+      </mat-card>
+    </mat-tab>
+    <!-- <mat-tab label="Configure Menu" hidden="true">
+      <mat-card>
+          <strong>Add stylings for footer, navigation and footer content.</strong>
+
+          <div class="rowCustomFour">
+            <div class="fieldSecHalf">
+              <label class="titleCustom">Footer and navigation bar color:</label>
+              <input type="color" id="bodCol" #bodcol value="{{menubodCol}}">
+              <label class="titleCustom">Text color:</label>
+              <input type="color" id="txtCol" #txtcol value="{{menutextCol}}">
+              <label class="titleCustom">Greeting font color:</label>
+              <input type="color" id="txtCol" #greetcol value="{{greettextCol}}">
+              <div class="aboutLeft">
+               
+                <label class="titleCustom"></label>
+                <angular-editor [(ngModel)]="editorText" [config]="config"></angular-editor>
+              </div>
+            </div>
+          </div>
+          <button type="submit" mat-raised-button class="btn btn-success" (click)="post_style(bodcol.value,txtcol.value,greetcol.value)">Submit</button> &nbsp;
+      </mat-card>
+    </mat-tab> -->
+    <mat-tab label="Help Section">
+      <ng-template mat-tab-label>
+        <mat-icon> help</mat-icon> &nbsp;
+        Help Section
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong>Add text for help section.</strong>
+          <form>
+            <div class="rowCustomFour">
+              <div class="fieldSecFull">
+                <div class="aboutLeft">
+                  <label class="titleCustom">Menu:</label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25" class="formCssTextArea"
+                    #menu_txt>{{menu_readonly}}</textarea>
+                </div>
+                <div class="aboutLeft">
+                  <label class="titleCustom">Calendar:</label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25" class="formCssTextArea"
+                    #cal_txt>{{calendar_readonly}}</textarea>
+                </div>
+                <div class="aboutLeft">
+                  <label class="titleCustom">QR Code Signage:</label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25" class="formCssTextArea"
+                    #qrcs_txt>{{qrcs_readonly}}</textarea>
+                </div>
+                <div class="aboutLeft">
+                  <label class="titleCustom">Birthday/Anniversary:</label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25" class="formCssTextArea"
+                    #bdad_txt>{{bdad_readonly}}</textarea>
+                </div>
+                <div class="aboutLeft">
+                  <label class="titleCustom">Contact Information QR Code:</label>
+                  <textarea id="em_ins" name="introduction" maxlength="250" rows="6" cols="25" class="formCssTextArea"
+                    #circ_txt>{{circ_readonly}}</textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- <button type="submit" class="btn btn-default saveCustom" (click)="post_help(menu_txt.value,cal_txt.value,qrcs_txt.value,bdad_txt.value,circ_txt.value)">Submit</button> &nbsp; -->
+          <button type="submit" mat-raised-button (click)="post_help(menu_txt.value,cal_txt.value,qrcs_txt.value,bdad_txt.value,circ_txt.value)" class="btn btn-success">Submit</button> &nbsp;
+        <!-- </div> -->
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Birthday/Event">
+      <ng-template mat-tab-label>
+        <mat-icon> cake</mat-icon> &nbsp;
+        Birthday/Event
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong>Add instructions for event calendar and birthdays.</strong>
+          <div class="rowCustomFour">
+            <div class="fieldSecFull">
+              <div class="row">
+                <div class="col-6">
+                  <label class="titleCustom">Birthday/Anniversary Instructions:</label>
+                  <angular-editor [(ngModel)]="editorText1" [config]="config1"></angular-editor>
+                 </div>
+                 <div class="col-6">
+                  <label class="titleCustom">Event Instructions:</label>
+                  <angular-editor [(ngModel)]="editorText2" [config]="config2"></angular-editor>
+                </div>
+              </div>
+             
+              
+            </div>
+          </div>
+          <button type="submit" mat-raised-button class="btn btn-success" (click)="post_ev_ins()">Submit</button> &nbsp;
+          <!-- <button type="submit" class="btn btn-default saveCustom" (click)="post_ev_ins()">Submit</button> &nbsp; -->
+        <!-- </div> -->
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Event Calendar">
+      <ng-template mat-tab-label>
+        <mat-icon> event</mat-icon> &nbsp;
+        Event Calendar
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong class="titleCustom">Upload a default image for event.</strong>
+          <button hidden  id="logo_crop" (click)="open_crop_modal()" ></button>
+          <div class="stockDiv mt-2 pb-4">
+            <input type="file" class="form-control" #stock_name id="headTitle_stock" name="headTitle"
+              (change)="event_image_change($event)">
+          </div>
+          <div class="stockDiv pb-4">
+            <!-- <button type="submit" class="btn btn-default saveCustom" (click)="submit_event_image()">Submit</button> &nbsp; -->
+            <button type="submit" class="btn btn-success" mat-raised-button (click)="submit_event_image()">Submit</button> &nbsp;
+          </div>
+          <div class="prvImgCustom">
+            <div>
+              <div class="thumImgContainer">
+                <div class="thumImgSm" *ngIf="event_img">
+                  <!-- <span class="close" (click)="deleteImg(i.id);openDeleteModal();">&times;</span> -->
+                  <!-- <span class="close" (click)="deleteImg(i.id)"  data-bs-toggle="modal" data-bs-target="#myModal_delete" >&times;</span> -->
+                  <img [src]="event_img" style="cursor: pointer;" class="stockimgPrev " height="100" width="100" alt="" (click)="openDialog('imgPrev',event_img)">
+                  <!-- <img [src]="event_img" class="stockimgPrev " height="100" width="100" alt="" (click)="open_preview_modal(event_img)"> -->
+                </div>
+              </div>
+              <div class="row" *ngIf="imageData?.length==0">
+                <div class="col-4"></div>
+                <div class="col-6 mb-4">
+                  <!-- <img [src]="url1+i.img_path" class="stockimgPrev" height="100" width="100" alt="" (click)="open_preview_modal(url1+i.img_path)"> -->
+                  <strong>
+                    There are no images under this category.
+                  </strong>
+                </div>
+                <div class="col-2"></div>
+              </div>
+              <br>
+            </div>
+            <!-- <img alt=""> -->
+          </div>
+        <!-- </div> -->
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Cover Image"> 
+      <ng-template mat-tab-label>
+        <mat-icon> burst_mode</mat-icon> &nbsp;
+        Cover Image
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong class="titleCustom">Upload a default cover image for the home page.</strong>
+          
+        
+              
+        <button hidden  id="logo_crop" (click)="open_crop_modal()" ></button>
+                  <div class="stockDiv mt-2 pb-4">
+                    <input type="file" class="form-control" #cov_name id="headTitle_stock" name="headTitle" (change)="cover_image_change($event)">
+
+                  </div>
+                  <div class="stockDiv pb-4">
+                    <button type="submit" mat-raised-button class="btn btn-success" (click)="submit_cover_image()">Submit</button> &nbsp;
+                    <!-- <button type="submit" class="btn btn-default saveCustom" (click)="submit_cover_image()">Submit</button> &nbsp; -->
+
+                  </div>
+
+             
+                  <div  class="prvImgCustom">
+                   
+                  <div >
+                    <div class="thumImgContainer">
+                     
+                        <div class="thumImgSm" *ngIf="cover_img" >
+                          <!-- <span class="close" (click)="deleteImg(i.id);openDeleteModal();">&times;</span> -->
+                          <!-- <span class="close" (click)="deleteImg(i.id)"  data-bs-toggle="modal" data-bs-target="#myModal_delete" >&times;</span> -->
+                          <!-- <img [src]="cover_img" class="stockimgPrev " height="100" width="100" alt="" (click)="open_preview_modal(cover_img)"> -->
+                          <img [src]="cover_img" style="cursor: pointer;" class="stockimgPrev " height="100" width="100" alt="" (click)="openDialog('imgPrev',cover_img)">
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="row" *ngIf="imageData?.length==0">
+                      <div class="col-4"></div>
+                      <div class="col-6 mb-4" >
+                      <!-- <img [src]="url1+i.img_path" class="stockimgPrev" height="100" width="100" alt="" (click)="open_preview_modal(url1+i.img_path)"> -->
+                       <strong>
+                        There are no images under this category.
+                       </strong>  
+                      </div>
+                      <div class="col-2"></div>
+                  </div>
+                    
+                    
+                    <br>
+                  </div>
+                    <!-- <img alt=""> -->
+                </div>
+         
+          <!-- </div> -->
+      </mat-card>
+    
+    </mat-tab>
+
+    <mat-tab label="Order Confirmation">
+      <ng-template mat-tab-label>
+        <mat-icon> done_all</mat-icon> &nbsp;
+        Order Confirmation
+      </ng-template>
+      <mat-card>
+        <!-- <div style="overflow-x:auto;"> -->
+          <strong>Submit the text to be shown when the PDF containing the orders is downloaded.</strong>
+
+          <div class="aboutLeft mt-4">
+            <label class="titleCustom">Body text:</label>
+            <textarea id="conf_text" name="introduction" rows="6" cols="15" class="formCssTextArea"
+              #confmsg>{{conf_text_readonly}}</textarea>
+          </div>
+        <!-- </div> -->
+        <div class="mt-4">
+          <button type="submit" mat-raised-button class="btn btn-success" (click)="post_conf_msg(confmsg.value)">Submit</button> &nbsp;
+          <!-- <button type="submit" class="btn btn-default saveCustom" mat-raised-button>Submit</button> &nbsp; -->
+        </div>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<div id="">
+  <div class="modal cropModulContent">
+
+    <div class="modal-dialog">
+
+      <div class="modal-content modal_contentCustom">
+
+        
+
+        <div class="modal-body">
+     
+      <ul class="cropBtnTop">
+          <li><i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i></li>
+<li>                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i></li>
+      <li>                <button class="cropCloseBtn" (click)="close_modal_on_crop()">&times;</button></li>
+      
+</ul>
+
+         
+          <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+          [maintainAspectRatio]="true" 
+        
+          [onlyScaleDown]="false" 
+         
+          [cropperMaxWidth]="crop_width"
+          [cropperMaxHeight]="crop_height"
+          
+          
+          (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+          [style.display]="showCropper ? null: 'none'" [transform]="transform">
+        </image-cropper>
+
+        </div>
+        <footer class="w3-container w3-right cropFooter">
+          <button class="btn btn-danger"   
+          (click)="click_it()">Save</button>
+        </footer>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal cropModulContent" id="id01" tabindex="-1" role="dialog" style="margin-left:25%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal_contentCustom">
+    
+      <div class="modal-body">
+        <ul class="cropBtnTop">
+          <li><i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i></li>
+<li>                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i></li>
+      <li>                <button class="cropCloseBtn" (click)="close_modal_on_crop()">&times;</button></li>
+      
+</ul>
+
+         
+          <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+          [maintainAspectRatio]="true" 
+        
+          [onlyScaleDown]="false" 
+         
+          [cropperMaxWidth]="crop_width"
+          [cropperMaxHeight]="crop_height"
+          
+          
+          (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+          [style.display]="showCropper ? null: 'none'" [transform]="transform">
+        </image-cropper>
+      </div>
+      <div class="modal-footer cropFooter">
+        <button class="btn btn-danger"   
+          (click)="click_it()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

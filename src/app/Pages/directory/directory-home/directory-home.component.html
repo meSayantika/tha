@@ -1,0 +1,497 @@
+
+  <div class="row">
+    <div class="col-12">
+      <img src="https://mifrends.com/hotel-lucia/images/directory-header-smart.png" class="image" width="100%"
+        height="18%" />
+      <div class="text-center mt-3">
+        <button (click)="openAbout()" mat-raised-button type="button" class="btn btn-warning text-light">
+          Find out more about your Personal Concierge
+        </button>
+      </div>
+      <div class="text-center mt-4">
+        <h4>PERSONAL CONCIERGE 
+        <span class="mkUpper"> {{getAvatarData.msg[0].avt_name}}  </span>  
+        
+        </h4>
+        <h6>COMMUNICATIONS & RESERVATION CENTER!</h6>
+      </div>
+      <div class="text-center mt-4">
+        <img src="{{spstockImg}}"  class="image1" width="150"
+          height="150" style="border-radius:50%"/>
+      </div>
+      <div class="text-center mt-4">
+        <button mat-raised-button type="button" class="btn btn-danger btn-lg" (click)="openEmergencyMessages()">
+          EMERGENCY MESSAGES
+        </button>
+      </div>
+      <div class="text-center mt-4">
+        <h4 class="text-danger">REPORT AN EMERGENCY</h4>
+      </div>
+      <div class="text-center mt-5">
+        <button mat-raised-button type="button" class="btn btn-warning btn-lg text-light" (click)="openMessageCenter()">MESSAGE CENTER</button>
+      </div>
+      <div class="container mt-4">
+        <div class="row">
+          <div class="colr-12">
+            <mat-accordion>
+              <mat-expansion-panel hideToggle #panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    FRONT DESK
+                  </mat-panel-title>
+                  <mat-panel-description class="ml-5 float-end">
+                  FRONT DESK - HOUSEKEEPING -BELLMAN
+                  <!-- <mat-icon>{{panel.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon> -->
+
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row pb-3">
+                    <div class="col-6 fw-bold text-start">FRONT DESK</div>
+                    <div class="col-6  fw-bold text-end">CALL</div>
+                  </div>
+                  <div class="row pb-4">
+                    <div class="col-6 text-start">HOUSEKEEPING</div>
+                    <div class="col-6  fw-bold text-end">CHAT</div>
+                  </div>
+                  <div class="row pb-4">
+                    <div class="col-6 text-start">BELLMAN</div>
+                    <div class="col-6  fw-bold text-end">CHAT</div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                 <span class="mkUpper">  {{guestRoomService.name}} </span> 
+                  </mat-panel-title>
+                  <mat-panel-description>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row pb-3">
+                    <div class="col-6 fw-bold text-start"></div>
+                    <div class="col-6  fw-bold text-end" style="cursor:pointer" (click)="open_popup_window(guestRoomService.id)">MENU & INFO</div>
+                  </div>
+                  <div class="row pb-4">
+                    <div class="col-6 text-start"></div>
+                    <div class="col-6  fw-bold text-end">CALL / CHAT</div>
+                  </div>
+                  <div class="row pb-4">
+                    <div class="col-6 text-start"></div>
+                    <div class="col-6  fw-bold text-end">ORDER</div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  ENTERTAINMENT
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    CALENDAR
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row pb-3">
+                    <div class="col-6 fw-bold text-start"></div>
+                    <div class="col-6  fw-bold text-end">VIEW</div>
+
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                  PHOTO OPS
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    FUN, exciting, unique opportunities ...
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row pb-3">
+                    <div class="col-6 fw-bold text-start">
+                      FUN, exciting, unique opportunities to snap a pic of yourself or
+                      family/friends, and share on social media.
+                  </div>
+                    <div class="col-6  fw-bold text-end">VIEW</div>
+
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                 CONCIERGE FAQs
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    <!-- CONCIERGE FAQs - FUN DIRECTORY -->
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row mt-5">
+                    <div class="col-6 fw-bold text-start">
+                      <div class="row">
+                        <div class="col-12 ">CONCIERGE FAQ's</div>
+                        <!-- <div class="col-12 mt-3">FUN DIRECTORY</div> -->
+                        <!-- <div class="col-12 mt-3">Need to ask Lucia a question?</div> -->
+                      </div>
+                    </div>
+            
+                    <!-- <div class="row"> -->
+                    <div class="col-6 fw-bold text-end">
+                      <div class="row">
+                        <div class="col-12">VIEW INFO.</div>
+                        <!-- <div class="col-12 mt-3">VIEW</div> -->
+                        <!-- <div class="col-12 mt-3">CHAT/CALL</div> -->
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    FUN DIRECTORY
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    <!-- CONCIERGE FAQs - FUN DIRECTORY -->
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row mt-5">
+                    <div class="col-6 fw-bold text-start">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">CONCIERGE FAQ's</div> -->
+                        <div class="col-12 ">FUN DIRECTORY</div>
+                        <!-- <div class="col-12 mt-3">Need to ask Lucia a question?</div> -->
+                      </div>
+                    </div>
+            
+                    <!-- <div class="row"> -->
+                    <div class="col-6 fw-bold text-end">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">VIEW INFO.</div> -->
+                        <div class="col-12 ">VIEW</div>
+                        <!-- <div class="col-12 mt-3">CHAT/CALL</div> -->
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Need to ask Lucia a question?
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    <!-- CONCIERGE FAQs - FUN DIRECTORY -->
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row mt-5">
+                    <div class="col-6 fw-bold text-start">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">CONCIERGE FAQ's</div> -->
+                        <!-- <div class="col-12 ">FUN DIRECTORY</div> -->
+                        <div class="col-12">Need to ask Lucia a question?</div>
+                      </div>
+                    </div>
+            
+                    <!-- <div class="row"> -->
+                    <div class="col-6 fw-bold text-end">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">VIEW INFO.</div> -->
+                        <!-- <div class="col-12 ">VIEW</div> -->
+                        <div class="col-12">CHAT/CALL</div>
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    PROMOTIONS
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <!-- FRONT DESK - HOUSEKEEPING -BELLMAN -->
+                    <!-- CONCIERGE FAQs - FUN DIRECTORY -->
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div> 
+                  <div class="row mt-5">
+                    <div class="col-6 fw-bold text-start">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">CONCIERGE FAQ's</div> -->
+                        <!-- <div class="col-12 ">FUN DIRECTORY</div> -->
+                        <div class="col-12">PROMOTIONS</div>
+                      </div>
+                    </div>
+            
+                    <!-- <div class="row"> -->
+                    <div class="col-6 fw-bold text-end">
+                      <div class="row">
+                        <!-- <div class="col-12 mt-3">VIEW INFO.</div> -->
+                        <!-- <div class="col-12 ">VIEW</div> -->
+                        <div class="col-12">VIEW</div>
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>
+              </mat-expansion-panel>
+              </mat-accordion>
+              
+          </div>
+        </div>
+     
+      </div>
+      <div class="container mt-4">
+        <div class="text-center mt-4 text-light" style="background-color: #ff9800">
+          <h3>RESTAURANTS</h3>
+        </div>
+        <mat-accordion>
+        <div *ngFor="let r of getVenuesRest">
+        
+            <mat-expansion-panel hideToggle *ngIf="r.hotel_type!='S'">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+              <span class="mkUpper">{{r.name}} </span>    
+                </mat-panel-title>
+               
+              </mat-expansion-panel-header>
+              <div>
+                <div class="row mt-4" style="text-transform: uppercase">
+                  <div class="col-6 fw-bold text-start" style="text-transform: uppercase">{{r.name}}</div>
+                  <div class="col-6  fw-bold text-end">
+                    <div class="row">
+                      <div class="col-12 pb-3" style="cursor:pointer" (click)="open_popup_window(r.id)">MENU & INFO</div>
+                      <div class="col-12  pb-3">RESERVATION</div>
+                      <div class="col-12  pb-3">ENTERTAINMENT</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+        
+      </div>
+    </mat-accordion>
+
+        <div class="text-center mt-4 text-light" style="background-color: #ff9800">
+          <h3>SERVICES</h3>
+        </div>
+        <mat-accordion>
+       
+        <div *ngFor="let s of getVenuesServe">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+              <span class="mkUpper"> {{s.name}} </span>  
+              </mat-panel-title>
+             
+            </mat-expansion-panel-header>
+            <div>
+              <div class="row mt-4" style="text-transform: uppercase">
+                <div class="col-6 fw-bold text-start mkUpper">{{s.name}}</div>
+                <div class="col-6  fw-bold text-end">
+                  <div class="row">
+                    <div class="col-12 pb-3">CHAT/CALL</div>
+                    <div class="col-12 pb-3">{{s.name}} SERVICES</div>
+                    <div class="col-12  pb-3">CLASSES/CALENDAR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+         
+       
+      </div>
+      </mat-accordion> <br> <br> <br>
+      <mat-accordion class="mt-5">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              SAFETY FAQ's
+            </mat-panel-title>
+       
+          </mat-expansion-panel-header>
+          <div>
+            <div class="row mt-5">
+              <div class="col-6 fw-bold text-start">
+                <div class="row">
+                  <div class="col-12">SAFETY FAQ's</div>
+                </div>
+              </div>
+              <div class="col-6 fw-bold text-end">
+                <div class="row">
+                  <div class="col-12">VIEW INFO.</div>
+                 
+                </div>
+              </div>
+          </div>
+      
+      </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Need to ask Lucia a question?
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              This is a summary of the content
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <div>
+            <div class="row mt-5">
+              <div class="col-6 fw-bold text-start">
+                <div class="row">
+                  <!-- <div class="col-12">SAFETY FAQ's</div> -->
+                  <div class="col-12">Need to ask Lucia a question?</div>
+                </div>
+              </div>
+              <div class="col-6 fw-bold text-end">
+                <div class="row">
+                  <!-- <div class="col-12">VIEW INFO.</div> -->
+                  <div class="col-12">CHAT LUCIA</div>
+                </div>
+              </div>
+          </div>
+      
+      </div>
+        </mat-expansion-panel>
+        </mat-accordion>
+  
+    <br> <br> <br>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            HOTEL FAQ's
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div>
+          <div class="col-6 fw-bold text-start">
+            <div class="row">
+              <div class="col-12">HOTEL FAQ's</div>
+              <!-- <div class="col-12">Need to ask Lucia a question?</div> -->
+            </div>
+          </div>
+          <div class="col-6 fw-bold text-end">
+            <div class="row">
+              <!-- <div class="col-6"></div> -->
+              <div class="col-12">VIEW INFO.</div>
+              <!-- <div class="col-12">CHAT LUCIA</div> -->
+            </div>
+          </div>
+    
+    </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Need to ask Lucia a question?
+          </mat-panel-title>
+      
+        </mat-expansion-panel-header>
+        <div>
+          <div class="col-6 fw-bold text-start">
+            <div class="row">
+            
+              <div class="col-12">Need to ask Lucia a question?</div>
+            </div>
+          </div>
+          <div class="col-6 fw-bold text-end">
+            <div class="row">
+         
+              <div class="col-12">CHAT LUCIA</div>
+            </div>
+          </div>
+    
+    </div>
+      </mat-expansion-panel>
+    </mat-accordion> <br> <br> <br>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            LOST & FOUND
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div>
+          <div class="row mt-4">
+            <div class="col-6 fw-bold text-start">LOST & FOUND</div>
+            <div class="col-6  fw-bold text-end">
+              <div class="row">
+                <div class="col-12">CHAT/CALL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      </mat-accordion> <br> <br>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              SUGGESTION BOX
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              This is a summary of the content
+            </mat-panel-description> -->
+          </mat-expansion-panel-header>
+          <div>
+            <div class="row mt-4">
+              <div class="col-6 fw-bold text-start">SUGGESTION BOX</div>
+              <div class="col-6  fw-bold text-end">
+                <div class="row">
+                  <div class="col-12">MESSAGE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        </mat-accordion>
+  
+    <br> <br>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              VACATION BOOK
+            </mat-panel-title>
+           
+          </mat-expansion-panel-header>
+          <div>
+            <div class="row mt-5">
+              <div class="col-6 fw-bold text-start">VACATION BOOK</div>
+              <div class="col-6  fw-bold text-end">START DESIGN</div>
+              <div class="col-12">
+                Build your own Vacation Flip Book and post to your friends & family on social media.One Vacation Flip Book per stay.
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        </mat-accordion>
+   
+    </div>
+    </div>
+  </div>
+

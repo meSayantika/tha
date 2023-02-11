@@ -1,0 +1,176 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  .alert-danger{
+    color: #842029;
+    background-color: #f8d7da;
+    }
+  tr:nth-child(even) {background-color: #f2f2f2;}
+  .thankYou{
+    color:white;
+    background-color:#3f51b5
+  }
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Create two equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 50%;
+    padding: 10px; 
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
+
+  body {font-family: Raleway, sans-serif;}
+  * {box-sizing: border-box;}
+  
+  .form-inline {  
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+  
+  .form-inline label {
+    margin: 5px 10px 5px 0;
+  }
+  
+  .form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .form-inline button {
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .form-inline button:hover {
+    background-color: royalblue;
+  }
+  
+  @media (max-width: 800px) {
+    .form-inline input {
+      margin: 10px 0;
+    }
+    
+    .form-inline {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+      
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+      .button2 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }	
+
+  body {font-family: "Raleway", sans-serif}
+  
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    transition: 0.3s;
+    font-size: 12px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #44ABE4;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #00477E;
+      color:white;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    font-size: 12px;
+  }
+      
+  .secDifer{background: #f2f1f1; padding: 15px; border-bottom: #00477e solid 5px; margin-bottom: 15px;}
+       
+  label.titleCustom{font-size: 15px; display: block; color: #00477e; margin-bottom: 3px;}
+  .dayTime{display: block; width: 100%; border-bottom: #dbdbdb solid 1px;}
+      .dayTime:last-child{border-bottom: none;}	
+  .dayCheckBox{width: 20%; display: inline-block;}
+  .startEnd{width: 78%; display: inline-block;}	
+  
+  .dayTime .startEnd input{padding: 7px;}
+      
+      .logoRightSec{background: #f5f5f5;
+  padding: 15px;
+  box-shadow: #e1e1e1 0px 0px 6px 3px;
+  border-radius: 12px;
+  border: #ddd solid 1px;
+  border-right: #00477e solid 12px;}
+
+  .content-div{
+    margin-left:230px;margin-top:43px; padding-left:3%;padding-right: 5% ;
+}
+mat-card{
+    background-color: rgb(236, 236, 236);
+    max-height: 550px;
+    overflow: auto;
+  
+}

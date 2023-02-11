@@ -1,0 +1,197 @@
+<div class="content-div">
+ <mat-card>
+  <mat-card-title >
+    <strong>   <mat-icon>keyboard_voice</mat-icon>  Create Voice Text </strong>
+</mat-card-title>
+<hr> <br>
+<mat-card-content>
+<div>
+  <form [formGroup]="pcavoiceForm">
+   <div class="row px-2">
+    <div class="col-8">
+    
+      <div class="row mt-4">
+        <div class="col-4">
+          <label for="">Select Category</label>
+          <select (change)="getCat()" [(ngModel)]="category" class="form-control" name="rest_serve" formControlName="rest_serve" >
+            <option value="">Select one</option>
+            <option value="R">Restaurant</option>
+            <option value="S">Service</option>
+        
+          </select>
+        </div>
+        <div class="col-8">
+          <label class="titleCustom">Select Restaurant / Service </label>
+          <select class="form-control" name="menu" formControlName="menu">
+              <option value="">Select one</option>
+              <option *ngFor="let x of getVenues let i=index;" value="{{x.id}}" >{{x.name}}</option>
+          
+            </select>
+        </div>
+      </div>
+      <div class="row mt-3 p-2">
+        <label for="">Text</label>
+        <textarea maxlength="801" name="vText" formControlName="vText" id="" cols="30" rows="10" placeholder="Type something (Maximum 800 characters)" class="form-control"></textarea>
+        <small *ngIf="this.pcavoiceForm.controls.vText.errors?.maxlength" class="text-danger">
+          800 character limit reached
+        </small>   
+      </div>
+    <div class="row mt-3">
+      <div class="col-12">
+       <!-- {{disableVoice}} -->
+        <label for="">Select language</label>
+        <select name="voice" (change)="changeVoice()" formControlName="voice" class="form-control">
+          <option value="">Select one</option>
+         <option *ngFor="let v of voices" value="{{v.id}}">{{v.langName}} - {{v.id}} </option>
+        </select>
+        <!-- <div class="col-md-6">
+          <label>Single Select2</label>
+          <select class="js-states select-2 form-control">
+            <option *ngFor="let v of voices" value="{{v.id}}">{{v.langName}} - {{v.id}} </option>
+          </select>
+        </div> -->
+        <!-- <mat-form-field class="example-full-width">
+          <input type="text" (input)="_filter($event)"
+                 placeholder="Pick one"
+                 matInput
+                 formControlName="voice"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions" [value]="option.id">
+              {{option.langName}} - {{option.id}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> -->
+      </div>
+     
+    </div>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4 mt-4">
+        <!-- <mat-slider
+        id="sliderSpeed"
+        class="example-margin"
+        #slider
+        (change)="show()"
+        [disabled]="disabled"
+        [invert]="invert"
+        [max]="max"
+        [min]="min"
+        [step]="step"
+        [thumbLabel]="thumbLabel"
+        [tickInterval]="getSliderTickInterval()"
+        [(ngModel)]="value"
+        [vertical]="vertical"
+        aria-labelledby="example-name-label">
+    </mat-slider> -->
+    <label for="customRange3" class="form-label">Speed : {{value}}</label>
+<input type="range" class="form-range" formControlName="speed" name="speed" (change)="show()" [(ngModel)]="value" min="0" max="200" step="5" id="customRange3">
+      </div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <button mat-raised-button class="btn btn-danger col-12" [disabled]="!disableVoice" (click)="generateVoice()">
+          Generate Voice
+        </button>
+      </div>
+      <div class="col-4">
+        <div>
+          <!-- {{disableVoice}}  {{showButton}} -->
+          <button [disabled]="disableVT=='V' || disableVoice" *ngIf="showButton" (click)="play()" mat-mini-fab color="accent" matTooltip="Play" aria-label="Example icon button with a bookmark icon">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+          <button  [disabled]="disableVT=='V'" *ngIf="!showButton" mat-mini-fab (click)="stop()" color="warn" matTooltip="Stop" aria-label="Example icon button with a bookmark icon">
+            <mat-icon>stop</mat-icon>
+          </button>
+        </div>
+       
+      </div>
+    </div>
+  <div *ngIf="audFilePlay_old">
+    <hr>
+    <div class="row mt-2">
+      <div class="col-5"></div>
+      <div class="col-6">
+        <label style="color:gray">Play old voice:</label> &nbsp; <button *ngIf="showButton_old" (click)="play_old_audio()" mat-mini-fab style="background-color:black;color:white" matTooltip="Play" aria-label="Example icon button with a bookmark icon">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button   *ngIf="!showButton_old" mat-mini-fab (click)="stop_old_audio()" color="warn" matTooltip="Stop" aria-label="Example icon button with a bookmark icon">
+          <mat-icon>stop</mat-icon>
+        </button>
+      </div>
+      <div class="col-3"></div>
+
+    </div>
+    <hr>
+  </div>
+  
+        <div class="row mt-4 " *ngIf="this.id!=0">
+          <div class="col-2"></div>
+          <div class="col-4 ml-3">
+            <h2> <input type="radio" name="disb" formControlName="disb" [(ngModel)]="disableVT" value="V"> &nbsp; <label for=""> Disable voice</label></h2>    
+
+          </div>
+        <div class="col-6">
+       <h2> <input type="radio" name="disb" formControlName="disb" [(ngModel)]="disableVT" value="T"> &nbsp; <label for=""> Disable text</label></h2>    
+
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+        
+      <div class="row">
+        <div class="col-12 " style="border-left:1px solid rgb(190, 187, 187)">
+
+          <small class="text-muted " style="justify-content: space-between;">
+    <!-- <div class="vl"></div> -->
+
+           <span class="ml-5">
+            <ul>
+              <li> To update your Personal Concierge Intro voice message for a venue follow these instructions.</li>
+            </ul>
+            
+             </span> 
+<ol>
+  <li> Select your venue  </li>
+  <li>Select your prefered language, voice actor and speaking style and then adjust speed and pitch levels </li>
+  <li>  Write your new message and press PLAYsten to the result
+            
+    If accepible click UPDATE or CLEAR to make any edits or try a different setting until you find the correct result </li>
+    <li> If you do NOT want to have the voice option shown on a venue landing page check "Disable Voice and the Play and Pause buttons
+            
+      wil be hidden and the READ button will be centered  </li>
+      <li> To replace the existing READ message shown in the Existing
+            
+        Text box smply wote the new message in the NEW faxt box and
+        
+        click UPDATE </li>
+      <li> When you are satisfied with your updates click SAVE A Finally, check the live version of the updated venue always making sure you refresh the page first</li>
+
+
+  </ol>
+           
+          </small>
+         
+        </div>
+      </div>
+    </div>
+   </div>
+  </form>
+
+  <div class="row mt-4">
+   <!-- <div class="col-11"></div> -->
+   <div class="col-2">
+    <button class="btn btn-success" mat-raised-button (click)="openDialog()"> Submit</button>
+   </div>
+  </div>
+</div>
+</mat-card-content>
+ </mat-card>
+</div>
+
+<div class="fab-main">
+  <button matTooltip="Back" mat-mini-fab (click)="go_prev_page()"> <mat-icon>arrow_back</mat-icon> </button>
+
+    </div>

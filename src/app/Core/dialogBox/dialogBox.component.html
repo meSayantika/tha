@@ -1,0 +1,479 @@
+<div class="makeBorder">
+  <div mat-dialog-content [hidden]="data.flag!='imgPrev'">
+    <h2 mat-dialog-title style="text-align:center">Preview</h2>
+    <img src="{{data.content}}" height="500" width="500" alt="">
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='signout'">
+    <h2 mat-dialog-title> Are you sure you want to sign out? </h2>
+    <div class="float-end">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="onClose(1)"> Yes</button>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='paid'">
+    <h2 mat-dialog-title> You have already made the payment! </h2>
+    <div class="float-end">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="onClose(1)"> Yes</button>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='sendQ'">
+    <h2 mat-dialog-title> Enter email </h2>
+    <input type="text" class="form-control" id="mailQ" #emailQ> <br>
+    <div class="text-center">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="sendmail()"> Yes</button>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='delete'">
+
+    <h2 mat-dialog-title> Are you sure you want to delete? </h2>
+    <div class="float-end">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="onClose(1)"> Yes</button>
+    </div>
+  </div>
+  <!-- <div mat-dialog-content [hidden]="data.flag!='registration'" style="width:100%">
+
+    <h2 mat-dialog-title> Add Hotel </h2>
+    <form [formGroup]="regForm" (ngSubmit)="regSubmit()">
+       <form (ngSubmit)="regSubmit()">
+      <div class="row mt-4">
+        <div class="col-6">
+          <input class="form-control p-3" type="text" placeholder="Restaurant Name" formControlName="name">
+          <mat-label *ngIf="f?.name?.errors?.required && (f?.name?.dirty || f?.name?.touched)" class="text-danger">* Name is
+            required</mat-label>
+        </div>
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Contact Name"
+            formControlName="contact" name="contact">
+          <mat-label *ngIf="f?.contact?.errors?.required && (f?.contact?.dirty || f?.contact?.touched)" class="text-danger">*
+            Contact is required</mat-label>
+        </div>
+      </div>
+      <div class="row mt-4">
+      <div class="col-6"><input  class="form-control p-3" id="tel" type="text"  placeholder="Telephone" required name="Telephone"   (change)="check_mail($event)"> 
+        <div class="col-6"><input class="form-control p-3" id="tel" type="text" placeholder="Telephone" required
+            formControlName="phone" name="phone" (change)="check_mail($event)">
+          <mat-label *ngIf="f?.phone?.errors?.required && (f?.phone?.dirty || f?.phone?.touched)" class="text-danger">*
+            Telephone is required</mat-label>
+          validation messages
+        </div>
+
+         <div class="col-6"><input class="form-control p-3" id="em" type="text" placeholder="Email" formControlName="mail" name="mail" (change)="check_mail($event)">
+        <div class="col-6"><input class="form-control p-3" id="em" type="text" placeholder="Email"
+            formControlName="mail" name="mail" (change)="check_mail($event)">
+          <div *ngIf="f?.mail?.errors?.required  && (f?.mail?.dirty || f?.mail?.touched)" class="text-danger">
+            <mat-label class="text-danger" [hidden]="!f?.mail?.errors?.required">
+              * Email is required
+            </mat-label>
+           </div>
+            <div *ngIf="f?.mail?.touched">
+              <mat-label class="text-danger" *ngIf="f?.mail?.errors?.pattern">
+                * Not a valid email
+              </mat-label>
+            </div>
+          <div *ngIf="show_msg==true" class="text-danger">Email already exists</div> 
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Address 1" name="addr1"
+            formControlName="addr1">
+
+          <mat-label *ngIf="f?.addr1?.errors?.required && (f?.addr1?.dirty || f?.addr1?.touched)" class="text-danger">*
+            Address is required</mat-label>
+        </div>
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Address 2" name="addr2"
+            formControlName="addr2"></div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="City/State" required
+            name="cityState" formControlName="cityState">
+          <mat-label *ngIf="f?.cityState?.errors?.required && (f?.cityState?.dirty || f?.cityState?.touched)"
+            class="text-danger">* City/State is required</mat-label>
+
+        </div>
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Zip/Postal code*" name="zip"
+            formControlName="zip">
+          <mat-label *ngIf="f?.zip?.errors?.required && (f?.zip?.dirty || f?.zip?.touched)" class="text-danger">* Zip code is
+            required</mat-label>
+
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-6">
+          <select class="form-select p-3" name="country" formControlName="country">
+            <option value="">Select Country</option>
+            <option *ngFor="let c of countryData" value="{{c.id}}">{{c.name}}</option>
+          </select>
+
+          <mat-label *ngIf="f?.country?.errors?.required && (f?.country?.dirty || f?.country?.touched)" class="text-danger">*
+            Country is required</mat-label>
+
+        </div>
+
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Website" formControlName="website"
+            name="Website">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <select class="form-select p-3" formControlName="timeZone">
+            <option value="">Select Timezone</option>
+            <option *ngFor="let d of timezone" value="{{d.name}}">{{d.time_zone}}</option>
+          </select>
+
+
+          <mat-label *ngIf="f?.timeZone?.errors?.required && (f?.timeZone?.dirty || f?.timeZone?.touched)"
+            class="text-danger">* Timezone is required</mat-label>
+
+        </div>
+      </div>
+      <div class="form-row">
+      <div class="fieldFull"><button class="w3-button w3-highway-blue" [disabled]="regForm.invalid">SUBMIT</button></div>
+        <div class="col-12 pt-3">
+          <button style="width:100%" mat-raised-button class="btn btn-success"
+            [disabled]="regForm?.invalid">Submit</button>
+        </div>
+      </div>
+    </form>
+
+
+
+
+  </div> -->
+  <div mat-dialog-content [hidden]="data.flag!='status'">
+
+    <h2 mat-dialog-title> Are you sure you want to {{data.content}} proposal? </h2>
+    <div class="float-end">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="onClose(1)"> Yes</button>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='msgPrev'">
+    <h2><b> {{data.content?.title}} </b> </h2>
+    <div class="container">
+      <img [src]="urlSet+data.content?.path" alt="Avatar" height="200" width="300" style="margin-top:-5%;padding-bottom:2%">
+      <h4><b>
+          {{data.content?.subtitle}}
+        </b></h4>
+      <p class="container-text">
+        {{data.content?.body}}
+      </p>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='singleVIP'">
+   <div class="row">
+    <div class="col-12">
+      <ng-multiselect-dropdown style="width:100%"
+      [placeholder]="'Add VIP'"
+      [settings]="dropdownSettings"
+      [data]="allVIP?.msg"
+      [(ngModel)]="selectedItems"
+      (onSelect)="onItemSelect($event)"
+      (onSelectAll)="onSelectAll($event)"
+    >
+    </ng-multiselect-dropdown>
+    </div>
+   </div>
+  
+    <div class="row float-end mt-5">
+      <div class="col-12">
+        <button mat-raised-button class="btn btn-success" (click)="showVipList()"> Update </button>   
+
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='emPrev'">
+    <div class="container-text">
+      <div class="row">
+        <div class="col-5">
+          <h2 mat-dialog-title> Report 
+      
+           
+          </h2>
+        </div>
+        <div class="col-7">
+          <div class="float-end text-muted">
+            <i>  <small>{{data.content?.record_date?.substr(0,10)}} </small>  </i>  
+            </div>
+        </div>
+      </div>
+          <hr>
+          <div class="row">
+            <div class="col-12">
+            <b class="text-muted">Emergency:</b> <br>
+           <i>{{data.content?.message_body}} </i> 
+           
+            </div>
+          </div> 
+          <hr>
+          <div class="row mt-2">
+            <!-- <div class="col-6">
+            <b  class="text-muted">  
+            <small>Date: </small>   
+            </b> 
+            </div> -->
+            <div class="col-12">
+              <b  class="text-muted">
+           Status:
+              </b> <span [ngClass]="data.content?.repo_status=='P'?'text-danger':data.content?.repo_status=='S'?'text-success':'text-warning'">
+                {{data.content?.repo_status=='P'? 'Pending':(data.content?.repo_status=='S'?'Solved':'Forwarded')}}
+      
+              </span>
+      
+            </div>
+            
+          </div> 
+          <hr>
+          <div class="row mt-2">
+            <div class="col-12">
+              <b  class="text-muted">Action:</b> <br>
+            <i>{{data.content?.action_taken}} </i>  
+            </div>
+           
+          </div>
+        </div>
+    </div>
+    <div mat-dialog-content [hidden]="data.flag!='searchDt'">
+
+      <h2 mat-dialog-title> Enter Dates: </h2>
+      <form [formGroup]="searchForm">
+        <small class="text-danger" *ngIf="showError"> <i>Invalid date range</i> </small>
+        <div class="row">
+          <div class="col-5">
+            <input type="date" formControlName="from" name="from" class="form-control">
+          </div>
+          <div class="col-2 mt-2 text-center"> to</div>
+          <div class="col-5">
+            <input type="date" formControlName="to" name="to" class="form-control">
+    
+          </div>
+         </div>
+      </form>
+     
+   
+     <br>
+     <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4 text-center">     
+          <button  mat-mini-fab class="btn btn-success" [disabled]="searchForm?.invalid" (click)="search_dates()"> <mat-icon>keyboard_arrow_right</mat-icon> </button> 
+      </div>
+      <div class="col-4"></div>
+     </div>
+    </div>
+    <div mat-dialog-content [hidden]="data.flag!='menuPrev'">
+     
+      <div *ngFor="let sec of sectionData">
+        <!-- {{urlSet+this.data.content.arr[this.data.content.key][sec].sec_img}} -->
+      <div class="container">
+        <img src="{{urlSet+this.data.content.arr[this.data.content.key][sec].sec_img}}" height="200" width="252" alt="">
+      </div>  
+       <h3 class="sectionName">{{sec}} </h3> 
+        <div *ngFor="let r of this.data.content.arr[this.data.content.key][sec].res">
+      
+        <div class="row mt-2">
+          <div class="col-9">
+            {{r.item_name}}
+  
+          </div>
+          <div class="col-3">
+            {{r.item_price | currency}}
+  
+          </div>
+         
+          <div class="row mt-2">
+            <div class="col-12 text-muted text-italic">
+              {{r.item_desc}}
+  
+            </div>
+          </div>
+         </div>
+      
+      
+       <hr>
+       
+      </div>
+
+    </div>
+</div>
+<div mat-dialog-content [hidden]="data.flag!='msgCenter'">
+  <!-- <mat-dialog-content> -->
+    <div *ngFor="let d of this.data.content">
+      <h2><b> {{d?.msg_title}} </b> </h2>
+      <div class="container">
+        <img [src]="urlSet+d?.img_path" alt="Avatar" height="200" width="300" style="margin-top:-5%;padding-bottom:2%">
+        <h4><b>
+            {{d?.msg_subtitle}}
+          </b></h4>
+        <p class="container-text">
+          {{d?.msg_body}}
+        </p>
+      </div>
+      <hr>
+    </div>
+  <!-- </mat-dialog-content> -->
+ 
+  
+</div>
+
+<div mat-dialog-content [hidden]="data.flag!='emergencyMessage'">
+  <div *ngFor="let d of this.data.content">
+    <div class="container-text">
+      <div class="row">
+        <div class="col-5">
+          <!-- <h2 mat-dialog-title> Report 
+      
+           
+          </h2> -->
+        </div>
+        <div class="col-7">
+          <div class="float-end text-muted">
+            <i>  <small>{{d?.record_date?.substr(0,10)}} </small>  </i>  
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <img src="https://www.mifrends.com/hotel-lucia-mv/images/important.png" width="300" alt="">
+          </div>
+        </div>
+      </div>
+          <hr>
+          <div class="row">
+            <div class="col-12">
+            <b class="text-muted">Emergency:</b> <br>
+           <i>{{d?.message_body}} </i> 
+           
+            </div>
+          </div> 
+          <hr>
+          <div class="row mt-2">
+            <!-- <div class="col-6">
+            <b  class="text-muted">  
+            <small>Date: </small>   
+            </b> 
+            </div> -->
+            <div class="col-12">
+              <b  class="text-muted">
+           Status:
+              </b> <span [ngClass]="d?.repo_status=='P'?'text-danger':d?.repo_status=='S'?'text-success':'text-warning'">
+                {{d?.repo_status=='P'? 'Pending':(d?.repo_status=='S'?'Solved':'Forwarded')}}
+      
+              </span>
+      
+            </div>
+            
+          </div> 
+          <hr>
+          <div class="row mb-5 mt-2">
+            <div class="col-12">
+              <b  class="text-muted">Action:</b> <br>
+            <i>{{d?.action_taken}} </i>  
+            </div>
+           
+          </div>
+        </div>
+  </div>
+</div>
+ 
+  <div mat-dialog-content [hidden]="data.flag!='aboutAVT'">
+   {{data.content}}
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='specialMenuPrev'">
+    <!-- {{data.content}} -->
+   </div>
+
+   <div mat-dialog-content [hidden]="data.flag!='aboutPCA'">
+    <img src="https://mifrends.com/hotel-lucia/images/directory-header-smart.png" class="image" width="100%"
+    height="18%" />
+    <div class="row  mt-4 mb-4">
+      <div class="col-12 text-center">
+        <img src="{{this.data.content?.image}}" height="100" width="100" style="border-radius:50%" alt="">
+      </div>
+    </div>
+    <div class="row mt-3 mb-3 text-center">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="btn-group"  role="group" aria-label="Basic example"> 
+          <button mat-fab class="btn" style="background-color:black;color:white" (click)="playAudio()"><mat-icon>play_arrow</mat-icon></button>
+    
+          <button mat-fab class="btn" style="background-color:black;color:white" (click)="stopAudio()"><mat-icon>stop</mat-icon></button>
+      </div> 
+      </div>
+      <div class="col-4"></div>
+    </div>
+   
+    {{data.content?.data?.msg_text}}
+    <div class="row mt-4">
+<div class="col-4"></div>
+<div class="col-4 ml-2"> <button mat-raised-button style="background-color:#ff9800;color:white" (click)="onClose(0)">Go to directory</button> </div>
+<div class="col-4"></div>
+    </div>
+    <!-- aboutPCA -->
+   </div>
+
+   <div mat-dialog-content [hidden]="data.flag!='voiceChange'">
+    <h2 mat-dialog-title> Do you want to keep the voice? </h2>
+    <div class="float-end">
+      <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> Cancel</button> &nbsp;
+      <button mat-raised-button class="btn btn-success" (click)="onClose(1)"> Yes</button>
+    </div>
+  </div>
+  <div mat-dialog-content [hidden]="data.flag!='addVIP'">
+    <h2 mat-dialog-title> Add VIPs </h2>
+    <form [formGroup]="addVipForm">
+      <div formArrayName="vipStruct">
+        <div *ngFor="let v of vip.controls; let i=index">
+          <div formGroupName="{{i}}">
+            <div class="row mt-2" *ngIf="vip.length>1">
+              <div class="col-10"></div>
+              <div class="col-1">
+                <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon" (click)="addVip()">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+              <div class="col-1">
+                <button mat-icon-button color="accent"  aria-label="Example icon button with a menu icon" (click)="removeVip(i)">
+                  <mat-icon>remove_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="row" *ngIf="vip.length<=1">
+              <div class="col-11"></div>
+              <div class="col-1">
+                <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon" (click)="addVip()">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label>Name</label>
+                <input type="text" name="name" formControlName="name" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label>Phone</label>
+                <input type="text" name="phone" formControlName="phone" class="form-control" />
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                <label>Check In</label>
+                <input type="datetime-local" name="check_in" formControlName="check_in" class="form-control" />
+              </div>
+              <div class="col-6">
+                <label>Check Out</label>
+                <input type="datetime-local" name="check_out" formControlName="check_out" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </form>
+    <div class="float-end mt-3">
+      <!-- <button mat-raised-button class="btn btn-danger" (click)="onClose(0)"> C</button> &nbsp; -->
+      <button mat-raised-button class="btn btn-success" (click)="updateVip()"> Update</button>
+    </div>
+  </div>

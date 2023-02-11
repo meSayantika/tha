@@ -1,0 +1,482 @@
+
+<div class="content-div">
+  <mat-card>
+    <h2><strong> <mat-icon>assignment</mat-icon> Manage Hotel Progress</strong></h2>
+  </mat-card>
+
+    <mat-tab-group [selectedIndex]="index">
+      <mat-tab label="Hotel Information"  > 
+        <mat-card>
+          <ng-template mat-tab-label>
+            <mat-icon>feedback</mat-icon> &nbsp;
+            Hotel Information
+          </ng-template>
+          <div style="overflow-x:auto;" class="p-3">
+           
+              <form [formGroup]="hotelInfo">
+                <div class="row">
+                  <div class="col-12">
+                   
+                      <label for="">Date</label>
+                      <input readonly class="form-control p-2" type="text" formControlName="hotel_date" name="hotel_date">
+                   
+                  </div>
+                </div> <br>
+              <div class="row pb-2">
+               
+                <div class="col-4">
+                  <label for="">Hotel</label>
+                  <input  class="form-control p-2" type="text" formControlName="hotel" name="hotel">
+                </div>
+                <div class="col-4">
+                  <label for="">Address</label>
+                  <input  class="form-control p-2" type="text" formControlName="address" name="address">
+                </div>
+                <div class="col-4">
+                  <label for="">Country</label>
+                  <select class="form-select p-2" name="country"  formControlName="country" >
+                    <option value="">Select Country</option>
+                    <option *ngFor="let c of countryData" value="{{c.id}}">{{c.name}}</option>
+                  </select>
+                </div>
+              </div> <br>
+              <div class="row">
+                <div class="col-4">
+                  <label for="">Website</label>
+                  <input  class="form-control p-2" type="text" formControlName="website" name="website">
+                </div>
+                <div class="col-4">
+                  <label for="">Phone</label>
+                  <input  class="form-control p-2" type="text" formControlName="phone" name="phone">
+                </div>
+                <div class="col-4">
+                  <label for="">WhatsApp</label>
+                  <input  class="form-control p-2" type="text" formControlName="whatsapp" name="whatsapp">
+                </div> <br>
+                
+              </div> <br>
+              <div class="row">
+                <div class="col-4">
+                  <label for="">Contact name</label>
+                  <input class="form-control p-2" type="text" formControlName="contact_name" name="contact_name">
+                </div> <br>
+                <div class="col-4">
+                  <label for="">Position</label>
+                  <input  class="form-control p-2" type="text" formControlName="contact_position" name="contact_position">
+                </div>
+                <div class="col-4">
+                  <label for="">Email</label>
+                  <input  class="form-control p-2" type="text" formControlName="email" name="email">
+                </div> <br>
+                
+              </div> <br>
+              <div class="row">
+                <div class="col-6">
+                  <label for="">Contact phone</label>
+                  <input  class="form-control p-2" type="text" formControlName="contact_phone" name="contact_phone">
+                </div>
+                <div class="col-6">
+                  <label for="">Contact WhatsApp</label>
+                  <input  class="form-control p-2" type="text" formControlName="contact_whatsapp" name="contact_whatsapp">
+                </div>
+                 <br>
+                
+              </div> <br>
+              <div class="row">
+                <div class="col-12">
+                  <label for="">Notes</label>
+                 <textarea name="notes" class="form-control" formControlName="notes" id="" cols="30" rows="5"></textarea>
+                </div>
+                 <br>
+                
+              </div> <br>
+              <div class="row">
+                <div class="col-3">
+                  <label for="">Status</label>
+                  <select class="form-select p-2" name="no_sale"  formControlName="no_sale" >
+                    <option value="">Select status</option>
+                    <option value="P">Pending</option>
+                    <option value="S">Sent</option>
+                    <option value="N">No Sale</option>
+                    <option value="C">Accepted</option>
+                  </select>
+                </div>
+                <div class="col-3">
+                  <label for="">Proposal amount</label>
+                  <input  class="form-control p-2" type="text" formControlName="proposal_amount" name="proposal_amount">
+                </div>
+                <div class="col-3">
+                  <label for="">First payment (date)</label>
+                  <input  class="form-control p-2" type="date" formControlName="first_payment" name="first_payment">
+                </div>
+                <div class="col-3">
+                  <label for="">Final payment (date)</label>
+                  <input  class="form-control p-2" type="date" formControlName="final_payment" name="final_payment">
+                </div>  <br>
+                
+              </div> <br> <br>
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4 pt-2" style="text-align:center">
+                  <button class="btn btn-success" mat-raised-button (click)="updatehotelInfo()">Update</button>
+                </div>
+                <div class="col-4"></div>
+                
+              </div>
+            </form>
+             
+          </div>
+
+        </mat-card>
+       </mat-tab>
+    
+       <mat-tab label="Questionnaire">
+       <mat-card>
+        <ng-template mat-tab-label>
+          <mat-icon> not_listed_location</mat-icon> &nbsp;
+          Questionnaire
+        </ng-template>
+        <div class="float-end">
+          <button class="btn btn-success" matTooltip="Send questionnaire" [disabled]="this.userData?.msg[0]?.send_dt" mat-mini-fab (click)="go_to_questionnaire('S')">
+              <mat-icon>send</mat-icon>
+         </button> 
+        </div>
+         <br>
+         <div>
+          <form [formGroup]="qTabForm" >
+            <!-- <form (ngSubmit)="regSubmit()"> -->
+            <div class="row mt-4">
+              <label for="">First Call to Hotel Date</label>
+            
+            <div class="col-12"><input class="form-control p-2"  type="date" formControlName="firstCall" name="firstCall">
+            </div>
+            </div>
+            <div class="row mt-4">
+              <label for="">Notes</label>
+              <div class="col-12">
+                <textarea class="form-control p-3"  formControlName="notes" name="notes"  id="" cols="30" rows="6"></textarea>
+              </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-5 mt-4" style="padding-left:2%; ">
+             
+                  <button [disabled]="!userData?.msg[0]?.send_dt" mat-raised-button class="btn btn-danger btn-lg col-12 p-1" (click)="go_to_questionnaire('E')"routerLink="/main/admin/questionnaire">
+                View / Edit Questionnaire 
+                  </button>
+            
+                  &nbsp;
+              
+                </div> 
+                <div class="col-7">
+              <label for="">Date Sent</label>
+
+                  <input readonly class="form-control p-2" type="date" formControlName="date_sent" name="date_sent">
+                </div>
+               
+                </div>
+                <div class="row mt-4">
+                  <label for="">Questionnaire received / completed from hotel date</label>
+                  <div class="col-12"><input readonly class="form-control p-2"  type="date" placeholder="" formControlName="qcomplete" name="qcomplete">
+                  </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-2"></div>
+                    <div class="col-4 float-end mt-4">
+                      <button  mat-raised-button class="btn btn-success float-end" [disabled]="qTabForm.invalid" (click)="submitqInfo()">Submit</button>
+
+                    </div>
+                    <div class="col-4">
+
+                    </div>
+                    <div class="col-4">
+                      <!-- <button hidden mat-raised-button class="btn btn-danger">Resend questionnaire</button> -->
+&nbsp;
+
+                    </div>
+                   
+                    </div>
+            <div class="form-row">
+            
+            </div>
+          </form>
+         </div>
+       
+
+       </mat-card>
+       </mat-tab>
+       <mat-tab label="Proposal">
+        <mat-card>
+          <ng-template mat-tab-label>
+            <mat-icon> format_list_bulleted</mat-icon> &nbsp;
+            Proposal
+          </ng-template>
+          <div>
+            <form [formGroup]="propForm">
+              <div class="float-end">
+                <button mat-mini-fab matTooltip="Create proposal draft" class="btn btn-success" (click)="go_to_proposal('S')" [disabled]="this.proposalData?.msg[0]?.send_dt"><mat-icon>add</mat-icon></button>
+
+              </div> <br> <br>
+              <div class="row mt-4">
+               
+                <div class="col-12 ">
+                  <label for="">Proposal send date</label>
+   
+                  <input readonly class="form-control p-2" type="date" formControlName="send_date" name="send_date">
+                </div>
+               
+              </div> <br>
+             
+              <div class="row mt-4">
+                <div class="col-12">
+                  <label for="">Proposal follow up notes/dates and hotel questions</label>
+                <textarea class="form-control" name="hotel_qsns" formControlName="hotel_qsns" id="" cols="30" rows="5"></textarea>
+                </div>
+              </div> <br>
+              <div class="row mt-4">
+                
+                <div class="col-12">
+                  <label for="">Proposal edited date</label>
+   
+                  <input readonly class="form-control p-2" type="date" formControlName="edited_send_date" name="edited_send_date">
+                </div>
+              </div> <br>
+              <div class="row mt-4">
+                <div class="col-6">
+                  <label for="">Status</label>
+                  <select name="status" class="form-control p-2" formControlName="status" id="">
+                    <option value="">Select status</option>
+                    <option value="D">Declined</option>
+                    <option value="A">Accepted</option>
+                    <option value="P">Pending</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label for="">Accepted proposal date</label>
+   
+                  <input readonly class="form-control p-2" type="date" formControlName="accepted_date" name="accepted_date">
+                </div>
+              </div> <br>
+             
+              <div class="row mt-4">
+                <div class="col-12">
+                  <label for="">Declined proposal</label>
+   
+                  <textarea name="declined_comments" class="form-control" formControlName="declined_comments" id="" cols="30" rows="5"></textarea>
+                </div>
+              </div> <br>
+              <div class="row mt-4">
+                <div class="col-4 mt-4">
+                  <button [disabled]="!this.propId" mat-raised-button class="btn btn-danger btn-lg col-12 p-1" (click)="send_proposal_email()">
+              Send proposal
+                </button>
+
+                </div>
+                <div class="col-4 mt-4">
+                  <button mat-raised-button class="btn btn-danger btn-lg col-12 p-1" (click)="go_to_proposal('E')">
+                View proposal
+                  </button>
+                </div>
+                  <div class="col-4 mt-4">
+                    <button mat-raised-button class="btn btn-danger  btn-lg col-12 p-1" (click)="go_to_proposal('EE')"> 
+                    View edited proposal  
+                    </button>
+                  </div>
+                
+                
+              </div><br> <br> 
+              <div class="row mt-4 text-center">
+               
+                <div class="col-12">
+                  <button  mat-raised-button class="btn btn-success" [disabled]="qTabForm.invalid" (click)="submitpropInfo()">Submit</button>
+                </div>
+              </div>
+            </form>
+           </div>
+            <br>
+            <div>
+           
+            </div>
+ 
+        </mat-card>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon> store</mat-icon> &nbsp;
+            Departments
+          </ng-template>
+          <mat-card>
+            <app-add-dept></app-add-dept>
+          </mat-card>
+         </mat-tab>
+         <mat-tab label="Employees"> 
+          <ng-template mat-tab-label>
+            <mat-icon> work</mat-icon> &nbsp;
+            Employees
+          </ng-template>
+          <mat-card>
+          <app-add-emp></app-add-emp>
+
+          </mat-card>
+           </mat-tab>
+        <mat-tab label="Menu Setup">
+          <mat-card>
+            <ng-template mat-tab-label>
+              <mat-icon> restaurant</mat-icon> &nbsp;
+              Platform Setup
+            </ng-template>
+            <hr>
+            <mat-tab-group color="warn" style="background-color:white" [selectedIndex]="secondIndex">
+              <mat-tab label="Personal Concierge Avatar"> 
+                <ng-template mat-tab-label>
+                  <mat-icon> face</mat-icon> &nbsp;
+                  Personal Concierge Avatar
+                </ng-template>
+                <mat-card>
+                  <app-avatar></app-avatar>
+                </mat-card>
+                 </mat-tab>
+              <mat-tab label="Setup"> 
+                <ng-template mat-tab-label>
+                  <mat-icon> settings</mat-icon> &nbsp;
+                  Setup
+                </ng-template>
+                <app-view-hotel></app-view-hotel>
+              </mat-tab>
+              <mat-tab label="Communications"> 
+                <ng-template mat-tab-label>
+                  <mat-icon> local_phone</mat-icon> &nbsp;
+                  Communications
+                </ng-template>
+                <mat-card>
+                  <app-communications></app-communications>
+
+                </mat-card>
+                 </mat-tab>
+                 <mat-tab label="Emergency Reports"> 
+                  <ng-template mat-tab-label>
+                    <mat-icon> offline_bolt</mat-icon> &nbsp;
+                    Emergency Reports
+                  </ng-template>
+                  <mat-card>
+                   <app-emergency-report></app-emergency-report>
+                  </mat-card>
+                   </mat-tab>
+                   <mat-tab label="Department Managers"> 
+                    <ng-template mat-tab-label>
+                      <mat-icon> people</mat-icon> &nbsp;
+                      Department Managers
+                    </ng-template>
+                    <mat-card>
+                    <app-add-dept-mng></app-add-dept-mng>
+
+                    </mat-card>
+                     </mat-tab>
+                  
+                   <mat-tab label="FAQs"> 
+                    <ng-template mat-tab-label>
+                      <mat-icon> not_listed_location</mat-icon> &nbsp;
+                      FAQs
+                    </ng-template>
+                    <mat-card>
+                      FAQs
+                    </mat-card>
+                     </mat-tab>
+                     <mat-tab label="Calendars"> 
+                      <ng-template mat-tab-label>
+                        <mat-icon> date_range</mat-icon> &nbsp;
+                        Calendars
+                      </ng-template>
+                      <mat-card>
+                        Calendars
+                      </mat-card>
+                       </mat-tab>
+                       <mat-tab label="QR Codes / Signage / Holders"> 
+                        <ng-template mat-tab-label>
+                          <mat-icon> subtitles</mat-icon> &nbsp;
+                          QR Codes / Signage / Holders
+                        </ng-template>
+                        <mat-card>
+                          QR Codes / Signage / Holders
+                        </mat-card>
+                         </mat-tab>
+                         <mat-tab label="Your Directory"> 
+                          <ng-template mat-tab-label>
+                            <mat-icon> folder_special</mat-icon> &nbsp;
+                            Your Directory
+                          </ng-template>
+                          <mat-card>
+                            Your Directory
+                          </mat-card>
+                           </mat-tab>
+                           <mat-tab label="Promotions / Photo OPS"> 
+                            <ng-template mat-tab-label>
+                              <mat-icon> add_a_photo</mat-icon> &nbsp;
+                              Promotions / Photo OPS 
+                            </ng-template>
+                            <mat-card>
+                              Promotions / Photo OPS 
+                            </mat-card>
+                             </mat-tab>
+                             <mat-tab label="Lost & Found"> 
+                              <ng-template mat-tab-label>
+                                <mat-icon> report_problem</mat-icon> &nbsp;
+                                Lost & Found
+                              </ng-template>
+                              <mat-card>
+                                Lost & Found
+                              </mat-card>
+                               </mat-tab>
+                               <mat-tab label="Suggestion Box"> 
+                                <ng-template mat-tab-label>
+                                  <mat-icon> playlist_play</mat-icon> &nbsp;
+                                  Suggestion Box
+                                </ng-template>
+                                <mat-card>
+                                  Suggestion Box
+                                </mat-card>
+                                 </mat-tab>
+            </mat-tab-group>
+          
+          </mat-card>
+          </mat-tab>
+          <mat-tab label="Directory Setup">
+            <mat-card>
+              <ng-template mat-tab-label>
+                <mat-icon>card_membership</mat-icon> &nbsp;
+                Directory Setup
+              </ng-template>
+              Directory Setup
+            </mat-card>
+            </mat-tab>
+            <mat-tab label="Training">
+              <mat-card>
+                <ng-template mat-tab-label>
+                  <mat-icon> build</mat-icon> &nbsp;
+                  Training
+                </ng-template>
+                Training
+       
+              </mat-card>
+              </mat-tab>
+              <mat-tab label="Final Payment">
+                <mat-card>
+                  <ng-template mat-tab-label>
+                    <mat-icon> attach_money</mat-icon> &nbsp;
+                    Final Payment
+                  </ng-template>
+                  Final Payment
+         
+                </mat-card>
+                </mat-tab>
+                <mat-tab label="No Sale">
+                  <mat-card>
+                    <ng-template mat-tab-label>
+                      <mat-icon> money_off</mat-icon> &nbsp;
+                      No Sale
+                    </ng-template>
+                    No Sale
+           
+                  </mat-card>
+                  </mat-tab>
+    </mat-tab-group>
+</div>

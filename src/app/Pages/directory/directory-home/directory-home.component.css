@@ -1,0 +1,12 @@
+.btn-danger{
+    color:white;
+    background-color:#f44336
+}
+
+.btn-warning{
+    background-color: #ff9800
+}
+
+.mkUpper{
+    text-transform: uppercase;
+}

@@ -1,0 +1,210 @@
+<div class="content-div">
+    <header><br>
+        <!-- <p><strong>Thank You for your payment and participation!</strong><br>
+            You can now begin to set-up your platform. Please follow the simple steps below. If you have any
+            problems, please do not hesitate to email us: <a
+                href="mailto:Support@shoplocallaguna.com">Support@ShopLocalLaguna.com</a></p> -->
+                <mat-card class="thankYou">
+                  <!-- <div class="thankYou"> -->
+                    <h3>Thank You for your payment and participation!</h3>
+                    <p style="font-size: revert;">You can now start setting up your platform. Please follow the steps below. For
+                      queries, mail us at <a href="mailto:admin@shoplocal-lagunabeach.com" style="color:white">admin@shoplocal-lagunabeach.com</a></p>
+                  <!-- </div> -->
+                </mat-card>
+    </header>
+    <mat-card class="alert alert-danger text-center" role="alert"  [hidden]="show_toast">
+      <strong>Setup mode is on.</strong>
+       <p>Admin is setting up your menu, you can not modify</p> 
+      </mat-card>
+
+ <mat-card> </mat-card> 
+  <mat-tab-group mat-stretch-tabs backgroundColor="primary">
+    <mat-tab label="About Us"> 
+      <mat-card>
+        <div class="aboutLeft">
+        
+          <label class="titleCustom"><strong>ABOUT US</strong></label>
+          <!-- about us section starts -->
+          <!-- This should include a word calculator, then below this some of the Registration content will also display:
+Address, phone, email. The About Us "text" content will be also added to the vCard set-up.   -->
+
+          Please add a short bio of your restaurant: cuisine type, days/hours, safety, etc., <br>
+          <br>
+          <form>
+              <div class="rowCustomFour">
+                <div class="fieldSecFull">
+                    <label class="titleCustom">Venue</label>
+                    <select #select_venue (change)="open_venue(select_venue.value)" class="form-select" >
+                        <option value="">Select One</option>
+                        <option *ngFor="let x of getVenues?.msg?.restaurant; let i=index;" value="{{x.id}}" >{{x.name}}</option>
+                    
+                      </select>
+                </div>
+                  <div class="fieldSecHalf">
+                      <label>Write Bio here <strong>({{this.role}}/150):</strong></label>
+                      <textarea 
+                      [disabled]="break_button"
+                      [(ngModel)]="this.val"
+                      maxlength="150" (input)="prevent_null($event)"  (keyup)="prevent_null($event)" (change)="prevent_null($event)" id="about" name="abouteee" class="aboutTextarea" rows="5" cols="80" #bio></textarea>
+                     
+                  </div>
+                  <div class="fieldSecHalf">
+                    <div class="aboutRight"><label class="titleCustom"><strong>ENTERTAINMENT/EVENT
+                      CALENDAR</strong></label>
+    
+              <!-- This section is where the restaurant registers for access to the Calendar  -->
+              You can select the month, then add/delete the date/time/description content as needed, 24/7.
+              Content is automatically deleted after each published event/entertainment date.<br>
+              <br>You will be able to edit this Calendar after we set-up your initial menu. This is just a
+              view-only example.<br><br>
+              <img src="assets/images/events-cal-view.jpg" width="440" height="215" class="calendarImg"><br
+                  clear="all">
+          </div>
+                  </div>
+              </div>
+          </form>
+          
+
+          <button mat-raised-button class="btn btn-success float-end"
+         
+              (click)="nexttab('notices',bio.value)" [disabled]="this.disabled_about">Save</button>
+      </div>
+
+      
+      </mat-card>
+    
+    </mat-tab>
+    <mat-tab label="Notice">
+   <mat-card>
+
+   
+      <label class="titleCustom">
+        <input type="checkbox" [disabled]="break_button" id="noticechecked" (change)="checknotice($event)"><strong class="m-1">NOTICES</strong> </label>
+    This is where you provide details of any notices that need to be displayed on your menus. They
+    could be regulatory notices required by law, food allergy comments, disclaimers or comments
+    which relate to specific localized circumstances.<br>
+    <br>Using the drop down selectors choose a Menu and Position of the Notice. You then select the
+    Header Title and the color of the Font followed by the Description. You must then SAVE this
+    before entering another Notice.<br><br>
+
+    <div class="formTable" (mouseenter)="see_validation()" >
+
+
+        <form class="form-inline" >
+            <div class="rowCustomFour">
+                <div class="fieldSecFull">
+                    <label class="titleCustom">Venue</label>
+                    <select #select_venue1 (change)="open_venue(select_venue1.value)" class="form-select" >
+                        <option value="">Select One</option>
+                        <option *ngFor="let x of getVenues?.msg?.restaurant; let i=index;" value="{{x.id}}" >{{x.name}}</option>
+                    
+                      </select>
+                </div>
+                <div class="fieldSecHalf">
+                    <label class="titleCustom">Menu</label>
+                    <select id="pickup_place" name="pickup_place" id="menuselect" class="formCss" #Menu
+                        (change)="pickup_place(Menu.value)">
+                       
+                        <option value="" selected="selected">Select One</option>
+                        <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                        <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                        <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                        <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                        <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                        <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                        <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+                        <!-- <option *ngFor="let n of getMenus" [hidden]="n.active_flag=='N'" value="{{n.id}}">{{n.menu_name}}</option> -->
+                    </select>
+
+                </div>
+
+                <div class="fieldSecHalf">
+                    <label class="titleCustom">Position</label>
+                    <select id="pos" [disabled]="deSelect" name="pos1" class="formCss" #position
+                        (change)="getposition(position.value)">
+                        <option value="">Select One</option>
+                        <option value="1" [selected]="this.position_id=='1'">Top under Header Image</option>
+                        <option value="2" [selected]="this.position_id=='2'">Bottom after last Section </option>
+                        <option value="3" [selected]="this.position_id=='3'">After each Section</option>
+                    </select>
+
+                </div>
+
+            </div>
+        </form>
+        <form >
+            <div class="rowCustomFour" >
+                <div class="fieldSecFull">
+                    <label for="headTitle" class="titleCustom">Header Title:</label>
+                    <input type="text" [disabled]="deSelect" 
+                    value="{{header_title}}" (keyup)="checkvalidity($event)" (change)="checkvalidity($event)"  id="headTitle" name="headTitle1"  class="formCss"
+                     #title>
+                </div>
+            </div>
+        </form>
+        <form class="form-inline" >
+            <div class="rowCustomFour">
+                <div class="fieldSecHalf">
+                    <label for="favcolor" class="titleCustom">Select your front color:</label>
+                    <input type="color" [disabled]="deSelect" id="colorPicker" class="colorPickerCustom" name="favcolor"
+                    value="{{font_color}}" #code1 (change)="changecolor($event,'back')">
+                </div>
+
+                <div class="fieldSecHalf">
+                    <label for="code" class="titleCustom">Color Code:</label>
+                    <input type="text" readonly id="box" name="code1" class="formCss" #code2
+                    value="{{font_color}}"
+                    (change)="checkvalidity($event)">
+                </div>
+            </div>
+
+        </form>
+        <form class="form-inline" >
+            <div class="rowCustomFour">
+                <div class="fieldSecHalf">
+                    <label for="favcolor" class="titleCustom">Select your background color:</label>
+                    <input type="color" [disabled]="deSelect" id="colorPicker2" class="colorPickerCustom" value="{{back_color}}"
+                        #code3 (change)="changecolor($event,'font')">
+                </div>
+                <div class="fieldSecHalf">
+                    <label for="code" class="titleCustom">Color Code:</label>
+                    <input type="text" readonly  id="box2" name="code" value="{{back_color}}" class="formCss" #code4  (change)="checkvalidity($event)">
+                </div>
+            </div>
+        </form>
+        <form class="form-inline">
+            <div class="rowCustomFour">
+                <div class="fieldSecFull">
+                    <label for="vehicle2" class="titleCustom"> Notice Content<strong> ({{this.role_notice_content}}/100):</strong></label>
+                    <textarea id="spclMore" name="spclMore1" rows="5" cols="60"
+                    [(ngModel)]="notice_content"
+                    maxlength="100"
+                        class="formCssTextArea" #notice
+                        (keyup)="checkvalidity($event)" [disabled]="deSelect" (change)="checkvalidity($event)"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-5">
+            <button mat-raised-button class="btn btn-success float-left"
+        
+        [disabled]="value_position || value_Headertitle ||value_font||value_background  || value_text || deSelect"
+            (click)="nexttab1('about',Menu.value,title.value,code1.value,code2.value,code3.value,code4.value,notice.value,select_venue.value)">Save</button>
+       
+        <!-- <div class="col-6 float-start"> -->
+            <button mat-raised-button class="btn btn-danger float-end"
+        
+      
+            (click)="go_to_thankyou_page()" [disabled]="!show_toast">Continue</button>
+        <!-- </div> -->
+    </div>
+    </div>
+  </mat-card>  
+    </mat-tab>
+   
+  </mat-tab-group>
+
+
+</div>

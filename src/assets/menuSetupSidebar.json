@@ -1,0 +1,17 @@
+[
+    {
+        "id":"hotelMenuSetup",
+        "name":"Menu Setup",
+        "ref":"menu_setup"
+    },
+    {
+        "id":"hotelLogoSetup",
+        "name":"Logo Setup",
+        "ref":"logo_setup"
+    },
+    {
+        "id":"hotelMenuData",
+        "name":"Menu Data",
+        "ref":"menu_data"
+    }
+]

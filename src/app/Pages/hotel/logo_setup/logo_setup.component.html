@@ -1,0 +1,265 @@
+<div class="content-div">
+  
+   <!-- <app-thankYouPage></app-thankYouPage>
+   <app-setupModeOn></app-setupModeOn> -->
+   <header><br>
+    <!-- <p><strong>Thank You for your payment and participation!</strong><br>
+        You can now begin to set-up your platform. Please follow the simple steps below. If you have any
+        problems, please do not hesitate to email us: <a
+            href="mailto:Support@shoplocallaguna.com">Support@ShopLocalLaguna.com</a></p> -->
+            <mat-card class="thankYou">
+              <!-- <div class="thankYou"> -->
+                <h3>Thank You for your payment and participation!</h3>
+                <p style="font-size: revert;">You can now start setting up your platform. Please follow the steps below. For
+                  queries, mail us at <a href="mailto:admin@shoplocal-lagunabeach.com" style="color:white">admin@shoplocal-lagunabeach.com</a></p>
+              <!-- </div> -->
+            </mat-card>
+</header>
+<mat-card class="alert alert-danger text-center" role="alert"  [hidden]="show_toast">
+  <strong>Setup mode is on.</strong>
+   <p>Admin is setting up your menu, you can not modify</p> 
+  </mat-card>
+  <mat-card>
+   
+      <h5><b><i class="fa fa-wpforms"></i> Restaurant - MENU Platform SET-UP</b></h5>
+      <mat-tab-group mat-stretch-tabs backgroundColor="primary">
+        <mat-tab label="Restaurant"> 
+          <div class="secDifer">
+              
+            <div class="row">
+              <select #select_venue (change)="open_venue(select_venue.value,'R')" class="form-select" >
+                <option value="">Select Restaurant</option>
+                <option *ngFor="let x of getVenues.msg.restaurant; let i=index;" value="{{x.id}}" >{{x.name}}</option>
+            
+              </select>
+              
+              <div class="col-12">
+                <br>
+                
+                <label class="titleCustom"><strong>LOGO</strong></label>
+              
+                <!-- <input type="checkbox" id="logo" name="logo" value="Logo"> -->
+                <!-- <p>Upload your logo which needs to be in JPG or PNG format :</p> -->
+              </div>
+              <div class="col-5">
+               
+                <button hidden (click)="openmodal()" id="hid">Open Modal</button>
+               <label for="logo"><strong>Select File:</strong></label><br>
+
+                <label for="myfile">Select files:</label>
+                <input type="file" id="myfile"
+                accept=".jpeg,.jpg,.png"
+               
+                [disabled]="break_button"  (change)="selectimage($event)">
+                <!-- <i type="button" [hidden]="logo_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"  data-bs-toggle="modal" data-bs-target="#myModal"></i> -->
+                <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+               
+                 <div class="container1">
+                <div class="img-wrap rounded p-1" [hidden]="logo_preview">
+                    <a class="close" (click)="deletephoto('logo_setup')"  [hidden]="!show_toast">&times;</a>
+                 
+                  <img src="{{img_logo}}"  height="50px" width="50px" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openDialog(img_logo)"> 
+
+                </div>
+                </div>
+              </div>
+              <div class="col-5">
+                <label for="logo2"> <strong>Or Logo Url:
+                  <!-- <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" 
+                              #tooltip="matTooltip"
+                          matTooltip="You can either upload a logo or prove a url below"
+                 ></i> -->
+                </strong></label>
+                <!-- <p>Please provide a url/website address where we can collect your logo.</p> -->
+                <form>
+                    <!-- <label for="url">Enter the url:</label> -->
+                    <input type="text" id="url" name="url" value="{{log_url}}" size="28" #logo
+                    [disabled]="break_button"
+                    (keyup)="checkvalidity($event)" (change)="checkvalidity($event)"><br>
+                </form>
+                <p style="font-style: italic">If we cannot collect the logo from your web site, we will contact you
+                </p>
+
+              </div>
+            </div>
+          <!-- <h3 class="text-danger text-center" [hidden]="show_toast">As admin set your order,you can not modified</h3> -->
+
+
+          
+             
+              <!-- <form > -->
+                 
+                  <!-- <button (click)="downloadImage()">Preview</button>  -->
+                  <br>
+
+
+                  <!-- <strong><u></u></strong><br> -->
+
+                  <!-- <input type="checkbox" id="logo2" name="logo2" value="Logo Link"> -->
+                 
+        
+          </div>
+
+
+          <button  mat-raised-button class="btn btn-success float-end" type="submit" (click)="goto_MenuDatapage(logo.value)" [disabled]="value_logo_url">Submit</button>
+        </mat-tab>
+        <mat-tab label="Services"> 
+          <div class="secDifer">
+              
+            <div class="row">
+              <select #select_venue (change)="open_venue(select_venue.value,'S')" class="form-select" >
+                <option value="">Select Service</option>
+                <option *ngFor="let x of getVenues.msg.service; let i=index;" value="{{x.id}}" >{{x.name}}</option>
+            
+              </select>
+              
+              <div class="col-12">
+                <br>
+                
+                <label class="titleCustom"><strong>LOGO</strong></label>
+              
+                <!-- <input type="checkbox" id="logo" name="logo" value="Logo"> -->
+                <!-- <p>Upload your logo which needs to be in JPG or PNG format :</p> -->
+              </div>
+              <div class="col-5">
+               
+                <button hidden (click)="openmodal()" id="hid">Open Modal</button>
+               <label for="logo"><strong>Select File:</strong></label><br>
+
+                <label for="myfile">Select files:</label>
+                <input type="file" id="myfile"
+                accept=".jpeg,.jpg,.png"
+               
+                [disabled]="break_button"  (change)="selectimage($event)">
+                <!-- <i type="button" [hidden]="logo_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"  data-bs-toggle="modal" data-bs-target="#myModal"></i> -->
+                <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+               
+                 <div class="container1">
+                <div class="img-wrap rounded p-1" [hidden]="logo_preview">
+                    <a class="close" (click)="deletephoto('logo_setup')"  [hidden]="!show_toast">&times;</a>
+                 
+                  <img src="{{img_logo}}"  height="50px" width="50px" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openDialog(img_logo)"> 
+
+                </div>
+                </div>
+              </div>
+              <div class="col-5">
+                <label for="logo2"> <strong>Or Logo Url:
+                  <!-- <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" 
+                              #tooltip="matTooltip"
+                          matTooltip="You can either upload a logo or prove a url below"
+                 ></i> -->
+                </strong></label>
+                <!-- <p>Please provide a url/website address where we can collect your logo.</p> -->
+                <form>
+                    <!-- <label for="url">Enter the url:</label> -->
+                    <input type="text" id="url" name="url" value="{{log_url}}" size="28" #logo
+                    [disabled]="break_button"
+                    (keyup)="checkvalidity($event)" (change)="checkvalidity($event)"><br>
+                </form>
+                <p style="font-style: italic">If we cannot collect the logo from your web site, we will contact you
+                </p>
+
+              </div>
+            </div>
+          <!-- <h3 class="text-danger text-center" [hidden]="show_toast">As admin set your order,you can not modified</h3> -->
+
+
+          
+             
+              <!-- <form > -->
+                 
+                  <!-- <button (click)="downloadImage()">Preview</button>  -->
+                  <br>
+
+
+                  <!-- <strong><u></u></strong><br> -->
+
+                  <!-- <input type="checkbox" id="logo2" name="logo2" value="Logo Link"> -->
+                 
+        
+          </div>
+
+
+          <button  mat-raised-button class="btn btn-success float-end" type="submit" (click)="goto_MenuDatapage(logo.value)" [disabled]="value_logo_url">Submit</button>
+        </mat-tab>
+      </mat-tab-group>
+          <!-- setup mode on means that the existing data cannot be modified -->
+             
+              <!-- <button  mat-raised-button class="btn btn-success float-end" type="submit" (click)="goto_MenuDatapage(logo.value)" >Submit</button> -->
+  
+  
+          <br>
+       
+      
+ 
+  </mat-card>
+  
+</div>
+
+
+<div id="id01" class="modal" >
+ 
+
+    <div class="modal-dialog-sm" style="width:60%; margin-left:20%">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" >Adjust
+            Image</h4>
+  
+      
+            <i class="fa fa-times-circle fa-2x" type="button"  (click)="close_it()" ></i>
+  
+        </div>
+        
+
+        <div class="modal-body">
+          <input type="text" hidden value="{{common_value}}" #common>
+      
+         
+          <image-cropper [hidden]="hide" [imageChangedEvent]="common_image"
+          [maintainAspectRatio]="true" 
+        
+          [onlyScaleDown]="false" 
+         
+          [cropperMaxWidth]=width
+          [cropperMaxHeight]=height
+          [roundCropper]="false"
+          
+          (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+          [style.display]="showCropper ? null: 'none'" [transform]="transform">
+        </image-cropper>
+        <div class="row">
+          <div class="col-5"></div>
+
+          <div class="col-1 text-center">
+              <i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i>
+          </div>
+          <div class="col-1 text-center">
+              <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i>
+          </div>
+      </div>
+
+        </div>
+        <footer class="w3-container  mt-2 mb-2">
+            <div class="row">
+                <div class="col-10"></div>
+
+                <div class="col-2">
+                    <button mat-raised-button class="btn btn-danger"   
+                  (click)="click_it(common.value)">Save</button>
+              </div>
+
+            </div>
+        
+        </footer>
+
+      </div>
+
+    </div>
+
+
+</div>

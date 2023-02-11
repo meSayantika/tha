@@ -1,0 +1,1856 @@
+<div class="content-div">
+    <mat-card>
+      <!-- <header>
+        <h5 style="color:#3F51B5"><b><mat-icon> restaurant</mat-icon> Restaurant Account</b></h5>
+    </header> -->
+    <div class="row">
+      <div class="col-4">
+        <label class="titleCustom">Select category </label>
+        <select (change)="getCat()" [(ngModel)]="category" class="form-select" >
+            <option value="">Select one</option>
+            <option value="R">Restaurant</option>
+            <option value="S">Service</option>
+        
+          </select>
+      </div>
+      <div class="col-8">
+        <label class="titleCustom">Select Restaurant / Service </label>
+        <select #select_venue (change)="open_venue(select_venue.value)" class="form-select" >
+            <option value="">Select one</option>
+            <option *ngFor="let x of getVenues let i=index;" value="{{x.id}}" >{{x.name}}</option>
+        
+          </select>
+      </div>
+    </div>
+   
+    
+      <br>
+    </mat-card>
+  
+      <mat-tab-group color="accent" style="background-color:white" selectedIndex="0">
+        <!-- <mat-tab label="Restaurant"> 
+          <ng-template mat-tab-label>
+            <mat-icon> restaurant</mat-icon>
+            Restaurant / Bar
+          </ng-template>
+          <mat-card>
+           
+  
+          </mat-card>
+        </mat-tab> -->
+        <mat-tab label="Download & Upload Image"> 
+          <ng-template mat-tab-label>
+            <mat-icon>image</mat-icon>
+            Download & Upload Image
+          </ng-template>
+          <mat-card>
+            <label class="titleCustom2">Logo</label>
+            <div  class="table-responsive table_responsiveCus">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <th scope="col">#</th>
+                            <th scope="col">Logo URL</th> -->
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">Preview</th>
+                            <th scope="col">Upload Logo <br><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label></th>
+                            <!-- <th scope="col">Action</th> -->
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody [hidden]="show_logo">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td> 
+                                <a href="{{logo_img}}" target="_blank"> {{logo_img}}</a>
+                                <!-- <input type="url" id="headTitle" name="headTitle" value="" placeholder="URL"
+                                    class="formCss"> -->
+  
+  
+                                </td>
+  
+                            <td>
+  
+                                <a href="{{logopath}}" target="_blank" download><img src="{{logopath}}" onerror="this.onerror=null;this.src='./assets/images/noimage.png';" height="20" width="20" alt="">
+                                </a>
+                                <!-- <i [hidden]="logospin" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
+                               <!-- <div [hidden]="logospin" class="loader"></div> -->
+                               <!-- <div [hidden]="coverspin" class="loader"></div> -->
+  
+  
+                            </td>
+                            <td>
+                                <!-- <label class="uploadTxt">Upload Section images JPG or PNG:</label> -->
+                            <!-- <td><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label> -->
+  
+  
+                               <button hidden  id="logo_crop" mat-raised-button class="btn btn-success" (click)="open_crop_modal()" ></button>
+                                <input type="file" id="myfile" class="uploadField form-control" name="myfile" multiple="" (change)="upload_logo($event)">
+                            </td>
+                            <td class="divFlex"><a href="#" class="edite">
+                                <!-- <i class="fa fa-pencil-square"
+                                        aria-hidden="true"></i> -->
+                                    </a> <button mat-raised-button style="cursor: pointer;" class="btn btn-success" (click)="update_logo()">Update</button></td>
+                        </tr>
+  
+                    </tbody>
+                </table>
+  
+            </div>
+  
+            
+            <label class="titleCustom2"> Cover Image</label>
+            <div class="table-responsive table_responsiveCus">
+  
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <th scope="col">#</th> 
+                             <th scope="col">Restaurant - Time</th> -->
+                             <th scope="col"></th> 
+                             <th scope="col"></th>
+                             <th scope="col"></th>
+                            <!-- <th scope="col">Download Link</th> -->
+                            <th scope="col">Preview </th>
+                            <th scope="col"> Upload Image <br><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label></th>
+                            <!-- <th scope="col">Action</th> -->
+                            <th scope="col"></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody [hidden]="show_logo">
+                        <!-- <i [hidden]="coverspin" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
+  
+                        <tr *ngFor="let menu of menuData; let i=index"  >
+                            
+                                <th scope="row" *ngIf="menu.active_flag=='Y'">{{i+1}}</th>
+                                <td *ngIf="menu.active_flag=='Y'"><strong>{{menu.menu_name}}</strong></td>
+  
+                                <!-- <td *ngIf="menu.menu_id==1 && menu.active_flag=='Y'"><strong>Breakfast</strong></td>
+                                <td *ngIf="menu.menu_id==2 && menu.active_flag=='Y'"><strong>Lunch</strong></td>
+                                <td *ngIf="menu.menu_id==3 && menu.active_flag=='Y'"><strong>Brunch</strong></td>
+                                <td *ngIf="menu.menu_id==4 && menu.active_flag=='Y'"><strong>Dinner</strong></td>
+                                <td *ngIf="menu.menu_id==5 && menu.active_flag=='Y'"><strong>Special</strong></td> -->
+                                <!-- <td><strong>{{menu.menu_name}}</strong></td> -->
+                                <td *ngIf="menu.active_flag=='Y'">
+                                     <a href="{{menu.cover_page_url}}" target="_blank" >{{menu.cover_page_url}}</a>
+                                    <!-- <input type="url" id="headTitle" name="headTitle" value="" placeholder="URL"
+                                        class="formCss"> -->
+  
+                                </td>
+                                <td  *ngIf="menu.active_flag=='Y'"><a [href]="apiurlset+menu.cover_page_img" target="_blank" ><img onerror="this.onerror=null;this.src='./assets/images/noimage.png';" [src]="apiurlset+menu.cover_page_img" height="20" width="20" alt=""></a>
+                                </td>
+                               <td  *ngIf="menu.active_flag=='Y'">
+                                   <!-- <label class="uploadTxt">Upload Section images JPG or PNG:</label> -->
+                                <!-- <td><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label> -->
+                                    <input type="file" id="myfile"  (change)="upload_cover($event)" class="uploadField form-control" name="myfile" multiple="">
+                                </td>
+                                <td  *ngIf="menu.active_flag=='Y'" class="divFlex"><a href="#" class="edite">
+                                    <!-- <i class="fa fa-pencil-square"
+                                            aria-hidden="true"></i> -->
+                                        </a> <button mat-raised-button class="btn btn-success" style="cursor: pointer;" (click)="update_cover(menu.id,menu.menu_id,menu.cover_page_url)">Update</button></td>
+                                    
+  
+                        </tr>
+                       
+                    </tbody>
+                </table>
+  
+            </div>
+           
+  
+            <label class="titleCustom2"> Top Image</label>
+            <div class="table-responsive table_responsiveCus">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <th scope="col">#</th>
+                            <th scope="col">Restaurant - Time</th> -->
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+  
+                            <!-- <th scope="col">Download Link</th> -->
+                            <th scope="col">Preview </th>
+                            <th scope="col"> Upload Image <br><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label></th>
+                            <!-- <th scope="col">Action</th> -->
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody [hidden]="show_logo">
+                        <!-- <i [hidden]="topspin" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
+  
+                        <tr *ngFor="let menu of menuData; let i=index">
+                            <th scope="row" *ngIf="menu.active_flag=='Y'">{{i+1}}</th>
+                            <td *ngIf="menu.active_flag=='Y'"><strong>{{menu.menu_name}}</strong></td>
+                            <!-- <td *ngIf="menu.menu_id==2 && menu.active_flag=='Y'"><strong>Lunch</strong></td>
+                            <td *ngIf="menu.menu_id==3 && menu.active_flag=='Y'"><strong>Brunch</strong></td>
+                            <td *ngIf="menu.menu_id==4 && menu.active_flag=='Y'"><strong>Dinner</strong></td>
+                            <td *ngIf="menu.menu_id==5 && menu.active_flag=='Y'"><strong>Special</strong></td> -->
+                            <td *ngIf="menu.active_flag=='Y'">
+                                <a href="{{menu.top_img_url}}" target="_blank" >{{menu.top_img_url}}
+  
+  
+  
+                                </a>
+                                <!-- <input type="url" id="headTitle" name="headTitle" value="" placeholder="URL"
+                                    class="formCss"> -->
+  
+                            </td>
+                            <td *ngIf="menu.active_flag=='Y'"><a onerror="this.onerror=null;this.src='./assets/images/noimage.png';" [href]="apiurlset+menu.top_image_img" target="_blank"><img [src]="apiurlset+menu.top_image_img" height="20" width="20" alt=""></a>
+                            </td>
+                            <td *ngIf="menu.active_flag=='Y'">
+                                <!-- <label class="uploadTxt">Upload Section images JPG or PNG:</label> -->
+                                <!-- <td><label class="uploadTxt">File Types:JPEG/JPG/PNG. Maximum Size: 2MB</label> -->
+                                <input type="file" id="myfile" (change)="upload_top($event)" class="uploadField form-control" name="myfile" multiple="">
+                            </td>
+                            <td  *ngIf="menu.active_flag=='Y'"class="divFlex"><a href="#" class="edite">
+                                <!-- <i class="fa fa-pencil-square"
+                                        aria-hidden="true"></i> -->
+                                    </a> <button mat-raised-button class="btn btn-success" style="cursor: pointer;" (click)="update_top(menu.id,menu.menu_id,menu.top_img_url)">Update</button></td>
+                        </tr>
+                     
+                    </tbody>
+                </table>
+            <button [hidden]="show_logo" mat-raised-button class="btn btn-success" (click)="download_top_cover_logo()">Download all <i class="fa fa-download" aria-hidden="true"></i></button>
+  
+            </div>
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Download Menu">
+          <ng-template mat-tab-label>
+            <mat-icon>list</mat-icon>
+            Download Menu
+          </ng-template>
+          <mat-card>
+           
+                          
+             
+       
+                  <!-- <label class="radioButtonName">
+                    
+                      <input type="radio" id="bkmenu{{mnc.menu_id}}"  name="bkmenu" value="Breakfast Menu" (click)="get_sec_img(mnc.menu_id)" > {{mnc.menu_name}}
+                  </label> -->
+                  <label class="titleCustom">Menu</label>
+                      <!-- <input type="radio" id="bkmenu{{mnc.id}}" [checked]="i==0" name="bkmenus" value="Breakfast Menu" (click)="get_sec_img(mnc.id)"  > {{mnc.name}} -->
+                      <select class="form-select mb-2"  #venue_menu1 name="bkmenus" (change)="get_sec_img(venue_menu1.value)">
+                        <option value="">Select one</option>
+                        
+                        <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                        <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                        <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                        <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                        <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                        <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                        <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+        
+                      </select>
+                    
+                 
+                    <!-- </label> -->
+           
+              
+      <!-- <label class="radioButtonName"><input type="radio" (click)="get_sec_img(2)" id="bkmenu" name="bkmenu"
+              value="Lunch  Menu" > Lunch Menu</label> -->
+    
+          <div class="table-responsive table_responsiveCus">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">Sl. No.</th>
+                          <th scope="col">URL</th>
+                          <th scope="col">Preview </th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let sec of secData; let i=index">
+                          <th scope="row">{{i+1}}</th>
+                          
+                          <td><a href="{{sec.sec_url}}" target="_blank">{{sec.sec_url}}</a>
+                              <!-- <input type="url" id="headTitle" name="headTitle" value="" placeholder="URL"
+                                  class="formCss"> -->
+                              </td>
+  
+                          <td>
+                              <!-- <a [href]="apiurlset+sec.sec_img" target="_blank"><img [src]="apiurlset+sec.sec_img" height="20" width="20"> -->
+                                  <a (click)="openpdf(apiurlset+sec.sec_img)">
+                                      <i type="button"  class="fa fa-file-pdf-o" >
+                                          
+                                      </i></a>
+                              <!-- </a> -->
+                          </td>
+                      </tr>
+                    
+                  </tbody>
+              </table>
+          <button mat-raised-button class="btn btn-success" (click)="download_section()">Download all <i class="fa fa-download" aria-hidden="true"></i></button>
+  
+          </div>
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Set Date & Time"> 
+          <ng-template mat-tab-label>
+            <mat-icon>access_alarms</mat-icon>
+            Set Date & Time
+          </ng-template>
+          <mat-card>
+            <div class="dateTime">
+  
+  
+              <div class="formTable">
+  
+  
+                  <form class="form-inline" action="">
+                      <div class="rowCustomFour">
+                          <!-- <div class="fieldSecFull">
+                              <label class="titleCustom">Venue</label>
+  
+                              <select #select_v (click)="open_venue(select_v.value)" class="form-select" >
+                                  <option value="">Select One</option>
+                                  <option *ngFor="let x of getVenues.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+                              
+                                </select>
+                          </div> -->
+                         
+                          <div class="fieldSecFull">
+                              <!-- <label class="titleCustom">Menu</label>
+                              <select id="pickup_place"  #menu_select name="pickup_place" (change)="menu_set_date_time(menu_select.value)" class="formCss form-control">
+                                  <option value="" selected="selected">Select One</option>
+                                  <option *ngFor="let mnc of getMenus" value="{{mnc.id}}">{{mnc.menu_name}}</option>
+                                  
+                              </select> -->
+                  <label class="titleCustom">Menu</label>
+
+                              <select class="form-select mb-2"   id="pickup_place"  #menu_select name="pickup_place" (change)="menu_set_date_time(menu_select.value)">
+                                <option value="">Select one</option>
+                                
+                                <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                                <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                                <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                                <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                                <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                                <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                                <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+                
+                              </select>
+  
+                          </div>
+  
+  
+  
+                      </div>
+                  </form>
+  
+  
+  
+              </div>
+      <div [hidden]="!show_special_date">
+              <div class="dateTimLeft">
+                  <div class="form-inline dateTimRow">
+                      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" (change)="checkbrunchday($event,'everyday')">
+                      <label for="vehicle1"> Every Day</label><br>
+                  </div>
+  
+                  <div class="form-inline dateTimRow">
+                      <input type="checkbox" id="vehicle2" name="vehicle2" #mon value="1" (change)="checkbrunchday($event,'monday')">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" id="vehicle3" name="vehicle3" #tue value="2" (change)="checkbrunchday($event,'tuesday')">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" id="vehicle4" name="vehicle1" #wed value="3" (change)="checkbrunchday($event,'wednesday')">
+                      <label for="vehicle1"> Wednesday</label><br>
+                  </div>
+                  <div class="form-inline dateTimRow">
+                      <input type="checkbox" id="vehicle5" name="vehicle2" #thur value="4" (change)="checkbrunchday($event,'thursday')">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" id="vehicle6" name="vehicle3" #fri value="5" (change)="checkbrunchday($event,'friday')">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" id="vehicle7" name="vehicle1" #sat value="6" (change)="checkbrunchday($event,'saturday')">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" id="vehicle8" name="vehicle2" #sun value="7" (change)="checkbrunchday($event,'sunday')">
+                      <label for="vehicle2"> Sunday</label><br>
+                  </div>
+              </div>
+              <div class="dateTimRight">
+                  <div class="row form-inline timRow">
+                      <div class="col-6">
+                          <label for="selfcling">Start Time:</label>
+                          <input type="time" id="selfcling" class="form-control" #strt name="selfcling" value="{{starttime}}" size="4">
+                      </div>
+                     <div class="col-6">
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" id="selfcling" class="form-control" #end name="selfcling" value="{{endtime}}" size="4">
+                     </div>
+                     
+                  </div>
+              </div>
+              <br clear="all">
+  
+              <form target="_self">
+                  <button class="btn btn-success" mat-raised-button (click)="submitup(mon.checked,tue.checked,wed.checked,thur.checked,fri.checked,sat.checked,sun.checked,strt.value,end.value)" type="submit">Submit </button>
+              </form>
+  </div>
+  <!-- dif for special menu -->
+  <div [hidden]="show_special_date">
+  <input id="disable_check"  (click)="disabled_sp_menu()" type="checkbox" name="" value="{{check_sp}}"><label style="margin-top: -3%; margin-left: 2%;" class="titleCustom">Special Menu</label> 
+  
+  <div class="secDifer" >
+  <label class="titleCustom"><strong>DISPLAY DAY &amp; TIMES:</strong></label>
+  When you select your <strong>SPECIALS</strong> menu's day/times, a new TAB will display at
+  the top of your menu platform to alert your customers that a Specials menu is available.
+  <strong>NOTE:</strong> If you would like to schedule "more than one"
+  <strong>SPECIALS</strong> menu at a time, please complete one (and submit), then start
+  another. Always do one at a time. You have <strong>"TWO OPTIONS"</strong> for how your <strong>SPECIALS</strong> menu will
+  be displayed:<br>
+  <strong>EXCLUSIVELY:</strong> Your <strong>SPECIALS</strong> menu will display<strong>
+  "by itself"</strong> on your selected day/time (replacing your normally scheduled
+  menus.) <br>
+  
+  <strong>IN ADDITION:</strong> Your <strong>SPECIALS</strong> Menu will be displayed
+  <strong>"with"</strong> your normally scheduled menu, on your selected day/time.<br>
+  
+  Additionally, a <strong>SPECIALS</strong> TAB will appear on the navigation bar to alert
+  your customers that a Specials menu is available.
+  
+  <br><strong>NOTE:</strong> If you would like to schedule "more than one"
+  <strong>SPECIALS</strong> menu at a time, please complete one (and submit), then start
+  another. Always do one at a time.
+  </div>
+  <div class="secDifer" >
+  <label for="exclusively"  class="titleCustom">
+  <input type="radio" [disabled]="disable_sp" id="exclusively" name="inAddition" value="Exclusively" (change)="enable_exclusive_inaddition($event,'exclusive')"> EXCLUSIVELY</label>
+  <div [hidden]="hide_sp_content">
+  If you would like your <strong>SPECIALS</strong> menu to display
+  <strong>EXCLUSIVELY</strong> (your "normally scheduled" menus <strong>will not</strong>
+  display, and will be <strong>REPLACED</strong> with your <strong>SPECIALS</strong> menu),
+  please select the display days/times:<br>
+  
+  
+  
+  <!-- <label for="everyWeekId" class="fieldTitle"><input type="radio" id="everyWeekId" name="everyWeek" value="EVERY WEEK"> EVERY WEEK</label>     -->
+  <label   for="everyWeek"   class="fieldTitle"><input type="radio" [disabled]="disable_sp" id="everyWeek" name="everySpecificWeek"  (change)="check_every_day($event,'exclusive','every_week')"> EVERY WEEK</label>
+  
+  <div class="row" >
+  <div class="col-5">
+  <!-- <form [disabled]="disable_sp"> -->
+    <form>
+     <input [disabled]="disable_sp" type="checkbox"  id="vehicle_se" (change)="checkspecialday($event,'everyday','exclusive')" name="vehicle" >
+     <label for="vehicle1" class="m-2"> Every Day</label><br>
+  </form>
+  
+  <!-- <form class="form-inline" [disabled]="disable_sp"> -->
+    <form class="form-inline">
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle2" id="vehicle_s2"  (change)="checkspecialday($event,'monday','exclusive')">
+     <label for="vehicle2"> Monday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle3" id="vehicle_s3" (change)="checkspecialday($event,'tuesday','exclusive')" >
+     <label for="vehicle3"> Tuesday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"    name="vehicle1" id="vehicle_s4" (change)="checkspecialday($event,'wednesday','exclusive')" >
+     <label for="vehicle1"> Wednesday</label><br>
+  </form>
+  <form class="form-inline">
+    <!-- <form class="form-inline" [disabled]="disable_sp"> -->
+     <input [disabled]="disable_sp" type="checkbox"  name="vehicle2" id="vehicle_s5" (change)="checkspecialday($event,'thursday','exclusive')">
+     <label for="vehicle2"> Thursday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle3" id="vehicle_s6" (change)="checkspecialday($event,'friday','exclusive')">
+     <label for="vehicle3"> Friday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle1" id="vehicle_s7" (change)="checkspecialday($event,'saturday','exclusive')">
+     <label for="vehicle1"> Saturday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"    name="vehicle2" id="vehicle_s8"(change)="checkspecialday($event,'sunday','exclusive')" >
+     <label for="vehicle2"> Sunday</label><br>
+  </form>
+  
+  </div>
+  <div class="col-5">
+  <form class="form-inline" action="">
+     <label for="selfcling">Start Time:</label>
+     <input [disabled]="disable_sp" type="time" class="form-control" readonly
+    id="start_exclusive" name="selfcling" size="4"  ><br><br>
+     <label for="selfcling">End Time:</label>
+     <input [disabled]="disable_sp" type="time" class="form-control" readonly
+    id="end_exclusive" name="selfcling"  size="4"  >
+  </form>
+  </div>
+  <div class="col-2"></div>
+  </div>
+  <!-- <label for="specificdateId" class="fieldTitle"><input type="radio" id="specificdateId" name="everyWeek" value="SPECIFIC DATE"> SPECIFIC DATE</label> -->
+  <label for="specificWeek" class="fieldTitle"  ><input [disabled]="disable_sp" type="radio" id="specificWeek" name="everySpecificWeek" value="SPECIFIC DATE" (change)="check_every_day($event,'exclusive','SPECIFIC_DATE')"> SPECIFIC DATE</label>
+   Select the specific
+  date that you would like your <strong>SPECIALS</strong> menu to display<br>
+  
+  <!-- <input  (change)="get_date($event)" type="date" id="special_exc" name="special" value="{{specific_excl}}"> -->
+  <label for="special_from_dt"><b>From:</b></label>
+  <input [disabled]="disable_sp" (change)="get_frm_date($event)" type="date" id="special_from_dt" name="special" value="{{menu_frm_dt}}"> &nbsp;
+  <label for="special_todt"><b>To:</b></label>
+  <input [disabled]="disable_sp" (change)="get_to_date($event)" type="date" id="special_to_dt" name="special" value="{{menu_to_dt}}">
+  <br>
+  TIME: Select the normally scheduled menu that your SPECIALS menu will display with:
+  
+  <!-- <form class="form-inline" [disabled]="disable_sp" action=""> -->
+    <form class="form-inline">
+  <input [disabled]="disable_sp" type="checkbox" id="menu1" (change)="check_addition($event,'break','exclusive')">
+  <label for="vehicle"> Breakfast</label><br>
+  <input [disabled]="disable_sp" type="checkbox" (change)="check_addition($event,'lunch','exclusive')" id="menu2" >
+  <label for="vehicle3"> Lunch</label><br>
+  <input [disabled]="disable_sp" type="checkbox" id="menu3"  (change)="check_addition($event,'dinner','exclusive')" >
+  <label for="vehicle1"> Dinner</label><br>
+  <input [disabled]="disable_sp" type="checkbox" id="menu4" (change)="check_addition($event,'brunch','exclusive')" >
+  <label for="vehicle2"> Brunch</label><br>
+  </form>
+  </div>
+  </div>
+  
+  
+  <div class="secDifer" >
+  <label for="inAddition" class="titleCustom">
+  <input [disabled]="disable_sp" type="radio" id="inAddition" name="inAddition" (change)="enable_exclusive_inaddition($event,'addition')" value="In Addition">
+  IN ADDITION</label>
+  <div [hidden]="!hide_sp_content">
+  If you would like your <strong>SPECIALS</strong> menu to display <strong>IN
+  ADDITION</strong> to your "normally scheduled" menus (your <strong>SPECIALS </strong>
+  menu will be displayed <strong>WITH</strong> your Specials menu), please select the display
+  days/times:<br>
+  <br>NOTE: When your customer views your normally scheduled menu, they will ALSO see a
+  pop-up, indicating there is a SPECIALS menu to view. <br><br>
+  
+  
+  <label for="everyWeekAddi" class="fieldTitle"><input [disabled]="disable_sp" type="radio" id="everyWeekAddi" name="everySpecificWeekAddi" (change)="check_every_day($event,'exclusive','every_week')" value="EVERY WEEK In Addition"> EVERY WEEK</label>
+  
+  <div class="row">
+  <div class="col-5">
+  <!-- <form [disabled]="disable_sp"> -->
+    <form>
+     <input [disabled]="disable_sp" type="checkbox"   id="inad1"  name="vehicle"  (change)="checkspecialday($event,'everyday','addition')">
+     <label for="vehicle1" class="m-2"> Every Day</label><br>
+  </form>
+  
+  <!-- <form class="form-inline"[disabled]="disable_sp" > -->
+    <form class="form-inline" >
+     <input [disabled]="disable_sp" type="checkbox"    name="vehicle2" id="inad2" (change)="checkspecialday($event,'monday','addition')" >
+     <label for="vehicle2"> Monday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"     name="vehicle3" id="inad3" (change)="checkspecialday($event,'tuesday','addition')">
+     <label for="vehicle3"> Tuesday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle1" id="inad4" (change)="checkspecialday($event,'wednesday','addition')">
+     <label for="vehicle1"> Wednesday</label><br>
+  </form>
+  <form class="form-inline">
+    <!-- <form class="form-inline" [disabled]="disable_sp"> -->
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle2" id="inad5" (change)="checkspecialday($event,'thursday','addition')">
+     <label for="vehicle2"> Thursday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"   name="vehicle3" id="inad6" (change)="checkspecialday($event,'friday','addition')">
+     <label for="vehicle3"> Friday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"    name="vehicle1" id="inad7" (change)="checkspecialday($event,'saturday','addition')">
+     <label for="vehicle1"> Saturday</label><br>
+     <input [disabled]="disable_sp" type="checkbox"    name="vehicle2" id="inad8" (change)="checkspecialday($event,'sunday','addition')">
+     <label for="vehicle2"> Sunday</label><br>
+  </form>
+  
+  </div>
+  <!-- <div class="col-5" [disabled]="disable_sp"> -->
+    <div class="col-5">
+  <form class="form-inline" action="">
+     <label for="selfcling">Start Time:</label>
+     <input [disabled]="disable_sp" type="time" class="form-control"
+      readonly
+     id="start_addition" name="selfcling" size="4"  ><br><br>
+     <label for="selfcling">End Time:</label>
+     <input [disabled]="disable_sp" type="time" class="form-control"
+     readonly
+     id="end_addition" name="selfcling"  size="4"  >
+  </form>
+  </div>
+  <div class="col-2"></div>
+  </div>
+  
+  
+  <label for="specificWeekAddi"   class="fieldTitle"><input [disabled]="disable_sp" type="radio" id="specificWeekAddi" name="everySpecificWeekAddi" (change)="check_every_day($event,'exclusive','SPECIFIC_DATE')" value="SPECIFIC DATE In Addition"> SPECIFIC DATE</label>
+  <!-- <form [disabled]="disable_sp"> -->
+    <form>
+   Select the specific
+  date that you would like your <strong>SPECIALS</strong> menu to display
+  <br>Date for Specials Menu:<br>
+  <!-- <input type="date"  (change)="get_date($event)" id="special" name="special" value="{{specific_excl}}" > -->
+  <label for="special_from_dt"><b>From:</b></label>
+  <input [disabled]="disable_sp" (change)="get_frm_date($event)" type="date" id="special_from_dt" name="special" value="{{menu_frm_dt}}">&nbsp;
+  <label for="special_to_dt"><b>To:</b></label>
+  <input [disabled]="disable_sp" (change)="get_to_date($event)" type="date" id="special_to_dt" name="special" value="{{menu_to_dt}}">
+  </form>
+  <strong>TIME:</strong> Select the normally scheduled menu that your SPECIALS menu will
+  display with:<br>
+  
+  <!-- <form class="form-inline" action="" [disabled]="disable_sp"> -->
+    <form class="form-inline">
+  <input [disabled]="disable_sp" type="checkbox"   id="addimenu1" (change)="check_addition($event,'break','addition')"  name="vehicle2" value="addi_breakfasr">
+  <label for="vehicle2"> Breakfast</label><br>
+  <input [disabled]="disable_sp" type="checkbox"   id="addimenu2" (change)="check_addition($event,'lunch','addition')" name="vehicle3" value="addi_lunch">
+  <label for="vehicle3"> Lunch</label><br>
+  <input [disabled]="disable_sp" type="checkbox"   id="addimenu3" (change)="check_addition($event,'dinner','addition')" name="vehicle1" value="addi_dinner">
+  <label for="vehicle1"> Dinner</label><br>
+  <input [disabled]="disable_sp" type="checkbox"   id="addimenu4" (change)="check_addition($event,'brunch','addition')" name="vehicle2" value="addi_brunch">
+  <label for="vehicle2"> Brunch</label><br>
+  </form><br>
+  </div>
+  </div>
+  <button 
+  class="btn btn-success m-1" mat-raised-button [disabled]="disable_sp" type="submit" (click)="submit_special_menu()"
+  >Submit</button>
+  
+  </div>
+  
+          </div>
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Create Section"> 
+          <ng-template mat-tab-label>
+            <mat-icon>view_week</mat-icon>
+            Create Section
+          </ng-template>
+          <mat-card>
+            <ul class="downloadRadio">
+              <!-- <label class="radioButtonName">
+              <input type="radio" id="b1" name="bkmenu" (click)="store_menu(1);" value="1"> Breakfast Menu
+          </label> -->
+          <!-- <li *ngFor="let mnc of getMenus; let i=index;">
+              <label class="titleCustom radioButtonName" *ngIf="mnc.id!=5">
+                  <input  type="radio" id="b{{mnc.id}}" name="bkmenu" value="{{mnc.id}}" (click)="store_menu(mnc.id);" > {{mnc.menu_name}}
+              </label>
+          </li> -->
+          <label class="titleCustom">Menu</label>
+
+          <select class="form-select mb-2"  #venue_menu2 name="bkmenu" (change)="store_menu(venue_menu2.value)">
+            <option value="">Select one</option>
+            
+            <option value="B" [selected]="newMid=='B'" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+            <option value="R" [selected]="newMid=='R'" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+            <option value="D" [selected]="newMid=='D'" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+            <option value="L" [selected]="newMid=='L'" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+            <option value="S" [selected]="newMid=='S'" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+            <option value="A" [selected]="newMid=='A'" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+            <option value="V" [selected]="newMid=='V'" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+
+          </select>
+              <!-- <label class="radioButtonName"><input type="radio" (click)="store_menu(2);" id="b2" name="bkmenu"
+                     value="2"> Lunch Menu</label>
+              <label class="radioButtonName"><input  type="radio" (click)="store_menu(3);" id="b3" name="bkmenu" value="3">
+                  Dinner Menu</label>
+              <label class="radioButtonName"><input  type="radio" (click)="store_menu(4);" id="b4" name="bkmenu" value="4">
+                  Brunch Menu</label>
+              <label class="radioButtonName"><input  type="radio" (click)="store_menu(5);" id="b5" name="bkmenu" value="5">
+                  Special Menu</label> -->
+              </ul>
+      <div [hidden]="hidesection">
+          <div class="formTable">
+  
+  
+              <form class="form-inline" action="">
+                  <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom">Section</label>
+                          <input class="form-control" type="url"  #section_value id="headTitle" id=secval name="headTitle" value="{{createsecval}}">
+  
+                      </div>
+                  </div>
+  
+                  <div class="rowCustomFour">
+  
+                      <div class="fieldSecFull">
+                          <!--<label>Upload Section Images</label>
+      <label class="uploadTxt">Upload Section images JPG or PNG:</label>
+  <input type="file" id="myfile" class="uploadField" name="myfile" multiple="">-->
+  <button hidden  id="logo_crop" mat-raised-button class="btn btn-success" (click)="open_crop_modal()" ></button>
+  
+                          <label class="titleCustom">Upload Section Image <small class="text-muted">(File Types:JPEG/JPG/PNG. Maximum Size: 2MB)</small> </label>
+                          <!--  -->
+                          <input class="form-control" id='files_section' (change)="section_img_upload($event)" type='file' multiple />
+                          <!-- <output id='result' /> -->
+  
+  
+                      </div>
+  
+                  </div>
+              </form>
+             
+  
+  
+  
+          </div>
+          
+          <form>
+              <div class="formBtn">
+              <button [hidden]="submit_show"  mat-raised-button class="btn btn-success" (click)="create_section(section_value.value)" type="submit">Submit </button>
+              <button [hidden]="!submit_show" mat-raised-button class="btn btn-success" (click)="update_section(section_value.value)" type="submit">Update </button> 
+              &nbsp; &nbsp;
+              <button mat-raised-button class="btn btn-danger" (click)="reload_section();createsecval='';" type="submit">Reset </button>
+          </div>
+              <div *ngIf="preview_for_section" class="prvImgCustom">
+                  <img height="400" width="400" onerror="this.onerror=null;this.src='./assets/images/noimage.png';" src="{{preview_for_section}}" alt="">
+              </div>
+          </form>
+         
+          <!-- <i [hidden]="secspin" class="fa fa-spinner fa-spin" style="font-size:24px"></i> -->
+      </div>
+          
+      <mat-form-field appearance="outline" class="fullWidth">
+              <mat-label>Search </mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search section" #input>
+            </mat-form-field>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+              
+             
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> # </th>
+                <td mat-cell *matCellDef="let element; let i=index">{{i+1}}  </td>
+              </ng-container>
+              <ng-container matColumnDef="menu_name">
+                  <th mat-header-cell *matHeaderCellDef> Menu </th>
+                  <td mat-cell *matCellDef="let element">{{element.menu_name}} </td>
+                </ng-container>
+            
+              <ng-container matColumnDef="section_name">
+                <th mat-header-cell *matHeaderCellDef> Section </th>
+                <td mat-cell *matCellDef="let element">{{element.section_name}} </td>
+              </ng-container>
+            
+           
+              <ng-container matColumnDef="sec_img">
+                  <th mat-header-cell  *matHeaderCellDef > Image </th>
+                  <td  mat-cell *matCellDef="let element">
+                  
+                    <a [href]="apiurlset+element.section_img" target="_blank">  <img onerror="this.onerror=null;this.src='./assets/images/noimage.png';" [src]="apiurlset+element.section_img" height="30" width="30"></a>
+             
+              </td>
+                </ng-container>
+  
+              <ng-container matColumnDef="delete">
+                  <th mat-header-cell  *matHeaderCellDef > Action </th>
+                  <!-- <td  mat-cell *matCellDef="let element" data-bs-toggle="modal" data-bs-target="#myModal_delete_section"> -->
+                      <td  mat-cell *matCellDef="let element">
+                  
+                      <!-- <i  matTooltip="Delete {{element.section_name}}"
+                      matTooltipPosition="right" (click)="del_sec(element.id,element.menu_id)" class="fa fa-trash-o" aria-hidden="true" style="color:#e44b4b; font-size:20px;"></i> -->
+                 
+                      <!-- <mat-icon matTooltip="Delete {{element.section_name}}" 
+                      matTooltipPosition="right" style="cursor:pointer; color:#540B0E" (click)="del_sec(element.id,element.menu_id)">delete</mat-icon> -->
+                  
+                                             
+                      <mat-icon matTooltip="Delete {{element.section_name}}" 
+                      matTooltipPosition="right" style="cursor:pointer; color:#540B0E" (click)="del_sec(element.id,element.menu_id)">delete</mat-icon>
+                  
+                  
+              
+              </td>
+                </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: pointer;" (click)="get_sec_id1(row.menu_id,row.section_id,row.section_name,apiurlset+row.section_img)" ></tr>
+            </table>
+        <mat-paginator #MatPaginator1 [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
+  
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Add Items">
+          <ng-template mat-tab-label>
+            <mat-icon>playlist_add</mat-icon>
+            Add Items
+          </ng-template>
+          <mat-card>
+            <div class="dateTime">
+              <div class="formTable">
+  
+  
+                  <form class="form-inline" action="">
+                      <div class="rowCustomFour">
+                          <!-- <select #select_venue_create_item (click)="open_venue(select_venue_create_item.value)" class="form-select" >
+                              <option value="">Select venue</option>
+                              <option *ngFor="let x of getVenues.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+                          
+                            </select> -->
+                          <div class="fieldSecFull">
+                              <label class="titleCustom">Menu</label>
+                              <!-- <select id="pickup_place_menu" name="pickup_place" class="form-control" #menu_for_item (change)="select_section_with_menu(menu_for_item.value)" ngModel>
+                                  <option value="" selected="selected">Select One</option>
+                                  
+                                      <option *ngFor="let mnc of getMenus; let i=index;" [hidden]="mnc.id==5" [selected]="mid2==mnc.id" value="{{mnc.id}}">
+                                         
+                                          {{mnc.menu_name}}
+                                          </option>
+                                  
+                               
+                              </select> -->
+                              <select id="pickup_place_menu" name="pickup_place" class="form-control" #menu_for_item (change)="select_section_with_menu(menu_for_item.value)">
+                                <option value="">Select one</option>
+                                
+                                <option value="B" [selected]="mid2=='B'" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                                <option value="R" [selected]="mid2=='R'" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                                <option value="D" [selected]="mid2=='D'" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                                <option value="L" [selected]="mid2=='L'" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                                <option value="S" [selected]="mid2=='S'" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                                <option value="A" [selected]="mid2=='A'" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                                <option value="V" [selected]="mid2=='V'" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+                    
+                              </select>
+  
+                          </div>
+                          <div class="fieldSecFull">
+                              <label class="titleCustom">Section</label>
+                              <select id="pickup_place_section" #section_item name="pickup_place" class="form-control" (change)="get_section_item(section_item.value)">
+                                  <option value="" selected="selected">Select One</option>
+                                  <option *ngFor="let s of get_section_for_item" [selected]="s.section_id==eid2" value="{{s.section_id}}">{{s.section_name}}</option>
+                                  
+  
+                              </select>
+  
+                          </div>
+                      </div>
+  
+                      <div class="rowCustomFour">
+                          <!-- <div class="fieldSecHalf">
+                              <label>Section</label>
+                              <select id="pickup_place" name="pickup_place" class="formCss">
+                                  <option value="" selected="selected">Select One</option>
+                                  <option value="all">ALL Menus</option>
+                                  <option value="breakfast">Top </option>
+                                  <option value="lunch">Cover</option>
+  
+                              </select>
+  
+                          </div> -->
+  
+                          <div class="fieldSecFull">
+                              <label class="titleCustom">Item</label>
+                               <input type="text" #itemval id="headTitle_item" name="headTitle" value="{{i_value}}"
+                                  class="form-control">
+                              
+  
+                          </div>
+                      </div>
+                  </form>
+                 
+  
+  
+              </div>
+  
+  
+  
+              <form action="thanks-order.php" target="_self">
+                  <div class="formBtn">
+                  <button mat-raised-button [hidden]="submit_show2" class="btn btn-success" type="submit" (click)="send_item(itemval.value)">Submit </button>
+                  <button mat-raised-button [hidden]="!submit_show2" class="btn btn-success" type="submit" (click)="update_send_item(menu_for_item.value,section_item.value,itemval.value);">Update </button> &nbsp;
+                  <!-- <button class="w3-button w3-red" type="submit" (click)="reload_page('tab5')">Reset </button> -->
+                  <button mat-raised-button class="btn btn-danger" type="submit" (click)="reset_add_item(); mid2='';eid2='';i_value='';submit_show2=false;">Reset </button>
+              </div>
+              </form>
+  
+  
+          </div>
+          <mat-form-field appearance="outline" class="fullWidth">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search items" #input>
+            </mat-form-field>
+          <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8" datasort2>
+  
+             
+              <ng-container matColumnDef="id">
+                <th class="d1" mat-header-cell *matHeaderCellDef> # </th>
+                <td class="d1" mat-cell *matCellDef="let element; let i=index">{{i+1}}  </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="menu_name">
+                  <th mat-header-cell *matHeaderCellDef> Menu </th>
+                  <td mat-cell *matCellDef="let element">{{element.menu_name}} </td>
+                </ng-container>
+              <ng-container matColumnDef="item_name">
+                <th class="d1" mat-header-cell *matHeaderCellDef> Item </th>
+                <td class="d1" mat-cell *matCellDef="let element">{{element.item_name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="delete">
+                  <th mat-header-cell  *matHeaderCellDef > Action </th>
+                  <td  mat-cell *matCellDef="let element" >
+                  
+                  <!-- <a data-bs-toggle="modal" data-bs-target="#myModal_delete_item">    <i matTooltip="Delete {{element.item_name}}"
+                      matTooltipPosition="right" (click)="del_item(element.id,element.menu_id,element.section_id)" class="fa fa-trash-o" aria-hidden="true" style="color:#e44b4b; font-size:20px;"></i></a> -->
+                 
+                      <mat-icon matTooltip="Delete {{element.item_name}}" 
+                      matTooltipPosition="right" style="cursor:pointer; color:#540B0E" (click)="del_item(element.id,element.menu_id,element.section_id)">delete</mat-icon>
+                  
+                  
+                      
+                  
+                  
+              
+              </td>
+                </ng-container>
+           
+              <!-- <ng-container matColumnDef="edit">
+                  <th mat-header-cell  *matHeaderCellDef > Edit </th>
+                  <td  mat-cell *matCellDef="let element">
+                  
+                       <a (click)="update_add_item(element.menu_id,element.section_id,element.item_name,element.id)">
+                          <i class="fa fa-edit" style="color:blue;cursor:pointer" ></i>
+  
+                       </a>
+                     
+                 
+                  
+                  
+                      
+                  
+                  
+              
+              </td>
+                </ng-container> -->
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns1;" (click)="update_add_item(row.menu_id,row.section_id,row.item_name,row.service_item_id)" style="cursor: pointer;"></tr>
+            </table>
+        <mat-paginator #MatPaginator2 [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
+          
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Description & Price"> 
+          <ng-template mat-tab-label>
+            <mat-icon>description</mat-icon>
+            Description & Price
+          </ng-template>
+          <mat-card>
+            <div class="formTable">
+  
+              <!-- <select #select_venue_create_desc (click)="open_venue(select_venue_create_desc.value)" class="form-select" >
+                  <option value="">Select venue</option>
+                  <option *ngFor="let x of getVenues.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+              
+                </select> -->
+              <form class="form-inline" action="">
+                  <div class="rowCustomFour">
+                     <div class="fieldSecHalf">
+                          <label class="titleCustom">Menu</label>
+                         <!--   <select id="pickup_place_menu_desc" #select_price_menu name="pickup_place" class="form-control" (change)="select_for_desc_menu(select_price_menu.value)">
+                              <option value="" selected="selected">Select One</option>
+                              <option *ngFor="let mnc of getMenus" [hidden]="mnc.id==5" [selected]="mid1==mnc.id" value="{{mnc.id}}">
+                                 
+                                      {{mnc.menu_name}}
+  
+                                  
+                              </option>
+                             
+                          </select>-->
+                          <select id="pickup_place_menu_desc" #select_price_menu name="pickup_place" class="form-control" (change)="select_for_desc_menu(select_price_menu.value)">
+                            <option value="">Select one</option>
+                            
+                            <option value="B" [selected]="mid1=='B'" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                            <option value="R" [selected]="mid1=='R'" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                            <option value="D" [selected]="mid1=='D'" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                            <option value="L" [selected]="mid1=='L'" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                            <option value="S" [selected]="mid1=='S'" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                            <option value="A" [selected]="mid1=='A'" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                            <option value="V" [selected]="mid1=='V'" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+                
+                          </select>
+  
+                      </div> 
+  
+                      <div class="fieldSecHalf">
+                          <label class="titleCustom">Section</label>
+                          <!-- <input type="text" id="headTitle" name="headTitle" value="" class="formCss"> -->
+                          <select id="pickup_place_section_desc" #section_select_for_item name="pickup_place" class="form-control" (change)="get_item_select(section_select_for_item.value)">
+                              <option value="" selected="selected">Select One</option>
+                              <option [selected]="g.section_id==secid" *ngFor="let g of get_section_for_item1" value="{{g.section_id}}">{{g.section_name}}</option>
+                              
+  
+                          </select>
+                      </div>
+  
+                  </div>
+  
+                  <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom">Items</label>
+                          <!-- <input type="text" id="headTitle" name="headTitle" value="" class="formCss"> -->
+                          <select id="pickup_place_item_desc" #item_select (change)="get_item_select1(item_select.value)" name="pickup_place" class="form-control">
+                              <option value="" selected="selected">Select One</option>
+                              <option *ngFor="let i of idata" [selected]="i.service_item_id==item_i" value="{{i.service_item_id}}">{{i.item_name}}</option>
+                              <!-- <option value="breakfast">Top </option>
+                              <option value="lunch">Cover</option> -->
+  
+                          </select>
+                      </div>
+                  </div>
+                  <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom">Price (in USD)</label>
+                          <input  #price type="text" id="headTitlePrice" (keypress)="isNumberKey($event)" name="headTitle" value="{{ipr}}" class="form-control">
+  
+                      </div>
+  
+                  </div>
+              </form>
+  
+              <form class="form-inline" action="">
+                  <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom" for="vehicle2"> Description <b>  ({{concatdatalength}}/150) </b></label>
+                          <textarea id="spclMore" #desc name="spclMore" rows="5" cols="60"
+                            (input)="restrict($event)" (change)="restrict($event)" maxlength="150" [(ngModel)]="ide" class="formCssTextArea"></textarea>
+                      </div>
+                  </div>
+              </form>
+  
+              <form class="form-inline" action="">
+                  <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom" for="vehicle2"> Additional Notes <b>  ({{concatdatalength1}}/50) </b></label>
+                          <textarea #additional id="spclMore" name="spclMore" rows="5" cols="60"
+                          (input)="restrict1($event)" (change)="restrict1($event)" maxlength="50" [(ngModel)]="ino" class="formCssTextArea">{{ino}}</textarea>
+                      </div>
+                      <div>
+                          <label class="titleCustom" for="col_font">Font color for Additional Notes:</label>
+                          <input id="col_font" #addnote type="color" value="{{add_note}}">
+                      </div>
+                      <div>
+                          <label class="titleCustom" for="col_back">Background color for Additional Notes:</label>
+                          <input id="col_back" #addnoteback type="color" value="{{add_note_back}}">
+                      </div>
+                  </div>
+              </form>
+              <form action="thanks-order.php" target="_self">
+                  <div class="formBtn">
+                  <button [hidden]="show_button3" mat-raised-button class="btn btn-success" type="submit" (click)="submit_price_desc(price.value,desc.value,additional.value,addnote.value,addnoteback.value);">Submit </button>
+                  <button [hidden]="!show_button3" mat-raised-button class="btn btn-success" type="submit" (click)="update_price_desc(select_price_menu.value,section_select_for_item.value,item_select.value,price.value,desc.value,additional.value,addnote.value,addnoteback.value);">Update </button> &nbsp;
+                  <button class="btn btn-danger" mat-raised-button type="submit" (click)="reset_desc();secid='';item_i='';mid1='';ipr='';ide='';ino='';show_button3=false;">Reset </button>
+              </div>
+              </form>
+          </div>
+          
+          <mat-form-field appearance="outline" class="fullWidth">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Search items" #input>
+            </mat-form-field>
+          <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8" datasort2>
+  
+             
+              <ng-container matColumnDef="id">
+                <th class="d2" mat-header-cell *matHeaderCellDef> # </th>
+                <td class="d2" mat-cell *matCellDef="let element; let i=index">{{i+1}}  </td>
+              </ng-container>
+              <ng-container matColumnDef="menu_name">
+                  <th mat-header-cell *matHeaderCellDef> Menu </th>
+                  <td mat-cell *matCellDef="let element">{{element.menu_name}} </td>
+                </ng-container>
+            
+              <ng-container matColumnDef="item_name" >
+                <th class="d2" mat-header-cell *matHeaderCellDef > Item </th>
+                <td class="d2" mat-cell *matCellDef="let element" >
+                    
+                  
+                  <p class="nameoverflow mt-3"
+    #tooltip="matTooltip"
+      matTooltip="{{element.item_name}}"
+      matTooltipClass="custom-tooltip"
+     matTooltipPosition="below">{{element.item_name}}</p> 
+                   </td>
+              </ng-container>
+              <ng-container matColumnDef="item_price">
+                  <th class="d2" mat-header-cell *matHeaderCellDef> Price </th>
+                  <td class="d2" mat-cell *matCellDef="let element">{{element.item_price}} </td>
+                </ng-container>
+                <ng-container matColumnDef="item_note">
+                  <th class="d2" mat-header-cell *matHeaderCellDef > Note </th>
+                  <td class="d2" mat-cell *matCellDef="let element">
+                      <p class="nameoverflow mt-3"
+                      #tooltip="matTooltip"
+                        matTooltip=" {{element.item_note}}"
+                        matTooltipClass="custom-tooltip"
+                       matTooltipPosition="below"> {{element.item_note}}</p> 
+                      
+                      </td>
+                </ng-container>
+           
+              <!-- <ng-container matColumnDef="edit">
+                  <th mat-header-cell  *matHeaderCellDef > Edit </th>
+                  <td  mat-cell *matCellDef="let element">
+                  
+                       <a (click)="get_sec_id(element.menu_id,element.id,element.section_id,element.item_id,element.item_desc,element.item_price,element.item_note)">
+                          <i class="fa fa-edit" style="color:blue;cursor:pointer" ></i>
+  
+                       </a>
+                     
+                 
+                  
+                  
+                      
+                  
+                  
+              
+              </td>
+                </ng-container> -->
+                <ng-container matColumnDef="delete">
+                  <th mat-header-cell  *matHeaderCellDef > Action </th>
+                  <td  mat-cell *matCellDef="let element">
+                  
+                      <a data-bs-toggle="modal" data-bs-target="#myModal_delete_desc">     
+                           <!-- <i matTooltip="Delete {{element.item_name}}"
+                          matTooltipPosition="right" (click)="del_price(element.id,element.menu_id,element.section_id)" class="fa fa-trash-o" aria-hidden="true" style="color:#e44b4b; font-size:20px;"></i> -->
+                          <mat-icon matTooltip="Delete {{element.item_name}}" style="cursor:pointer; color:#540B0E" (click)="del_price(element.id,element.menu_id,element.section_id)">delete</mat-icon>
+                     
+                     
+                      </a>
+             
+                        </td>
+                </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns2;" (click)="get_sec_id(row.menu_id,row.service_item_id,row.section_id,row.item_id,row.item_desc,row.item_price,row.item_note,row.note_color,row.note_back_color)" style="cursor: pointer;"></tr>
+            </table>
+        <mat-paginator #MatPaginator3 [pageSizeOptions]="[5, 10, 25, 100]"   showFirstLastButtons  aria-label="Select page of users"></mat-paginator>
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Special Menu"> 
+          <ng-template mat-tab-label>
+            <mat-icon>star</mat-icon>
+            Special Menu
+          </ng-template>
+          <mat-card>
+            <div class="aboutLeft">
+              <label class="titleCustom">Description </label>
+              <!-- <textarea name="introduction" maxlength="150" rows="6" cols="25" class="formCssTextArea splMenuDescrip"
+                 readonly>{{spdesc_text_readonly}}</textarea> -->
+                 <angular-editor [(ngModel)]="spdesc_text_readonly" [config]="config1"></angular-editor>
+  
+          </div>
+          <div class="aboutLeft">
+              <!-- <label class="titleCustom">Description (update) </label>
+              <textarea id="ab_us" name="introduction"  rows="6" cols="25"
+            class="formCssTextArea splMenuDescrip" #sp_write_txt></textarea> -->
+            <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+  
+          </div>
+          <div class="specialMenuImg">
+                             
+            <div class="imgSectionSpecial"><a style="cursor: pointer;" (click)="openPreview(spstockImg)" ><img  src="{{spstockImg}}"/></a></div>
+            <div class="buttonChangeImg">
+                    <button mat-raised-button type="submit" class="btn btn-default" (click)="openstockmodal()">Change Image</button>
+            </div>
+        </div>
+        <!-- <form class="form-inline" action=""> -->
+            
+            <button mat-raised-button ype="submit" class="btn btn-success" (click)="send_special_desc()">Submit</button> &nbsp;
+            <button mat-raised-button type="reset" class="btn btn-danger" value="Reset" id="clickreset" (click)="htmlContent='';">Reset</button>
+       
+        <!-- </form> -->
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Special Notes">
+          <ng-template mat-tab-label>
+            <mat-icon>speaker_notes</mat-icon>
+            Special Notes
+          </ng-template>
+          <mat-card>
+            This is where you provide details of any notices that need to be displayed on your menus. They could be regulatory notices required by law, food allergy comments, disclaimers or comments which relate to specific localized circumstances.<br>
+            <br>Using the drop down selectors choose a Menu and Position of the Notice. You then select the Header Title and the color of the Font followed by the Description. You must then SAVE this before entering another Notice.<br><br>
+          
+          <div class="formTable">
+              
+      
+                  <form class="form-inline" action="">
+                   
+                      <div class="rowCustomFour">
+                        <!-- <select #select_venue_notice (click)="open_venue(select_venue_notice.value)" class="form-select" >
+                            <option value="">Select venue</option>
+                            <option *ngFor="let x of getVenues.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+                        
+                          </select> -->
+                  <div class="fieldSecHalf">
+                  <label class="titleCustom">Menu</label>
+                  <!-- <select id="pickup_place"  name="pickup_place" id="menuselect" class="form-control" #Menu
+                  (change)="pickup_place(Menu.value)">
+                  <option value="">Select One</option>
+                  <option *ngFor="let mnc of getMenus" value="{{mnc.id}}"  [hidden]="mnc.menu_id==5" [selected]="sp_menuid==mnc.menu_id">{{mnc.menu_name}}</option>
+                
+              </select> -->
+              <select id="pickup_place"  name="pickup_place" id="menuselect" class="form-control" #Menu
+              (change)="pickup_place(Menu.value)">
+                <option value="">Select one</option>
+                
+                <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+    
+              </select>
+                   
+                  </div>
+                      
+                  <div class="fieldSecHalf">
+                  <label class="titleCustom">Position</label>
+                  <select id="pos"  name="pos1" class="form-control" #position
+                  (change)="getposition(position.value)">
+                  <option value="">Select One</option>
+                  <option value="1" [selected]="sp_posid=='1'">Top under Header Image</option>
+                  <option value="2" [selected]="sp_posid=='2'">Bottom after last Section </option>
+                  <option value="3" [selected]="sp_posid=='3'">After each Section</option>
+              </select>
+                   
+                  </div>
+                          
+                  </div>
+                      </form> 
+                  
+                  
+                  <form action="">
+                      <div class="rowCustomFour">
+                  <div class="fieldSecFull">
+                  <label class="titleCustom" for="headTitle">Header Title:  {{concatheaderlength}}/30</label>
+                  <input type="text" (change)="restrict_header($event)" (input)="restrict_header($event)" maxlength="30" value="{{sp_head}}" [(ngModel)]="sp_head" #head id="headTitle_special" name="headTitle" value="" class="form-control"></div>
+                  </div>
+                  </form>	
+                  <form class="form-inline" >
+                    <div class="rowCustomFour">
+                        <div class="fieldSecHalf">
+                            <label class="titleCustom" for="favcolor">Select your font color:</label>
+                            <input type="color"  id="colorPicker" name="favcolor"
+                                value="{{sp_font}}" #code1 (change)="changecolor($event,'back')">
+                        </div>
+  
+                        <div class="fieldSecHalf">
+                            <label class="titleCustom" for="code">Enter Code:</label>
+                            <input type="text" value="{{sp_font}}" id="box" name="code1" class="form-control" #code2  (change)="checkvalidity($event)">
+                        </div>
+                    </div>
+  
+                </form>
+                <form class="form-inline" >
+                    <div class="rowCustomFour">
+                        <div class="fieldSecHalf">
+                            <label class="titleCustom" for="favcolor">Select your background color:</label>
+                            <input type="color"  id="colorPicker2"  value="#6a5acd"
+                                #code3 value="{{sp_back}}" (change)="changecolor($event,'font')">
+                        </div>
+                        <div class="fieldSecHalf">
+                            <label class="titleCustom" for="code">Enter Code:</label>
+                            <input type="text" value="{{sp_back}}"  id="box2" name="code" value="" class="form-control" #code4  (change)="checkvalidity($event)">
+                        </div>
+                    </div>
+                </form>
+                  <form class="form-inline" action="">
+                  <div class="rowCustomFour">
+                  <div class="fieldSecFull">
+                  <label class="titleCustom" for="vehicle2"> Notice Content: ({{concatnoticelength}}/100)</label>
+                  <textarea #notice id="spclMore" maxlength="100" [(ngModel)]="sp_notice" (change)="restrict_notice($event)" (input)="restrict_notice($event)"  name="spclMore" rows="5" cols="60" class="formCssTextArea"></textarea>	
+                  </div>
+                  </div>
+                  </form>
+                  </div>
+          
+            
+              <form action="thanks-order.php" target="_self">	
+                <div class="formBtn">
+              <button mat-raised-button class="btn btn-success" type="submit" (click)="submit_special(Menu.value,position.value,head.value,code2.value,code4.value,notice.value);">Save & Continue </button>
+            </div>
+            </form> 
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="About Us">
+          <ng-template mat-tab-label>
+            <mat-icon>info</mat-icon>
+            About Us
+          </ng-template>
+          <mat-card>
+            <form action="" class="form-inline">
+  
+              <select class="form-select mb-2"  #venue_menu5 name="bkmenus" (change)="get_about_us(venue_menu5.value)">
+                <option value="">Select one</option>
+                
+                <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+
+              </select>
+              <div class="aboutLeft">
+                  <label class="titleCustom">About Us </label>
+                  <textarea name="introduction" maxlength="150" rows="6" cols="25" class="form-control"
+                     readonly>{{about_text_readonly}}</textarea>
+  
+              </div> &nbsp;
+              <div class="aboutLeft">
+                  <label class="titleCustom">About Us (update) <b>({{concatdatalength2}}/150)</b></label>
+                  <textarea id="ab_us" name="introduction" maxlength="150" rows="6" cols="25"
+                  (input)="restrict2($event)" (change)="restrict2($event)"  class="form-control" #about_write_txt></textarea>
+  
+              </div>
+          </form>
+  
+  
+          <p>Please check that your update is correct before you press SUBMIT as the change will take effect
+              immediately</p>
+  
+          
+             
+              <button type="submit" mat-raised-button class="btn btn-success" (click)="send_about_us(about_write_txt.value)">Submit</button> &nbsp;
+              <button type="reset" mat-raised-button class="btn btn-danger" value="Reset" id="clickreset" (click)="about_write_txt.value='';concatdatalength2=0">Clear</button>
+          
+          
+  
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Configure Menu">
+          <ng-template mat-tab-label>
+            <mat-icon>palette</mat-icon>
+            Configure Menu
+          </ng-template>
+          <mat-card>
+            <strong>Add stylings for footer, navigation and footer content.</strong>
+  
+            <div class="rowCustomFour">
+              <div class="fieldSecHalf">
+                <label class="titleCustom">Footer and navigation bar color:</label>
+                <input type="color" id="bodCol" #bodcol value="{{menubodCol}}">
+                <label class="titleCustom">Text color:</label>
+                <input type="color" id="txtCol" #txtcol value="{{menutextCol}}">
+                <label class="titleCustom">Greeting font color:</label>
+                <input type="color" id="txtCol" #greetcol value="{{greettextCol}}">
+                <div class="aboutLeft">
+                 
+                  <label class="titleCustom"></label>
+                  <angular-editor [(ngModel)]="editorText" [config]="config"></angular-editor>
+                </div>
+              </div>
+            </div>
+            <button type="submit" mat-raised-button class="btn btn-success" (click)="post_style(bodcol.value,txtcol.value,greetcol.value)">Submit</button> &nbsp;
+        </mat-card>
+        </mat-tab>
+        <mat-tab label="Live Menu & QR-Code">
+          <ng-template mat-tab-label>
+            <mat-icon>subtitles</mat-icon>
+            Live Menu & QR-Code
+          </ng-template>
+          <mat-card>
+            <div class="formTable">
+              <div class="rowCustomFour">
+                  <!-- <select #select_venue_live (click)="open_venue_qr(select_venue_live.value)" class="form-select" >
+                      <option value="">Select venue</option>
+                      <option *ngFor="let x of getVenues.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+                  
+                    </select> -->
+                      <div hidden class="fieldSecFull">
+                      <label class="titleCustom"><strong>Menu URL</strong></label>
+                  <div class="row">
+                      <div id="url_div" class="col-9">
+                          <input type="url" #dyn_url value="{{url1}}" readonly id="headTitle" name="headTitle" value="" class="formCss" placeholder="URL" > 
+                          <input type="url" hidden #dyn_url1 value="{{url1}}" readonly id="headTitle_dynurl" name="headTitle" value="" class="formCss" placeholder="URL" > 
+  
+                      </div>
+                      <div hidden class="col-3">
+                          <button  matTooltip="Copy URL"
+                          matTooltipPosition="above" class="btn btn-primary" (click)="copy_URL(dyn_url.value)" >
+                          <i [hidden]="copyurl" class="fa fa-check" aria-hidden="true"></i>
+                          <!-- <svg class="checkmark" [hidden]="copyurl"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg> -->
+                          <!-- <span class="checkmark" [hidden]="copyurl">
+                              <div class="checkmark_stem"></div>
+                              <div class="checkmark_kick"></div>
+                          </span> -->
+                          <i  [hidden]="!copyurl" class="fa fa-clone" aria-hidden="true"></i></button>
+                         
+                    <!-- <div  > <svg  class="checkmark"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>      </div>   -->
+  
+                    
+                      </div>
+                      
+                  </div>
+                  <div class="row">
+                      <div class="col-7"></div>
+                      <div class="col-5" style="margin-top:-6%;margin-left: 100%;"> <button class="w3-button w3-green" *ngIf="url2==''||url2==null" (click)="gen_bitly(dyn_url.value)">  Generate Bitly URL
+                         </button> </div>
+                  </div>
+                  <label class="titleCustom"><strong>Bitly URL</strong></label>
+  
+                  <div class="row">
+                      <div id="url_div_bitly" class="col-9">
+                          <input type="url" #bitly_url value="{{url2}}" readonly id="headTitle" name="headTitle" value="" class="formCss" placeholder="Tap the button on the right to generate bitly URL" > 
+                          <input type="url" hidden #bitly_url1 value="{{url1}}" readonly id="headTitle_dynurl" name="headTitle" value="" class="formCss" placeholder="URL" > 
+  
+                      </div>
+                      <div class="col-3">
+                          <button  matTooltip="Copy Bitly URL"
+                          matTooltipPosition="above" class="btn btn-primary" [disabled]="bitly_url.value==''" (click)="copy_bitlyURL(bitly_url.value)" ><i [hidden]="!copybitlyurl" class="fa fa-clone" aria-hidden="true"></i>
+                          <i [hidden]="copybitlyurl" class="fa fa-check" aria-hidden="true"></i>
+                      </button>
+                          <!-- <svg class="checkmark"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg> -->
+                    
+                      </div>
+                      
+                  </div>
+                     
+                     
+  
+                      </div>
+              </div>
+              </div>
+             
+              <div class="formTable">
+              <div class="rowCustomFour">
+                      <div class="fieldSecFull">
+                          <label class="titleCustom"><strong> QR Code for Dynamic Menu</strong> </label>
+  
+                          <!-- <img src="{{getimagepath}}" onerror="this.onerror=null;this.src='/assets/images/noqr.jpg';" class="barcodeImg" alt="Tap the button to generate code"> -->
+                          <img src="{{getimageDynamic}}" onerror="this.onerror=null;this.src='./assets/images/noqr.jpg';" class="barcodeImg" alt="Tap the button to generate code">
+                          <div class="qrCodeArea">
+                              <i class="fa fa-arrow-down" *ngIf="getimageDynamic==undefined" style="font-size:48px;color:blue;margin-left:12%;"></i>
+                              <!-- <button class="genarateQrBtn" type="submit" (click)="gen_code()">Generate QR-Code </button> -->
+                              </div>
+  
+                          <!-- <i class="fa fa-arrow-right" *ngIf="getimagepath==undefined" style="font-size:48px;color:blue;margin-left:12%;"></i>
+                          <p  *ngIf="getimagepath==undefined"> Tap the button to generate code </p>
+                      <button class="w3-button w3-green" type="submit" style="margin-left: 118%; margin-top: -8%;" (click)="gen_code()">Generate QR-Code </button> -->
+                  </div>
+              </div>
+              
+              </div>
+            
+              
+              <strong>You can check any amendments by using the menu button below to view that menu. Always refresh the page before checking and clearing your cache memory if you need to.</strong>	
+              <div style="overflow-x:auto;">
+              <!-- <div class="row"> -->
+          <br>
+  
+          <!-- <div class="qrCodeLink"> -->
+              <!-- <table>
+                <tr>
+                    <td *ngFor="let mnc of getMenus">{{mnc.menu_name}}</td>
+                </tr>
+                <tr>
+                    <td *ngFor="let mnc of getMenus"><button mat-raised-button class="btn btn-danger" (click)="open_popup_window(mnc.id)">View</button></td>
+                </tr>
+            </table> -->
+          <!-- </div> -->
+            <button mat-raised-button class="btn btn-danger" (click)="open_popup_window()" >View</button>
+      
+              
+                  
+              
+              <!-- <td><button  class="w3-button w3-green" (click)="open_popup_window(2)"
+              >
+              View</button></td>
+              <td><button class="w3-button w3-green" (click)="open_popup_window(3)"
+             >
+              View</button></td>
+              <td><button class="w3-button w3-green" (click)="open_popup_window(4)">
+              View</button></td>
+              <td><button class="w3-button w3-green" (click)="open_popup_window(5)">
+              View</button></td> -->
+              
+              
+              
+              
+              </div>
+  
+          </mat-card>
+          </mat-tab>
+          <mat-tab label="Upload & QR-Code">
+            <ng-template mat-tab-label>
+              <mat-icon>cloud_upload</mat-icon>
+              Upload & QR-Code
+            </ng-template>
+            <mat-card>
+              <div class="formTable">
+                <div class="rowCustomFour">
+                        <div class="fieldSecFull">
+                        <label class="titleCustom"><strong>Menu URL</strong></label>
+                    <div class="row">
+                        <div id="url_div" class="col-9">
+                            <input type="url" #dyn_url value="{{compose_url}}" readonly id="headTitle" name="headTitle" value="" class="form-control" placeholder="URL" > 
+                            <input type="url" hidden #dyn_url1 value="{{compose_url}}" readonly id="headTitle_dynurl" name="headTitle" value="" class="form-control" placeholder="URL" > 
+            
+                        </div>
+                        <div class="col-3">
+                            <button mat-raised-button matTooltip="Copy URL"
+                            matTooltipPosition="above" class="btn btn-danger" (click)="copy_URL(dyn_url.value)" >
+                            <!-- <i [hidden]="copyurl" class="fa fa-check" aria-hidden="true"></i> -->
+                            <mat-icon [hidden]="copyurl">check_circle_outline</mat-icon>
+  
+                            <!-- <svg class="checkmark" [hidden]="copyurl"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg> -->
+                            <!-- <span class="checkmark" [hidden]="copyurl">
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                            </span> -->
+                            <!-- <i  [hidden]="!copyurl" class="fa fa-clone" aria-hidden="true"></i> -->
+                            <mat-icon [hidden]="!copyurl" >file_copy</mat-icon>
+                            </button>
+                           
+                      <!-- <div  > <svg  class="checkmark"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>      </div>   -->
+            
+                      
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-7"></div>
+                        <div class="col-5" style="margin-top:-6%;margin-left: 100%;"> <button mat-raised-button class="btn btn-success" *ngIf="url2==''||url2==null" (click)="gen_bitly(dyn_url.value)">  Generate Bitly URL
+                           </button> </div>
+                    </div>
+                    <label class="titleCustom"><strong>Bitly URL</strong></label>
+            
+                    <div class="row">
+                        <div id="url_div_bitly" class="col-9">
+                            <input type="url" #bitly_url value="{{url2}}" readonly id="headTitle" name="headTitle" value="" class="form-control" placeholder="Tap the button on the right to generate bitly URL" > 
+                            <input type="url" hidden #bitly_url1 value="{{url1}}" readonly id="headTitle_dynurl" name="headTitle" value="" class="form-control" placeholder="URL" > 
+            
+                        </div>
+                        <div class="col-3">
+                            <button  mat-raised-button matTooltip="Copy Bitly URL"
+                            matTooltipPosition="above" class="btn btn-danger" [disabled]="bitly_url.value==''" (click)="copy_bitlyURL(bitly_url.value)" >
+                            <!-- <i [hidden]="!copybitlyurl" class="fa fa-clone" aria-hidden="true"></i> -->
+                            <mat-icon [hidden]="!copybitlyurl" >file_copy</mat-icon>
+                            <!-- <i [hidden]="copybitlyurl" class="fa fa-check" aria-hidden="true"></i> -->
+                            <mat-icon [hidden]="copybitlyurl">check_circle_outline</mat-icon>
+                        </button>
+                            <!-- <svg class="checkmark"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg> -->
+                      
+                        </div>
+                        
+                    </div>
+                       
+                       
+            
+                        </div>
+                </div>
+                </div>
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <label class="titleCustom">QR Code for Dynamic Menu</label><br><br>
+                                            <a href="{{getimageDynamic}}" target="_blank" download><img src="{{getimageDynamic}}" onerror="this.onerror=null;this.src='./assets/images/noqr.jpg';" width="60%"
+                                                height="auto"></a><br><br>
+                                            This points to the redirect URL.<br><br>
+                                      
+                                            <label>To replace the QR Code upload your image file</label>
+                                            <form action="">
+                                              <input type="file" id="myFile" class="form-control" name="filename" (change)="change_qr($event,0)"><br><br>
+                                              <button mat-raised-button class="btn btn-danger"  type="submit" (click)="upload_qr(0)">Submit </button>
+                                            </form><br>
+                                            <em>Click image to download for printing purposes</em><br>
+                                          </div>
+                                          <div class="col-4">
+                                      
+                                            <label class="titleCustom">QR Code for vCard</label><br><br>
+                                            <a href="{{getimageVCard}}" target="_blank" download><img src="{{getimageVCard}}" onerror="this.onerror=null;this.src='./assets/images/noqr.jpg';" width="60%"
+                                                height="auto"></a><br><br>
+                                            This points to the vCard URL.<br><br>
+                                      
+                                            <label>To replace the QR Code upload your image file</label>
+                                            <form action="">
+                                              <input type="file" class="form-control" id="myFile" name="filename" (change)="change_qr($event,1)"><br><br>
+                                              <button mat-raised-button class="btn btn-danger"  type="submit" (click)="upload_qr(1)">Submit</button>
+                                            </form><br>
+                                            <em>Click image to download for printing purposes</em><br>
+                                           
+                                      
+                                      
+                                      
+                                          </div>
+                                          <div class="col-4">
+                                            <label class="titleCustom"> <small> QR Code for Laguna Beach Fun Directory </small> </label><br><br>
+                                      
+                                            <a href="{{getimageLagunaFun}}" target="_blank" download><img src="{{getimageLagunaFun}}" onerror="this.onerror=null;this.src='./assets/images/noqr.jpg';" width="60%"
+                                                height="auto"></a><br><br>
+                                            This points to the Laguna Fun Map URL.<br><br>
+                                      
+                                            <label>To replace the QR Code upload your image file</label>
+                                            <form action="">
+                                              <input type="file" id="myFile" name="filename" class="form-control" (change)="change_qr($event,2)"><br><br>
+                                              <button mat-raised-button class="btn btn-danger" type="submit" (click)="upload_qr(2)">Submit</button>
+                                            </form><br>
+                                            <em>Click image to download for printing purposes</em><br>
+                                            
+                                      
+                                      
+                                      
+                                          </div>
+                                        </div>
+                                      <hr>
+                                <div class="mt-5">   <hr><button mat-raised-button class="btn btn-success" type="submit" (click)="send_mail()">Send Mail </button></div>
+                                      
+            </mat-card>
+          </mat-tab>
+         
+      </mat-tab-group>
+  </div>
+  
+  
+  
+      <div class="modal cropModulContent" id="id01" style="margin-left:20%;">
+    
+        <div class="modal-dialog">
+    
+          <div class="modal-content modal_contentCustom">
+    
+            
+    
+            <div class="modal-body">
+          <!-- <div class="row">
+              <div class="col-2 text-center">
+                  <i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i>
+              </div>
+              <div class="col-2">
+                  <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i>
+              </div>
+              <div class="col-2">
+                  <button class="float-right" (click)="close_modal_on_crop()">&times;</button>
+              </div>
+          </div> -->
+  
+          <ul class="cropBtnTop">
+              <li><i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i></li>
+  <li>                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i></li>
+          <li>                <button class="cropCloseBtn" (click)="close_modal_on_crop()">&times;</button></li>
+          
+  </ul>
+  
+  <div class="alert alert-danger" [hidden]="show_alert">
+      <strong>Alert!</strong> This file doesn't match the dimension criteria (height: {{crop_height}}px & width: {{crop_width}}px). Quality will be compromised if you wish not to change it.
+    </div>
+            <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+              [maintainAspectRatio]="false" 
+              [containWithinAspectRatio]="contain_within_aspect_ratio"	
+              [aspectRatio]="aspect_ratio"
+              [onlyScaleDown]="false" 
+              [cropperMaxWidth]="crop_width"
+              [cropperMaxHeight]="crop_height"
+              [cropperMinWidth]="crop_min_width"
+              [cropperMinHeight]="crop_min_height"
+              [onlyScaleDown]="false"
+              (imageCropped)="imageCropped($event)"
+              (imageLoaded)="imageLoaded()"
+              (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()"
+              [style.display]="showCropper ? null: 'none'" 
+              [transform]="transform">
+            </image-cropper>
+    
+            </div>
+            <footer class="cropFooter">
+              <button mat-raised-button class="btn btn-danger" [hidden]="isSave"  
+              (click)="click_it()">Save</button>
+            </footer>
+    
+          </div>
+    
+        </div>
+    
+      </div>
+    
+  <!-- 
+  <div class="modal" id="mymodal" [hidden]="valu" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+      
+          <div class="modal-header">
+            <h4 class="modal-title" >Adjust
+              Image</h4>
+    
+        
+              <i class="fa fa-times-circle fa-2x" type="button"  (click)="close_it()" ></i>
+               <button  class="close btn btn-primary" >&times;</button> 
+    
+          </div>
+    
+    
+          <div class="modal-body">
+     
+  
+      <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+      [maintainAspectRatio]="true" 
+    
+      [onlyScaleDown]="true" 
+      [croppeMaxHeight]="crop_height"
+     
+      [cropperMaxWidth]="crop_width"
+      [roundCropper]="cropround"
+      [canvasRotation]="2"
+      (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady($event)"
+      (loadImageFailed)="loadImageFailed()"
+      [style.display]="showCropper ? null: 'none'" [transform]="transform">
+    </image-cropper>
+  
+           
+            
+            
+            <br>
+            <div class="row">
+           <div class="col-4 text-center"></div>
+    
+           <div class="col-2 text-center">
+              <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i>
+          </div>
+          <div class="col-2">
+              <i class="fa fa-minus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i>
+          </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          
+            <button class="btn btn-danger"   
+             (click)="click_it()">Save</button>
+                </div>
+    
+        </div>
+      </div>
+      </div> -->
+     
+          <div class="modal cropModulContent" id="id02" style="margin-left:25%;">
+        
+            <div class="modal-dialog">
+        
+              <div class="modal-content modal_contentCustom">
+        
+                  <!-- Modal body -->
+        <div class="modal-body">
+          <div class="main_Brouse mainImgBrowse">
+            <div class="titleImgBrowse">
+              <h2>Title</h2>
+              <div id="myBtnContainer" class="dropDownImg">
+              <select #cats (change)="getStockimageonselectcategory(cats.value)">
+                <option value="">Show all</option>
+                <option *ngFor="let cat of category_name" value="{{cat.id}}">{{cat.name}}</option>
+              <!-- <option onclick="filterSelection('all')"> Show all</option>
+              <option onclick="filterSelection('nature')"> Nature</option>
+              <option onclick="filterSelection('cars')"> Cars</option>
+              <option onclick="filterSelection('people')"> People</option> -->
+              </select>
+           
+            </div>
+              </div>
+  
+  
+  
+  
+            <!-- Portfolio Gallery Grid -->
+            <div class="row_Brouse">
+              <!-- class="column_Brouse nature" -->
+              <div  class="column_Brouse nature"   *ngFor="let stock of st_img;let i=index">
+                <div class="content_Brouse" >
+              
+                  <!-- <img src="/assets/images/mountains.jpg" alt="Mountains" style="width:100%"> -->
+                 <!-- {{apiurlset +'stock/' + stock.img_path}} -->
+                  <img [src]="apiurlset+'stock/' + stock.img_path"   alt="" (click)="selectedimage(i,stock.img_path,stock.img_catg,st_img.length)" id="image_{{i}}">
+                </div>
+              </div>
+          
+            </div>
+  
+            <!-- END MAIN -->
+            </div>
+        </div>
+       <div class="modal-footer">
+        <button type="button" mat-raised-button class="btn btn-success"  (click)="save_it('close')">Close</button> &nbsp;
+        <button type="button" mat-raised-button class="btn btn-danger"  (click)="save_it('save')">Save Changes</button>
+  
+      </div>
+        
+        
+            </div>
+        
+          </div>
+       
+      </div>
+        <div id="myModal_preview" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+                <h4 class="modal-title"><b>Preview</b></h4>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body text-center">
+                  <img src="{{spstockImg}}"/>
+              </div>
+              <div class="modal-footer">
+               
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="logout()" >Yes</button> -->
+              </div>
+            </div>
+        
+          </div>
+        </div>
+        <div id="myModal_delete_section" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+                <h4 class="modal-title">Alert!</h4>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body text-center">
+                  <p>Are you sure you want to delete?</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >No</button>
+               
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete_section()" >Yes</button>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+        <div id="myModal_delete_item" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+                <h4 class="modal-title">Alert!</h4>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body text-center">
+                  <p>Are you sure you want to delete?</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >No</button>
+               
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete_item()" >Yes</button>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+        <div id="myModal_delete_desc" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+                <h4 class="modal-title">Alert!</h4>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body text-center">
+                  <p>Are you sure you want to delete?</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >No</button>
+               
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete_price()" >Yes</button>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+  
+  

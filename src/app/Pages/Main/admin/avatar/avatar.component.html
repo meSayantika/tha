@@ -1,0 +1,36 @@
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab> <ng-template mat-tab-label>
+    <mat-icon> face</mat-icon> &nbsp;
+    Personal Concierge Avatar
+  </ng-template>
+  <mat-card>
+    <app-pca></app-pca>
+  </mat-card> 
+</mat-tab>
+  <mat-tab> 
+    <ng-template mat-tab-label>
+      <mat-icon> keyboard_voice</mat-icon> &nbsp;
+      Voice
+    </ng-template> 
+  <mat-card>
+    <app-pca-voice></app-pca-voice>
+  </mat-card> 
+  </mat-tab>
+  <mat-tab> 
+    <ng-template mat-tab-label>
+      <mat-icon> error</mat-icon> &nbsp;
+      About
+    </ng-template> 
+  <mat-card>
+    <app-pca-about></app-pca-about>
+
+  </mat-card> 
+  </mat-tab>
+  <mat-tab label="Third">
+    <ng-template mat-tab-label>
+      <mat-icon> not_listed_location</mat-icon> &nbsp;
+      FAQ's
+    </ng-template> 
+    <app-pca-faq></app-pca-faq>
+  </mat-tab>
+</mat-tab-group>

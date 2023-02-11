@@ -1,0 +1,71 @@
+<div class="mainContainer">
+
+  <!-- Sumna mitra -->
+      <!--<div class="row">
+        <div class="column left" style="background-color:">
+        </div>-->
+        <!-- login form starts here -->
+          <div class="loginSec">
+        <div class="column middle">
+           <form #logForm="ngForm" (ngSubmit)="logSubmit(logForm.value)">
+            <h2> <label>
+              The Hotel Assistant Concierge
+            </label> </h2>
+      
+       
+        <div class="container">
+          <div class="alert alert-danger text-center fade show" role="alert" [hidden]="show_alert">
+    
+            <i class="fa fa-exclamation-triangle p-1" aria-hidden="true"></i> <strong>{{this.message}}</strong>
+           </div>
+  
+          <label for="uname"><b style="color: white">Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" required #uname="ngModel" ngModel>
+          <div *ngIf="uname.errors?.required  && (uname.dirty || uname.touched)" class="text-danger"><div class="text-danger" [hidden]="!uname.errors?.required">
+            Email is required
+          </div>
+         <div class="text-danger" [hidden]="!uname.errors?.pattern">
+            Not a valid email
+         </div></div>
+   
+          <label for="psw"><b style="color: white">Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required #psw="ngModel" ngModel>
+         
+              <div *ngIf="psw.errors?.required && (psw.touched || psw.dirty)" class="text-danger">
+                Password is required
+              </div>
+          <label for="psw" class="forgotPass"><a routerLink="/forgot-password" routerLinkActive="true">Forgot Password</a></label>  
+          <label for="psw" class="siginUp"><a routerLink="/registration" routerLinkActive="true">Sign Up / Register</a></label> 
+            
+          <button mat-raised-button type="submit" [disabled]="logForm.invalid">Login</button>
+        </div>
+      
+        <div class="container">
+        </div>
+      </form> 
+        </div>
+          </div>
+      
+      </div>	
+      <div class="modal" id="change_pass_modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Alert!</h5>
+              <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Would you like to change your password?</p>
+            </div>
+            <div class="modal-footer">
+              <button mat-raised-button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button mat-raised-button type="button" class="btn btn-primary" (click)="go_to_change()">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- snackbar -->
+ 
+  
+  
+     

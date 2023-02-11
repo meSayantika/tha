@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-8 mt-4">
+    <form [formGroup]="pcaForm">
+      <div class="row">
+        <div class="col-12">
+          <label for="">Avatar Name:</label>
+          <input type="text" name="av_name" formControlName="av_name" class="form-control">
+  
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <label for="">Choose Image:</label>
+          <input type="file" name="av_img_path" (change)="event_image_change($event)" formControlName="av_img_path" class="form-control">
+        <button hidden  id="logo_crop" (click)="open_crop_modal()" ></button>
+      </div>
+        </div>
+      <div class="row mt-2">
+        <div class="col-3"></div>
+        <div class="col-6 mt-4">
+          <button class="btn btn-danger col-12" mat-raised-button (click)="openstockmodal()"> Browse</button>
+        </div>
+        <div class="col-3"></div>
+      </div>
+       
+      
+    </form>
+  
+  </div>
+  <div class="col-4 mt-4">
+    <div class="example-large-box mat-elevation-z4 p-3" style="border-radius:50%">
+      <!-- {{spstockImg}} -->
+      <img src="{{spstockImg}}" onerror="this.onerror=null;this.src='./assets/images/noimage.png';" height="220" width="220" style="border-radius:50%" alt="">
+    </div>
+  </div>
+</div>
+<div class="row mt-5">
+  <div class="col-5"></div>
+  <div class="col-4 ml-4">
+    <button class="btn btn-success" mat-raised-button (click)="saveAvatar()"> Submit</button>
+    
+  </div>
+  <div class="col-3"></div>
+</div>
+<div class="modal cropModulContent" id="id02" style="margin-left:25%;">
+        
+  <div class="modal-dialog">
+
+    <div class="modal-content modal_contentCustom">
+
+        <!-- Modal body -->
+<div class="modal-body">
+<div class="main_Brouse mainImgBrowse">
+  <div class="titleImgBrowse">
+    <h2>Choose Image</h2>
+    <div id="myBtnContainer" class="dropDownImg">
+    <select #cats (change)="getStockimageonselectcategory(cats.value)">
+      <option value="">Show all</option>
+      <option *ngFor="let cat of category_name" value="{{cat.id}}">{{cat.name}}</option>
+    <!-- <option onclick="filterSelection('all')"> Show all</option>
+    <option onclick="filterSelection('nature')"> Nature</option>
+    <option onclick="filterSelection('cars')"> Cars</option>
+    <option onclick="filterSelection('people')"> People</option> -->
+    </select>
+ 
+  </div>
+    </div>
+
+
+
+
+  <!-- Portfolio Gallery Grid -->
+  <div class="row_Brouse">
+    <!-- class="column_Brouse nature" -->
+    <div  class="column_Brouse nature"   *ngFor="let stock of st_img;let i=index">
+      <div class="content_Brouse" >
+    
+        <!-- <img src="/assets/images/mountains.jpg" alt="Mountains" style="width:100%"> -->
+       <!-- {{apiurlset +'stock/' + stock.img_path}} -->
+        <img [src]="apiurlset+'stock/' + stock.img_path"   alt="" (click)="selectedimage(i,stock.img_path,stock.img_catg,st_img.length)" id="image_{{i}}">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- END MAIN -->
+  </div>
+</div>
+<div class="modal-footer">
+<button type="button" mat-raised-button class="btn btn-success"  (click)="save_it('close')">Close</button> &nbsp;
+<button type="button" mat-raised-button class="btn btn-danger"  (click)="save_it('save')">Save Changes</button>
+
+</div>
+
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="modal cropModulContent" id="id01" tabindex="-1" role="dialog" style="margin-left:25%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal_contentCustom">
+    
+      <div class="modal-body">
+        <ul class="cropBtnTop">
+          <li><i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i></li>
+<li>                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i></li>
+      <!-- <li>                <button class="cropCloseBtn" (click)="close_modal_on_crop()">&times;</button></li> -->
+      
+</ul>
+
+         
+          <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+          [maintainAspectRatio]="true" 
+        
+          [onlyScaleDown]="false" 
+         
+          [cropperMaxWidth]="crop_width"
+          [cropperMaxHeight]="crop_height"
+          
+          [roundCropper]="true"
+          (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+          [style.display]="showCropper ? null: 'none'" [transform]="transform">
+        </image-cropper>
+      </div>
+      <div class="modal-footer cropFooter">
+        <button class="btn btn-danger"   
+          (click)="click_it()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

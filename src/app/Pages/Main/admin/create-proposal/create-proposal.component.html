@@ -1,0 +1,474 @@
+<div class="content-div">
+  <mat-card>
+    <h2><strong> <mat-icon>assignment</mat-icon> Create Proposal</strong></h2>
+  </mat-card>
+
+    <mat-tab-group>
+      <mat-tab label="Restaurant"> 
+        <mat-card>
+          <div style="overflow-x:auto;">
+            <div style="overflow-x:auto;">
+             
+              <table width="100%" cellspacing="15">
+                <tr> 
+                  <th scope="col">RESTAURANT</th>
+                  <th scope="col">CONTACT</th>
+                </tr>
+                <tr>
+                  <td >
+                   {{rest_nm}}
+                  </td>
+                  <td>{{rest_contact}} </td>
+                </tr>
+                <tr>
+                  <th scope="col">ADDRESS</th>
+                  <th scope="col">PHONE</th>
+                </tr>
+                <tr>
+                  <td>{{rest_add}}</td>
+                  <td>{{rest_phone}}</td>
+                </tr>
+                <tr>
+                  <th scope="col">EMAIL</th>
+                  <th scope="col">WEBSITE</th>
+                </tr>
+                <tr>
+                  <td>{{rest_em}}</td>
+                  <td><a href="{{rest_web}}" target="_blank">{{rest_web}} </a> </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </mat-card>
+       </mat-tab>
+      <mat-tab label="Package">
+        <mat-card>
+          <div style="overflow-x:auto;">
+            <table width="100%" cellspacing="15">
+              <tr>
+                <th >#</th>
+                <th >Package</th>
+                <th >Number Of Menus</th>
+                <th >Specials</th>
+                <th >Set Up Fee</th>
+                <th >Monthly Fee</th>
+                <!-- <th >Description </th> -->
+                <th >Action </th>
+              </tr>
+
+              <tr align="center">
+                <td>1 <input type="text" value="1" hidden #sl_no></td>
+
+                <td>Custom </td>
+                <td>
+              
+                  <input class="form-control" type="number" #opt value="{{stnd_numberofmenu}}">
+                </td>
+                <td>
+                  <input type="radio" #yesstnd id="yes_stnd" name="specialMenuStd"  value="Y"> <label for="yes_stnd" style="font-size:small"
+                    class="m-1">Yes</label>
+                  <input type="radio" #nostnd id="no_stnd" name="specialMenuStd" value="N"> <label for="no_stnd" style="font-size:small"
+                    class="m-1">No</label>
+                </td>
+                <td><input class="form-control" type="text" placeholder="Amount" required=""
+                    name="setUpFee" #amm1 (keypress)="preventNonNumericalInput($event)"
+                    value="{{this.stndpackage_setupfee}}"></td>
+                <td><input class="form-control" type="text" placeholder="Amount" required=""
+                    name="monthlyFee" #amm2 (keypress)="preventNonNumericalInput($event)"
+                    value="{{this.stndpacakge__monthlyfee}}"></td>
+                <!-- <td><textarea class="w3-input w3-padding-16 w3-border customTextarea" hidden #desc value={{this.stndpackage_desc}}></textarea></td> -->
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button type="submit" class="btn btn-success"
+                    (click)="submit(opt.value,sl_no.value,amm1.value,amm2.value)">Save</button>
+                </td>
+              </tr>
+
+              <tr hidden align="center">
+                <td>2 <input type="hidden" name="" value="2" #sl_nostndplus></td>
+                <td>Standard Plus</td>
+                <td>
+                  <select class="w3-input w3-padding-16 w3-border" name="country" #optstndplus>
+                    <option value="Select Country">Select</option>
+                    <option value="O" [selected]="this.stndpluspacakge__numberofmenu=='O'">One Menu</option>
+                    <option value="T" [selected]="this.stndpluspacakge__numberofmenu=='T'">Two Menus</option>
+                    <option value="U" [selected]="this.stndpluspacakge__numberofmenu=='U'">Unlimited Menus</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="radio" id="yes" name="specialMenuStdPlus" value="Yes"> <label for="yes"
+                    class="m-1">Yes</label>
+                  <input type="radio" id="no" name="specialMenuStdPlus" value="No"> <label for="No"
+                    class="m-1">No</label>
+                </td>
+                <td><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Amount" required=""
+                    name="setUpFee" #amm1stndplus (keypress)="preventNonNumericalInput($event)"
+                    value={{this.stndpluspacakge_setupfee}}></td>
+                <td><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Amount" required=""
+                    name="monthlyFee" #amm2stndplus (keypress)="preventNonNumericalInput($event)"
+                    value={{this.stndpluspackage_monthlyfee}}></td>
+                <!-- <td><textarea class="w3-input w3-padding-16 w3-border customTextarea" #descstndplus value={{this.stndpluspacakge_desc}}></textarea></td> -->
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button
+                    (click)="submitstndplus(optstndplus.value,sl_nostndplus.value,amm1stndplus.value,amm2stndplus.value)"
+                    type="submit" class="btn btn-default saveCustom">Save</button>
+                </td>
+              </tr>
+
+              <tr hidden align="center">
+                <td>3 <input type="hidden" name="" value="3" #slpremium></td>
+                <td>Premium </td>
+                <td>
+                  <select class="w3-input w3-padding-16 w3-border" name="country" #opspremium>
+                    <option value="Select Country">Select</option>
+                    <option value="O" [selected]="this.premiumpacakge_numberofmenu=='O'">One Menu</option>
+                    <option value="T" [selected]=" this.premiumpacakge_numberofmenu=='T'">Two Menus</option>
+                    <option value="U" [selected]=" this.premiumpacakge_numberofmenu=='U'">Unlimited Menus</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="radio" id="yes_premium" name="specialMenuPremium1" value="Yes" > <label for="yes"
+                    class="m-1">Yes</label>
+                  <input type="radio" id="no_premium" name="specialMenuPremium1" value="No"> <label for="No"
+                    class="m-1">No</label>
+                </td>
+                <td><input class="w3-input w3-padding-16 w3-border" #amm1premium type="text" placeholder="Amount"
+                    required="" name="setUpFee" (keypress)="preventNonNumericalInput($event)"
+                    value={{this.premiumpacakge_setupfee}}></td>
+                <td><input class="w3-input w3-padding-16 w3-border" #amm2premium type="text" placeholder="Amount"
+                    required="" name="monthlyFee" (keypress)="preventNonNumericalInput($event)"
+                    value={{this.premiumpacakge_monthlyfee}}></td>
+                <!-- <td><textarea class="w3-input w3-padding-16 w3-border customTextarea" #descpremium value={{this.premiumpacakge_des}}></textarea></td> -->
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button type="submit" class="btn btn-default saveCustom"
+                    (click)="submitpremium(opspremium.value,slpremium.value,amm1premium.value,amm2premium.value)">Save</button>
+                </td>
+              </tr>
+
+            </table> <br>
+          </div>
+        </mat-card>
+         </mat-tab>
+      <mat-tab label="Promo & Calendar">
+        <mat-card>
+          <div style="overflow-x:auto;">
+            <table width="100%" cellspacing="15">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Free</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+              </tr>
+
+              <tr align="center">
+                <td >1 <input type="hidden" name="" value="4" #birth></td>
+                <td >Birthday/Anniversary </td>
+                <td>
+                  <input type="radio" #yesBirth id="yes_birth" [checked]="true" name="specialMenuStd1" value="y"
+                    (change)="verify('y')"> <label for="yes" class="m-1">Yes</label>
+                  <input type="radio" #noBirth id="no_birth" name="specialMenuStd1" value="n" (change)="verify('n')"> <label
+                    for="No">No</label>
+                </td>
+                <td>
+                  <input class="form-control" id="birthday" type="text"
+                    value="{{this.promo_Birthdayprice}}" (keypress)="preventNonNumericalInput($event)"
+                    placeholder="Price" required="" name="price" #Price [readonly]="promo1">
+                </td>
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button type="submit" class="btn btn-success"
+                    (click)="birthdayaniversery(birth.value,Price.value)">Save</button>
+                </td>
+
+              </tr>
+
+              <tr align="center" style="color:black">
+                <td>2 <input type="hidden" name="" value="5" #sent></td>
+                <td>Entertainment / Event Calendar </td>
+                <td style="color:black">
+                  <input type="radio" #yesCal id="yes_calend" name="specialMenu1" value="yes"
+                    (change)="verifytre('yes')"> <label for="yes" class="m-1">Yes</label>
+                  <input type="radio" #noCal id="no_calend" name="specialMenu1" value="no" (change)="verifytre('no')"> <label
+                    for="No">No</label>
+                </td>
+                <td>
+                  <input class="form-control" id="eventcalnedar"
+                    value="{{this.promo_EventCalendarprice}}" type="text" placeholder="Price"
+                    (keypress)="preventNonNumericalInput($event)" required="" name="price" #price [readonly]="promo2">
+                </td>
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button type="submit" class="btn btn-success"
+                    (click)="showeventcalendar(sent.value,price.value)">Save</button>
+                </td>
+              </tr>
+            </table> <br>
+          </div>
+
+        </mat-card>
+        </mat-tab>
+      <mat-tab label="Sign Holder"> 
+        <mat-card>
+          <div style="overflow-x:auto;">
+            <table width="100%" cellspacing="15">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Per Holder Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
+              </tr>
+
+              <tr align="center" style="color:black">
+                <td>1 <input type="hidden" class="form-control"  name="" value="6" #tabletop></td>
+                <td>Tabletop Sign Holder</td>
+                <td> 5" x 7"</td>
+                <td>
+                  <input class="form-control" type="text" placeholder="Price" required=""
+                    name="price" #text1 value="{{this.signholder_price1}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <input class="form-control"  type="text" placeholder="Quantity" required=""
+                    name="price" #qty1 value="{{signqty1}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <!-- <button type="submit" class="btn btn-default editeCustom">Edit</button> -->
+                  <button mat-raised-button type="submit" class="btn btn-success"
+                    (click)="opentabletop(text1.value,tabletop.value,qty1.value)">Save</button>
+                </td>
+              </tr>
+
+              <!-- </tr> -->
+
+              <tr align="center" style="color:black">
+                <td>2 <input type="hidden" name="" value="7" #wallmount></td>
+                <td>Wall Mount Sign Holder </td>
+                <td> 5" x 7"</td>
+                <td>
+                  <input class="form-control"  type="text" placeholder="Price" required=""
+                    name="price" value="{{this.signholder_price2}}" #text2
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <input class="form-control"  type="text" placeholder="Quantity" required=""
+                    name="price" #qty2 value="{{signqty2}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <!-- <button type="submit" class="btn btn-default editeCustom">Edit</button> -->
+                  <button type="submit" mat-raised-button class="btn btn-success"
+                    (click)="openwallmount(wallmount.value,text2.value,qty2.value)">Save</button>
+                </td>
+              </tr>
+
+              <!-- </tr> -->
+
+              <tr align="center" style="color:black">
+                <td>3 <input type="hidden" name="" value="8" #wallmount1></td>
+                <td>Wall Mount Sign Holder</td>
+                <td>8.5" x 11"</td>
+                <td>
+                  <input class="form-control" type="text" placeholder="Price" required=""
+                    name="price" #text3 value="{{this.signholder_price3}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <input class="form-control"  type="text" placeholder="Quantity" required=""
+                    name="price" #qty3 value="{{signqty3}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <!-- <button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button type="submit" class="btn btn-success" mat-raised-button
+                    (click)="showwall(wallmount1.value,text3.value,qty3.value)">Save</button>
+                </td>
+              </tr>
+
+
+
+            </table> <br>
+          </div>
+
+        </mat-card>
+       </mat-tab>
+      <mat-tab label="Wall or Tabletop Signs / Window Cling"> 
+        <mat-card>
+          <div style="overflow-x:auto;">
+            <table width="100%" cellspacing="15">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Per Holder Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Action</th>
+              </tr>
+
+              <tr align="center">
+                <td>1 <input type="hidden" name="" value="9" #window></td>
+                <td>Window Clings </td>
+                <td> 6" x 10" </td>
+                <td>
+                  <input class="form-control" type="text" placeholder="Price" required=""
+                    name="price" #TEXT value={{this.windowcling_price}}>
+                </td>
+                <td>
+                  <input class="form-control" type="text" placeholder="Quantity" required=""
+                    name="price" #qty4 value="{{winqty1}}"
+                    (keypress)="preventNonNumericalInput($event)">
+                </td>
+                <td>
+                  <!-- <button mat-raised-button type="submit" class="btn btn-default editeCustom">Edit</button>  -->
+                  <button mat-raised-button type="submit" class="btn btn-success"
+                    (click)="showwindow(window.value,TEXT.value,qty4.value)">Save</button>
+                </td>
+              </tr>
+            </table> <br>
+          </div>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Venue"> 
+        <mat-card>
+          <div class="row">
+            <div class="col-10">
+              <label><strong>Create Venue:</strong></label>
+              <input type="text" class="form-control" [(ngModel)]="create_venue" (input)="check_empty_venue()" />
+            </div>
+            <div class="col-1 ml-3">
+              <label>&nbsp;</label><br>
+              <button mat-raised-button class="btn btn-success" (click)="addvenue()" [hidden]="show_add_update_button_for_venue"
+                [disabled]="create_venue==''">Add</button>
+              <button mat-raised-button class="btn btn-success" (click)="updatevenue()"
+                [hidden]="!show_add_update_button_for_venue">Update</button>
+
+            </div>
+          </div> <br> <br>
+
+          <!-- datatable showcasing the menus that are created -->
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort>
+
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td mat-cell *matCellDef="let row;let i=index">{{i+1}}</td>
+              </ng-container>
+
+              <!-- Progress Column -->
+              <ng-container matColumnDef="Venue_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Venue </th>
+                <td mat-cell *matCellDef="let row">{{row.venue_name}}</td>
+              </ng-container>
+
+
+
+              <!-- Fruit Column -->
+              <ng-container matColumnDef="Option">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                <td mat-cell *matCellDef="let row"><a (click)="getrow_id_venue(row.id)"
+                ><mat-icon matTooltip="Delete {{row.venue_name}}" matTooltipPosition="above"
+                    style="cursor:pointer; color:#540B0E">delete</mat-icon></a>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                (click)="get_sec_id_venue(row.id,row.venue_name)" style="cursor: pointer;"></tr>
+
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <!-- <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td> -->
+              </tr>
+            </table>
+
+            <mat-paginator #MatPaginator1 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+            </mat-paginator>
+          </div>
+
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Menu">
+        <mat-card>
+        
+          <div class="row">
+            <div class="col-5">
+              <label><strong>Select Venue:</strong></label>
+              <select class="form-select" #venue_nm (change)="get_venue_name(venue_nm.value)">
+                <option value="0">Select One</option>
+                <option id="v_id" [selected]="v.id==venue_name" *ngFor="let v of getVenues?.msg" value="{{v.id}}">
+                  {{v.venue_name}}</option>
+              </select>
+
+            </div>
+            <div class="col-5">
+              <label><strong>Create Menu:</strong></label>
+              <input type="text" class="form-control" [(ngModel)]="create_menu" (input)="check_empty()" />
+            </div>
+            <div class="col-1" style="text-align:center">
+              <label>&nbsp;</label><br>
+              <button mat-raised-button class="btn btn-success" (click)="addmenu(0)" [hidden]="show_add_update_button_for_menu"
+                [disabled]="create_menu==''">Add</button>
+              <button mat-raised-button class="btn btn-success" (click)="updatemenu(1)"
+                [hidden]="!show_add_update_button_for_menu">Update</button>
+
+            </div> 
+          </div> <br> <br>
+
+        <!-- datatable showcasing the menus that are created -->
+        <div class="mat-elevation-z8" *ngIf="dataSource_menu">
+          <table mat-table [dataSource]="dataSource_menu" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+              <td mat-cell *matCellDef="let row;let i=index">{{i+1}}</td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="Venue_name">
+              <th [hidden]="venueid!=0" mat-header-cell *matHeaderCellDef mat-sort-header>Venue </th>
+              <td [hidden]="venueid!=0" mat-cell *matCellDef="let row">{{row.venue_name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="menu_name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Menu </th>
+              <td mat-cell *matCellDef="let row">{{row.menu_name}}</td>
+            </ng-container>
+
+
+
+            <!-- Fruit Column -->
+            <ng-container matColumnDef="Option">
+              <th mat-header-cell [hidden]="venueid==0" *matHeaderCellDef mat-sort-header> Action </th>
+              <td [hidden]="venueid==0" mat-cell *matCellDef="let row"><a (click)="getrow_id_menu(row.id)"
+                  data-bs-target="#delete_warning_modal" data-bs-toggle="modal"><mat-icon matTooltip="Delete {{row.venue_name}}" matTooltipPosition="above" 
+                  style="cursor:pointer; color:#540B0E">delete</mat-icon></a></td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns_menu"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns_menu;"
+              (click)="get_sec_id_menu(row.id,row.venue_id,row.menu_name)" style="cursor: pointer;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <!-- <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td> -->
+            </tr>
+          </table>
+
+          <mat-paginator #MatPaginator2 [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+          </mat-paginator>
+        </div> <br> <br>
+
+        <!-- <button class="w3-button w3-green mt-5 mb-3" (click)="go_to_proposal()">Payment Proposal</button> -->
+        <button mat-raised-button class="btn btn-success float-end" (click)="go_to_proposal()">Payment Proposal</button>
+
+        </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</div>

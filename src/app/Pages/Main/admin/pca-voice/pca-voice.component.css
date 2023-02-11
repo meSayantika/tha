@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+  }
+td,th{
+    width:10%
+}
+
+.fab-main {
+    position: fixed;
+    right: 1em;
+    opacity: 0.5;
+    bottom: 3em;
+  }
+  .fab-main:hover{
+    opacity:1
+  }
+
+  .clicked {
+    transform: rotate(20deg)
+    
+  }
+
+  .rotate {
+    animation: rotation 2s infinite linear;
+  }
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+ /* .textEll {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  } */
+
+  .truncate {
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+  }

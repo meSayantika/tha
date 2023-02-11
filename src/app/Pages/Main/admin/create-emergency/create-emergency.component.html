@@ -1,0 +1,53 @@
+<div class="content-div">
+  <mat-card>
+   <mat-card-title >
+     <strong>   <mat-icon>offline_bolt</mat-icon>  Create Emergency Report </strong>
+ </mat-card-title>
+ <hr> <br>
+ <mat-card-content> 
+  <form [formGroup]="emForm">
+    <div class="row">
+      <div class="col-4">
+        <label for="">Record Date</label>
+         <input type="date" class="form-control" formControlName="record_date" name="record_date">
+      </div>
+      <div class="col-4">
+        <label for="">Guest Group</label>
+        <select name="guest_group_id" formControlName="guest_group_id" id="" class="form-control">
+          <option value="">Select Group</option>
+          <option value="1">Group</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label for="">Status</label>
+        <select name="repo_status" formControlName="repo_status" id="" class="form-control">
+          <option value="">Select Status</option>
+          <option value="P">Pending</option>
+          <option value="S">Solved</option>
+          <option value="F">Forwared</option>
+        </select>
+      </div>
+    </div> <br>
+    <div class="row mt-4">
+      <div class="col-12">
+        <label for="">Message Body</label>
+        <textarea name="message_body" formControlName="message_body" id="" cols="30" rows="8" class="form-control"></textarea>
+      </div>
+    </div> <br>
+    <div class="row mt-4">
+      <div class="col-12">
+        <label for="">Action Taken</label>
+        <textarea name="action_taken" formControlName="action_taken" id="" cols="30" rows="8" class="form-control"></textarea>
+      </div>
+    </div> <br>
+  </form>
+  <div class="text-center">
+    <button mat-raised-button class="btn btn-success" (click)="submit_emergency()">Submit</button>
+  </div>
+  </mat-card-content>
+  </mat-card>
+
+  <div class="fab-main">
+    <button matTooltip="Back" mat-mini-fab (click)="go_prev_page()"> <mat-icon>arrow_back</mat-icon> </button>
+  
+      </div>

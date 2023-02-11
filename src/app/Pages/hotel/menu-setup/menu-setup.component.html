@@ -1,0 +1,2678 @@
+
+<!-- <mat-tab-group>
+  <mat-tab [label]="tab" *ngFor="let tab of lotsOfTabs">
+  
+  <div *ngIf="tab=='tab1'">
+    Content for tab 1
+  </div>
+  <div *ngIf="tab=='tab2'">
+    Content for tab 2
+  </div>
+  <div *ngIf="tab=='tab3'">
+    Content for tab 3
+  </div>
+   
+  
+  </mat-tab>
+</mat-tab-group> -->
+
+<div class="content-div">
+  <header><br>
+    <mat-card class="thankYou">
+    <!-- <div class="thankYou"> -->
+      <h3>Thank You for your payment and participation!</h3>
+      <p style="font-size: revert;">You can now start setting up your platform. Please follow the steps below. For
+        queries, mail us at <a href="mailto:admin@shoplocal-lagunabeach.com" style="color:white">admin@shoplocal-lagunabeach.com</a></p>
+    <!-- </div> -->
+  </mat-card>
+
+  </header>
+  <mat-card class="alert alert-danger text-center" role="alert" [hidden]="show_toast">
+    <strong>Setup mode is on.</strong>
+    <p>Admin is setting up your menu, you can not modify</p>
+  </mat-card>
+<mat-card>
+  
+    <h5><b><i class="fa fa-wpforms"></i> Restaurant - MENU Platform SET-UP</b> </h5>
+     
+  
+      <div class="w3-container w3-white w3-padding-24">
+        <!-- <h3 class="text-danger text-center"  [hidden]="show_toast">As admin is setting your order , you can not modified</h3> -->
+  
+      
+  
+        <div class="w3-cell-row">
+  
+          <div class="w3-container w3-full w3-cell w3-mobile">
+            <mat-tab-group mat-stretch-tabs color="primary" backgroundColor="primary">
+  <mat-tab label="Restaurants">
+    <!-- <div class="tab">
+      <div  *ngFor="let x of getVenues.msg.restaurant; let i=index;">
+      <button class="tablinks" id="venue{{i}}" (click)="open_venue(x.id,i)">{{x.name}}</button>
+    </div> -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item active" *ngFor="let x of getVenues.msg.restaurant; let i=index;">
+        <a class="nav-link"  id="rest{{i}}" aria-current="page" (click)="open_venue(x.id,i,'R')">{{x.name}}</a>
+      </li>
+      </ul>
+    <!-- </div> -->
+  </mat-tab>
+  <mat-tab label="Services">
+    <ul class="nav nav-tabs">
+      <li class="nav-item active" *ngFor="let x of getVenues.msg.service; let i=index;">
+        <a class="nav-link" aria-current="page"  id="serv{{i}}" (click)="open_venue(x.id,i,'B')">{{x.name}}</a>
+      </li>
+      </ul>
+  </mat-tab>
+</mat-tab-group>
+            
+  
+            <div id="London" class="tabcontent mt-1">
+              <select class="form-select mb-2"  #venue_menu (change)="change_menu(venue_menu.value)">
+                <option value="">Select one</option>
+                
+                <option value="B" *ngIf="getMenus?.breakfast=='Y'">Breakfast</option>
+                <option value="R" *ngIf="getMenus?.brunch=='Y'">Brunch</option>
+                <option value="D" *ngIf="getMenus?.dinner=='Y'">Dinner</option>
+                <option value="L" *ngIf="getMenus?.lunch=='Y'">Lunch</option>
+                <option value="S" *ngIf="getMenus?.special_menu=='Y'">Special</option>
+                <option value="A" *ngIf="getMenus?.bar_menu=='Y'">Bar</option>
+                <option value="V" *ngIf="getMenus?.menu_service_list=='Y'">Menu Service List</option>
+
+              </select>
+            
+              <!-- <input hidden type="text" value="1" #break> -->
+              <!-- {{breakfast_ins}} -->
+              <!-- Cover Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12"><label class="titleCustom"><strong>COVER PAGE IMAGE (non editable)</strong></label>
+                    This will be used for your online
+                    menu, and used for the background image for your Menu QR Code signage.</div>
+                  <div class="col-5">
+                    <form>
+  
+                      <label for="myfile" class="fieldTitle">Select file:</label>
+                      <button mat-raised-button id="hid" hidden (click)="open_crop_modal()">openmodal</button>
+                      <!-- <input type="file" id="myfile" name="myfile" [disabled]="b_url"  (change)="Breakfast($event)"> -->
+                      <!-- <i type="button" [hidden]="Breakfast_cover_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal"></i> -->
+                      <input name="show_name" [disabled]="b_url" class="form-control" type="file" id="mycoverfile" accept=".jpeg,.jpg,.png"
+                        (change)="Breakfast($event)">
+  
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <!-- <div></div> -->
+                    <div class="container1" id="break_cover">
+                      <div class="img-wrap rounded" [hidden]="Breakfast_cover_preview">
+                        <span class="close" (click)="deletephoto('breakfast_cover')" [hidden]="!show_toast">&times;</span>
+  
+                        <img src="{{img_cover}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal11">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="" class="fieldTitle">Your Web Site Address/URL:
+                      <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it as your background
+                              Breakfast menu image. -->
+                    </label>
+  
+                    <form>
+  
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input type="text" class="form-control" id="url" name="url" size="28" #COVERPAGEURL placeholder="Enter the URL"
+                       value="{{break_cover}}" (keyup)="checkvalidity($event,'bc_url')"
+                        (change)="checkvalidity($event,'bc_url')"
+                        [disabled]="b_url">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+  
+                </div>
+  
+  
+  
+  
+  
+              </div>
+              <!-- Top Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>TOP IMAGE</strong></label>
+                    This image will be added to the top of your Breakfast menu.
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Select file:</label>
+                    <form>
+                      <!-- <label for="myfile">Upload 1 Breakfast JPG or PNG images:</label><br> -->
+                      <input class="form-control" [disabled]="b_url" type="file" accept=".jpeg,.jpg,.png" id="mytopfile" name="myfile"                       (change)="changeBreak($event)">
+                      <!-- <i type="button" [hidden]="Breakfast_top_preview"  class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal1"></i> -->
+  
+                      <!-- <br><br> -->
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="break_top">
+                      <div class="img-wrap rounded p-1" [hidden]="Breakfast_top_preview">
+                        <span class="close" (click)="deletephoto('breakfast_top')" [hidden]="!show_toast">&times;</span>
+  
+                        <img src="{{img_top}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal1">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL: <i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it to the top of your
+                              Breakfast menu: -->
+                    </label>
+  
+  
+                    <!-- <label for="url">Enter the url:</label>  -->
+                    <form><input class="form-control" [disabled]="b_url" type="text" id="url_top" name="url" value="{{break_top}}"  size="28"
+                        #TOPIMAGEURL (keyup)="checkvalidity($event,'bt_url')" (change)="checkvalidity($event,'bt_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+  
+                </div>
+  
+  
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg" (change)="TOPIMAGECHECKED($event)"> -->
+  
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg" (change)="changetopImage($event)"> -->
+  
+                <!--  -->
+              </div>
+              <!-- Menu  -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12"><label class="titleCustom"><strong>MENU:</strong></label>
+                    <!-- Upload a PDF file of your Breakfast menu.<br> -->
+                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.</div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Select files:</label>
+                    <input type="file" class="form-control" [disabled]="b_url"  id="myfile" name="myfile" multiple="multiple" accept=".pdf"
+                      (change)="changeBreakmenubreak($event)">
+                    <!-- <i type="button" [hidden]="Breakfast_menu_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal2"></i> -->
+                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                    <div class="container1">
+                      <div class="img-wrap rounded" [hidden]="Breakfast_menu_preview"
+                        *ngFor="let u of img_menu_break;let i=index">
+                        <span class="close" (click)="deletemultiple('breakfast_menu',i,u.id)"
+                          [hidden]="!show_toast">&times;</span>
+                        <a (click)="openpdf(u.img_path)">	<mat-icon type="button">picture_as_pdf</mat-icon></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, please provide a web site address/url where we can collect your menu content: -->
+                    </label>
+  
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input class="form-control" type="text" id="url_menu" name="url" value="{{break_menu}}" size="28" #MENUURL
+                         (keyup)="checkvalidity($event,'bm_url')"
+                        (change)="checkvalidity($event,'bm_url')"
+                        [disabled]="b_url">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                      contact you</p>
+  
+                  </div>
+  
+                </div>
+  
+              </div>
+              <!-- Section Image -->
+              <!-- <div class="secDifer">
+                              <div class="row">
+  
+                                  <div class="col-12">
+                                      <label class="titleCustom"><strong>SECTION:</strong></label>
+                                  
+                                      Please be sure to include your Kids, Desert and Beverage menus, if you have one.<br>
+                                    </div>
+                                    <div class="col-5">
+                                      <label for="menuImg" class="fieldTitle">Select files:</label>
+                                      <input type="file" [disabled]="b_url" id="myfile" name="myfile[]" multiple accept=".pdf"
+                                          (change)="changeBreakmenubreak1($event)">
+                                  
+                                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                                     <div class="container1" >
+                                     <div class="img-wrap rounded"  [hidden]="Breakfast_section_preview" *ngFor="let u of img_section_break;let i=index">
+                                      <span class="close" (click)="deletemultiplelunchsection('breakfast_section',i,u.id)" [hidden]="!show_toast">&times;</span>
+  
+                                      <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o" ></i></a>
+                                  </div>
+                                </div>
+                              </div>
+  
+  
+                                  <div class="col-5" id="input_url">
+  
+                                      <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL: <i class="fa fa-info-circle tooltipCustom" aria-hidden="true"
+                                        #tooltip="matTooltip"
+                                        matTooltip="You can either upload files or provide a url below"
+                                        ></i>
+                                     
+                                      </label>
+  
+                                      <form>
+                                         
+                                          <input type="text" id="Url_section" name="Url"
+                                          [disabled]="b_url"
+                                          value="{{this.menu_sec}}"
+                                          size="28" #SECTIONURL
+                                          (keyup)="checkvalidity($event,'bs_url')" (change)="checkvalidity($event,'bs_url')" >
+                                    
+  
+                                      </form>
+                                      <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                                        contact you</p>
+  
+                                  </div>
+  
+  
+  
+  
+                              </div>
+                          </div> -->
+              <!-- </div> -->
+              <!-- Display Day and Time -->
+              <div class="secDifer">
+                <!-- {{this.arr_brak_check.msg.length}} -->
+                <label class="titleCustom"><strong>DISPLAY DAY & TIMES:</strong></label>
+                Your "dynamic" Menu will automatically change to your Breakfast menu, based on your day/time
+                of day instructions below.<br>
+  
+                Select the days and times to display your Breakfast menu, every week:
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" id="vehicle1" name="vehicle"
+                        (change)="checkday($event,'everyday')" [disabled]="b_url">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="b_url" (change)="checkday($event,'monday')" name="vehicle[]"
+                        id="vehicle2">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="b_url" (change)="checkday($event,'tuesday')" name="vehicle[]"
+                        id="vehicle3">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="b_url" (change)="checkday($event,'wednesday')" name="vehicle[]"
+                        id="vehicle4">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="b_url" (change)="checkday($event,'thursday')" name="vehicle[]"
+                        id="vehicle5">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="b_url" (change)="checkday($event,'friday')" name="vehicle[]"
+                        id="vehicle6">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="b_url"  (change)="checkday($event,'sat')" name="vehicle[]"
+                        id="vehicle7">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox"  [disabled]="b_url" (change)="checkday($event,'sun')" name="vehicle[]"
+                        id="vehicle8">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline" action="">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" (change)="checkbreakend($event,'start')" id="start"
+                        name="selfcling" value="{{breakfast_start}}" [disabled]="b_url" size="4" #START_break><br><br>
+                      <label for="selfcling">End Time:</label>
+                      <input class="form-control" type="time" value="{{breakfast_end}}"
+                        (change)="checkbreakend($event,'end')" id="end" [disabled]="b_url" name="selfcling" size="4" #END_break>
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+  
+  
+              </div>
+  
+  
+              <button mat-raised-button class="btn btn-success m-1" type="submit" [hidden]="!show_toast"
+                (click)="opennextab(COVERPAGEURL.value,TOPIMAGEURL.value,MENUURL.value,START_break.value,END_break.value)">Save
+                & Continue</button>
+  
+              <!-- <button mat-raised-button class="btn btn-success" type="submit">Previous</button> -->
+              <!-- <button mat-raised-button
+                          class="btn btn-success m-1" type="submit"
+                          [disabled]="b_url"
+  
+  
+                          (click)="opennextab(COVERPAGEURL.value,TOPIMAGEURL.value,MENUURL.value,SECTIONURL.value,break.value,START_break.value,END_break.value)"
+                          >Save & Continue</button> -->
+  
+              <!-- <button mat-raised-button
+                              class="btn btn-success m-1" type="submit" [disabled]="b_url || bc_url || bt_url || bm_url || bs_url || bstart_url || bend_url"
+                              (click)="opennextab(COVERPAGEURL.value,TOPIMAGEURL.value,MENUURL.value,SECTIONURL.value,break.value,start_break.value,end_break.value)"
+                              >Save & Continue</button> -->
+  
+            </div>
+            <div id="Paris" class="tabcontent mt-1" hidden>
+  
+              <label class="titleCustom" for="bkmenu">
+                <input type="checkbox" id="paris" name="bkmenu" [disabled]="launch_button" value="bkMenu"
+                  (change)="launchchaked($event)">
+                <input class="form-control" type="text" hidden value="2" #launch>
+                <strong class="m-1">Lunch Menu</strong></label>
+              {{lunch_ins}}
+              <div class="secDifer">
+  
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>COVER PAGE IMAGE (non editable)</strong></label>
+                    This will be used for your online menu,
+                    and used for the background image for your Menu QR Code signage.
+                  </div>
+                  <div class="col-5">
+                    <form>
+                      <label for="myfile" class="fieldTitle">Select file:</label>
+                      <input class="form-control" type="file" [disabled]="lcc_url" accept=".jpeg,.jpg,.png" id="mylunchcoverfile" name="myfile"
+                        (change)="changelaunchcoverpage($event)">
+                      <!-- <i type="button" [hidden]="Launch_cover_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"  data-bs-toggle="modal" data-bs-target="#myModal4"></i> -->
+  
+  
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="Lunch_Cover">
+                      <div class="img-wrap rounded" [hidden]="Launch_cover_preview">
+                        <a class="close" (click)="deletephoto('lunch_cover')" [hidden]="!show_toast">&times;</a>
+  
+                        <img src="{{img_launch_cover}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal4">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="" class="fieldTitle">Your Web Site Address/URL: <i class="fa fa-info-circle tooltipCustom"
+                        aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it as your background
+                                Lunch menu image. -->
+                    </label>
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input class="form-control" type="text" id="url_launch" name="url" (keyup)="checkvalidity($event,'lc_url')"
+                        [disabled]="lcc_url" (change)="checkvalidity($event,'lc_url')" size="28" #launchcoverurl
+                        value="{{launch_cover}}">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+  
+                  </div>
+  
+                </div>
+  
+  
+                Or, we can collect a photo found on your web site and add it as your background
+                Lunch menu image.
+  
+              </div>
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>TOP IMAGE</strong></label>
+                    This image will be added to the top of your Lunch menu.
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Select file:</label>
+                    <form>
+                      <!-- <label for="myfile" >Upload 1 Lunch JPG or PNG images:</label> -->
+                      <!-- <br> -->
+                      <input class="form-control" type="file" [disabled]="lcc_url" accept=".jpeg,.jpg,.png" id="mylunchtopfile" name="myfile"
+                        (change)="changelaunchtopimage($event)">
+                    </form>
+                    <!-- <i type="button" [hidden]="Launch_top_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal5"></i> -->
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="Lunch_Top" [hidden]="lunch_Top">
+                      <div class="img-wrap rounded " [hidden]="Launch_top_preview">
+                        <span class="close" (click)="deletephoto('lunch_top')" [hidden]="!show_toast">&times;</span>
+  
+                        <img src="{{img_launch_top}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal5">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL:
+                      <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                    </label>
+                    <!-- Or, we can collect a photo found on your web site and add it to the top of your Lunch
+                                menu: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input class="form-control" type="text" id="url_launchtop" name="url" value="{{launch_top}}" [disabled]="lcc_url"
+                        size="28" #launchtopimageurl (keyup)="checkvalidity($event,'lt_url')"
+                        (change)="checkvalidity($event,'lt_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+  
+                <!-- <br> -->
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+  
+                <!-- <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                                  contact you</p> -->
+              </div>
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- <form> -->
+                    <label class="titleCustom"><strong>MENU:</strong></label>
+                    <!-- Upload a PDF file of your Lunch menu.<br> -->
+                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.<br>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Select files:</label>
+                    <input type="file" class="form-control" [disabled]="lcc_url" id="myfile" name="myfile" multiple accept=".pdf"
+                      (change)="changelaunchtmenuimage($event)">
+                    <!-- <br><br> -->
+                    <!-- </form> -->
+                    <!-- <i type="button" [hidden]="Launch_menu_preview"  data-bs-toggle="modal" data-bs-target="#myModal6" class="fa fa-picture-o fa-2x" aria-hidden="true"></i> -->
+                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                    <div class="container1">
+                      <div class="img-wrap rounded" [hidden]="Launch_menu_preview"
+                        *ngFor="let u of img_launch_menu; let i=index">
+  
+                        <!-- <span class="close" (click)="deletemultiple('lunch_menu',i)">&times;</span>
+  
+                              <i  class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i> -->
+  
+                        <span class="close" (click)="deletemultiple('lunch_menu',i,u.id)"
+                          [hidden]="!show_toast">&times;</span>
+                        <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+  
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> <strong>Your Web Site Address/URL:
+                        <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                          matTooltip="You can either upload files or provide a url below"></i>
+                      </strong></label>
+                    <!-- Or, please provide a web site address/url where we can collect your menu content: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label> -->
+                      <input type="text" class="form-control" id="url_launchmenu" name="url" size="28" #launchmenuurl [disabled]="lcc_url"
+                        value="{{launch_menu}}" (keyup)="checkvalidity($event,'lm_url')"
+                        (change)="checkvalidity($event,'lm_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+              </div>
+              <!-- Section Image -->
+              <!-- <div class="secDifer">
+  
+                                <div class="row">
+                                  <div class="col-12">
+                                    <label class="titleCustom">SECTION:</label>
+                                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.<br>
+                                  </div>
+                                  <div class="col-5">
+                                    <label for="menuImg" class="fieldTitle">Select files:</label>
+                                    <input type="file" accept=".pdf"  [disabled]="lcc_url" id="myfile_section" name="myfile" multiple
+                                        (change)="changelaunchsectionbreak1($event)">
+                              <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                                      <div class="container1">
+                                         <div class="img-wrap  rounded" [hidden]="Launch_section_preview" *ngFor="let u of img_launch_section;let i=index">
+                                           <span class="close" (click)="deletemultiplelunchsection('lunch_section',i,u.id)" [hidden]="!show_toast">&times;</span>
+                                            <a  (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o" ></i></a>
+  
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-5" id="input_url">
+  
+  
+                                      <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL:<i class="fa fa-info-circle tooltipCustom" aria-hidden="true"
+                                        #tooltip="matTooltip"
+                                         matTooltip="You can either upload files or provide a url below"
+                                        ></i>
+                                        
+                                      </label>
+  
+                                      <form>
+  
+                                         
+                                          <input type="text"
+                                          (keyup)="checkvalidity($event,'ls_url')"
+                                          value="{{launch_sec}}"
+                                          [disabled]="lcc_url"
+                                          (change)="checkvalidity($event,'ls_url')"
+                                          id="url_launchsection" name="Url"  size="28" #SECTIONURLAUNCH>
+                                     
+  
+                                      </form>
+                                      <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                                        contact you</p>
+  
+                                  </div>
+  
+                                </div>
+  
+                                  </div> -->
+              <!-- </div> -->
+              <!-- Display day And time -->
+  
+              <!-- <div class="secDifer">
+                                  <label class="titleCustom"><strong>DISPLAY DAY &AMP; TIMES:</strong></label>
+                                  Your "dynamic" Menu will automatically change to your breakfast menu, based on your day/time
+                                  of day instructions below.<br>
+  
+                                  Select the days and times to display your Breakfast menu, every week:<br><br>
+  
+  
+                                  <form >
+                                      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                      <label for="vehicle1"> Every Day</label><br>
+                                  </form>
+  
+                                  <form class="form-inline" >
+                                      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                      <label for="vehicle2"> Monday</label><br>
+                                      <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                      <label for="vehicle3"> Tuesday</label><br>
+                                      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                      <label for="vehicle1"> Wednesday</label><br>
+                                  </form>
+                                  <form class="form-inline" >
+                                      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                      <label for="vehicle2"> Thursday</label><br>
+                                      <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                      <label for="vehicle3"> Friday</label><br>
+                                      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                      <label for="vehicle1"> Saturday</label><br>
+                                      <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                      <label for="vehicle2"> Sunday</label><br>
+                                  </form>
+  
+                                  <form class="form-inline" action="">
+                                      <label for="selfcling">Start Time:</label>
+                                      <input type="text" id="selfcling" name="selfcling" value="" size="4"><br><br>
+                                      <label for="selfcling">End Time:</label>
+                                      <input type="text" id="selfcling" name="selfcling" value="" size="4">
+                                  </form>
+  
+  
+                              </div> -->
+  
+              <div class="secDifer">
+                <label class="titleCustom"><strong>DISPLAY DAY & TIMES:</strong></label>
+                Your "dynamic" Menu will automatically change to your Lunch menu, based on your day/time
+                of day instructions below.<br>
+  
+                Select the days and times to display your Lunch menu, every week:<br><br>
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" id="vehicle12" [disabled]="lcc_url"
+                        (change)="checkeveday($event,'everyday')">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'monday')" id="vehicle22">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'tuesday')" id="vehicle32">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'wednesday')"
+                        id="vehicle42">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'thursday')"
+                        id="vehicle52">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'friday')" id="vehicle62">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'sat')" id="vehicle72">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="lcc_url" (change)="checkeveday($event,'sun')" id="vehicle82">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline">
+                      <label for="selfcling">Start Time:</label>
+  
+  
+                      <input type="time" class="form-control" (change)="checkblaunch($event,'start')" id="start_launch" name="selfcling"
+                        value="{{launch_start}}" [disabled]="lcc_url" size="4" #start_Break><br><br>
+                      <label for="selfcling">End Time:</label>
+  
+                      <input type="time" class="form-control" (change)="checkblaunch($event,'end')" id="end_launch" name="selfcling"
+                        value="{{launch_end}}" [disabled]="lcc_url" size="4" #end_Break>
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+  
+  
+              </div>
+  
+              <button mat-raised-button class="btn btn-success m-1" type="submit" [hidden]="!show_toast"
+                (click)="opennextab1('Paris',launchcoverurl.value,launchtopimageurl.value,launchmenuurl.value,launch.value,start_Break.value,end_Break.value)">Save
+                & Continue</button>
+  
+  
+  
+  
+              <!-- <button mat-raised-button
+                              class="btn btn-success m-1" type="submit"
+                              [disabled]="lcc_url"
+  
+  
+                              (click)="opennextab1('Paris',launchcoverurl.value,launchtopimageurl.value,launchmenuurl.value,SECTIONURLAUNCH.value,launch.value,start_Break.value,end_Break.value)">Save & Continue</button> -->
+            </div>
+  
+            <div id="Tokyo" class="tabcontent mt-1" hidden>
+  
+              <label class="titleCustom" for="bkmenu">
+                <input type="checkbox" id="tokyo" name="bkmenu" [disabled]="dinner_button" value="bkMenu"
+                  (change)="checkbrunch($event)">
+                <input type="text" hidden value="3" #brunch class="form-control">
+                <strong class="m-1">Dinner Menu</strong></label>
+              {{dinner_ins}}
+  
+              <!-- Cover section -->
+              <div class="secDifer">
+  
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>COVER PAGE IMAGE (non editable)</strong></label>
+                    This will be used for your online menu,
+                    and used for the background image for your Menu QR Code signage.
+                  </div>
+                  <div class="col-5">
+                    <form>
+                      <label for="myfile" class="fieldTitle">Select file:</label>
+                      <input type="file" class="form-control" id="mydinnercoverfile" accept=".jpeg,.jpg,.png" name="myfile" [disabled]="d_url"
+                        (change)="brunchcoverimage($event)">
+                    </form>
+                    <!-- <i type="butoon" [hidden]="Dinner_cover_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal8"></i> -->
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="dinner_cov">
+                      <div class="img-wrap rounded " [hidden]="Dinner_cover_preview">
+                        <span class="close" [hidden]="!show_toast" (click)="deletephoto('dinner_cover')">&times;</span>
+  
+                        <img src="{{img_dinner_cover}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal8">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="" class="fieldTitle">Your Web Site Address/URL: <i class="fa fa-info-circle tooltipCustom"
+                        aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it as your background
+                                Dinner menu image.-->
+                    </label>
+  
+                    <form>
+                      <!-- <label for="url">Enter the url:</label> -->
+                      <input type="text" class="form-control" id="url_brunch" name="url" (keyup)="checkvalidity($event,'dc_url')"
+                        (change)="checkvalidity($event,'dc_url')" [disabled]="d_url" size="28" #coverbrunchurl
+                        value="{{dinner_cover}}">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+  
+  
+  
+  
+  
+  
+              </div>
+              <!-- top Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>TOP IMAGE</strong></label>
+                    This image will be added to the top of your Dinner menu.<br>
+                  </div>
+  
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Select file:</label>
+                    <form>
+                      <!-- <label for="myfile" ></label><br> -->
+                      <input type="file" class="form-control" accept=".jpeg,.jpg,.png" id="mydinnertopfile" name="myfile" [disabled]="d_url"
+                        (change)="brunchtopimage($event)">
+                    </form>
+                    <!-- <i type="button"
+                                    data-bs-toggle="modal" data-bs-target="#myModal9" [hidden]="Dinner_top_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"></i> -->
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="dinner_top">
+                      <div class="img-wrap rounded" [hidden]="Dinner_top_preview">
+                        <span class="close" [hidden]="!show_toast" (click)="deletephoto('dinner_top')">&times;</span>
+  
+                        <img src="{{img_dinner_top}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal9">
+  
+                      </div>
+                    </div>
+  
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i></label>
+                    <!-- Or, we can collect a photo found on your web site and add it to the top of your
+                                 Dinner menu: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input type="text" class="form-control" id="url_topbrunch" name="url" size="28" #topurl [disabled]="d_url"
+                        value="{{dinner_top}}" (keyup)="checkvalidity($event,'dt_url')"
+                        (change)="checkvalidity($event,'dt_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+  
+              </div>
+  
+  
+              <!-- Menu Section -->
+              <div class="secDifer">
+  
+                <div class="row">
+                  <div class="col-12"> <label class="titleCustom"><strong>MENU:</strong></label>
+                    <!-- Upload a PDF file of your Dinner menu.<br> -->
+                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.</div>
+                  <div class="col-5">
+                    <form>
+  
+                      <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+                      <label for="menuImg" class="fieldTitle">Select files:</label>
+                      <input type="file" class="form-control" [disabled]="d_url" id="myfile" name="myfile" accept=".pdf" multiple
+                        (change)="changebrunchmenubreak1($event)">
+                    </form>
+                    <!-- <i type="button" [hidden]="Dinner_menu_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"
+                                    data-bs-toggle="modal" data-bs-target="#myModal10"
+                                   ></i> -->
+                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                    <div class="container1">
+  
+                      <div class="img-wrap rounded" [hidden]="Dinner_menu_preview"
+                        *ngFor="let u of img_dinner_menu;let i=index">
+                        <!-- <span class="close"  (click)="deletemultiple('dinner_menu',i)">&times;</span> -->
+  
+                        <!-- <i type="button" class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i> -->
+                        <span class="close" [hidden]="!show_toast"
+                          (click)="deletemultiple('dinner_menu',i,u.id)">&times;</span>
+                        <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i></label>
+                    <!-- Or, please provide a web site address/url where we can collect your menu content: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input type="text" class="form-control" id="url_menubrunch" name="url" size="28" #MENUURLBRUNCH [disabled]="d_url"
+                        value="{{dinner_menu}}" (keyup)="checkvalidity($event,'dm_url')"
+                        (change)="checkvalidity($event,'dm_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+  
+              <!-- </div> -->
+  
+              <!-- Section Image -->
+              <!-- <div class="secDifer">
+                              <div class="row">
+  
+                                  <div class="col-12">
+                                      <label class="titleCustom"><strong>SECTION:</strong></label>
+                                      Please be sure to include your Kids, Desert and Beverage menus, if you have one.<br>
+                                    </div>
+                                    <div class="col-5">
+                                      <label for="menuImg" class="fieldTitle">Select files:</label>
+                                      <input type="file" accept=".pdf"  [disabled]="d_url" id="myfile" name="myfile[]" multiple
+                                          (change)="changebrunchsectionbreak1($event)">
+                              <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                                          <div class="container1">
+                                          <div class="img-wrap rounded" [hidden]="Dinner_section_preview"    *ngFor="let u of img_dinner_section;let i=index">
+                                          <span class="close" [hidden]="!show_toast" (click)="deletemultiplelunchsection('dinner_section',i,u.id)">&times;</span>
+                                          <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o" ></i></a>
+  
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-5" id="input_url">
+                                      <label for="menuImg" class="fieldTitle">Your Web Site Address/URL:<i class="fa fa-info-circle tooltipCustom" aria-hidden="true"
+                                        #tooltip="matTooltip"
+                                       matTooltip="You can either upload files or provide a url below"
+                                        ></i></label>
+                                      <form>
+                                          <input type="text" id="url_sectionbrunch"
+                                          [disabled]="d_url"
+                                      (keyup)="checkvalidity($event,'ds_url')" (change)="checkvalidity($event,'ds_url')"
+                                          value="{{dinner_sec}}"
+                                          name="Url"  size="28" #SECTIONURBRUNCH>
+                                      </form>
+                                      <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                                        contact you</p>
+                                  </div>
+                              </div>
+                          </div> -->
+              <!-- Display Day And Time -->
+  
+              <!-- <div class="secDifer">
+                              <label class="titleCustom"><strong>DISPLAY DAY &AMP; TIMES:</strong></label>
+                              Your "dynamic" Menu will automatically change to your breakfast menu, based on your day/time
+                              of day instructions below.<br>
+  
+                              Select the days and times to display your Breakfast menu, every week:<br><br>
+  
+  
+                              <form >
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Every Day</label><br>
+                              </form>
+  
+                              <form class="form-inline" >
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Monday</label><br>
+                                  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                  <label for="vehicle3"> Tuesday</label><br>
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Wednesday</label><br>
+                              </form>
+                              <form class="form-inline" >
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Thursday</label><br>
+                                  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                  <label for="vehicle3"> Friday</label><br>
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Saturday</label><br>
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Sunday</label><br>
+                              </form>
+  
+                              <form class="form-inline" action="">
+                                  <label for="selfcling">Start Time:</label>
+                                  <input type="text" id="selfcling" name="selfcling" value="" size="4"><br><br>
+                                  <label for="selfcling">End Time:</label>
+                                  <input type="text" id="selfcling" name="selfcling" value="" size="4">
+                              </form>
+  
+  
+                          </div> -->
+              <div class="secDifer">
+                <label class="titleCustom"><strong>DISPLAY DAY & TIMES:</strong></label>
+                Your "dynamic" Menu will automatically change to your Dinner menu, based on your day/time
+                of day instructions below.<br>
+  
+                Select the days and times to display your Dinner menu, every week:<br><br>
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" [disabled]="d_url" id="vehicle13" value="Bike"
+                        (change)="checkdinnerday($event,'everyday')">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'monday')" id="vehicle23"
+                        value="Car">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'tuesday')" id="vehicle33"
+                        value="Boat">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'wednesday')"
+                        id="vehicle43" value="Bike">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'thursday')"
+                        id="vehicle53" value="Car">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'friday')" id="vehicle63"
+                        value="Boat">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'sat')" id="vehicle73"
+                        value="Bike">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="d_url" (change)="checkdinnerday($event,'sun')" id="vehicle83"
+                        value="Car">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline" action="">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" value="{{dinner_start}}" [disabled]="d_url"
+                        (change)="checkdinnertime($event,'start')" id="start_brunch" name="selfcling" size="4"
+                        #Start_break><br><br>
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" class="form-control" [disabled]="d_url" (change)="checkdinnertime($event,'end')"
+                        value="{{dinner_end}}" id="end_brunch" name="selfcling" size="4" #End_break>
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+  
+  
+              </div>
+  
+              <!-- <button mat-raised-button
+                              [disabled]="d_url"
+  
+  
+                              class="btn btn-success m-1" type="submit"
+                              (click)="opennextab2('Tokyo',SECTIONURBRUNCH.value,MENUURLBRUNCH.value,topurl.value,coverbrunchurl.value,brunch.value,Start_break.value,End_break.value)">Save & Continue</button> -->
+  
+  
+              <button mat-raised-button [hidden]="!show_toast" class="btn btn-success m-1" type="submit"
+                (click)="opennextab2('Tokyo',MENUURLBRUNCH.value,topurl.value,coverbrunchurl.value,brunch.value,Start_break.value,End_break.value)">Save
+                & Continue</button>
+  
+  
+              <!-- <button mat-raised-button
+                              class="btn btn-success m-1" type="submit" [disabled]="d_url || dend_url || dstart_url || dc_url || dt_url || dm_url || ds_url"
+                              (click)="opennextab2('Tokyo',SECTIONURBRUNCH.value,MENUURLBRUNCH.value,topurl.value,coverbrunchurl.value,brunch.value,start_break.value,end_break.value)">Save & Continue</button> -->
+            </div>
+  
+            <div id="Laguna" class="tabcontent mt-1" hidden>
+  
+              <label class="titleCustom" for="bkmenu">
+                <input type="checkbox" id="laguna" name="bkmenu" [disabled]="brunch_button" value="bkMenu"
+                  (change)="checkdinner($event)">
+                <input type="text" value="4" hidden #dinner class="form-control">
+                <strong class="m-1">Brunch Menu</strong></label>
+              {{brunch_ins}}
+              <!-- Cover Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>COVER PAGE IMAGE (non editable)</strong></label>
+                    <!-- Upload an image for your Brunch Menu cover page. -->
+                  </div>
+                  <div class="col-5">
+                    <form>
+                      <label for="myfile" class="fieldTitle">Select file:</label>
+                      <input type="file" class="form-control" accept=".jpeg,.jpg,.png" [disabled]="br_url" id="mybrunchcoverfile"
+                        name="myfile[]" (change)="dinnerchangecoverimage($event)">
+                      <!-- <i data-bs-toggle="modal" data-bs-target="#myModal12" type="button" [hidden]="Brunch_cover_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"></i> -->
+  
+  
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <!-- <br> -->
+                    <div class="container1" id="brunch_cov">
+                      <div class="img-wrap rounded" [hidden]="Brunch_cover_preview">
+                        <span class="close" [hidden]="!show_toast" (click)="deletephoto('brunch_cover')">&times;</span>
+  
+                        <img src="{{img_brunch_cover}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal12">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="myfile" class="fieldTitle">Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i></label>
+  
+                    <!-- Or if you would like us to select an image for you, please provide a web site
+                                address/url where we can collect your menu content. -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input type="text" class="form-control" id="url_dinner" name="url" size="28" #dinnercoverurl [disabled]="br_url"
+                        value="{{brunch_cover}}" (keyup)="checkvalidity($event,'brc_url')"
+                        (change)="checkvalidity($event,'brc_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+  
+  
+  
+              </div>
+              <!-- Top Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>TOP IMAGE</strong></label>
+                    This image will be added to the top of your Brunch menu.<br>
+                  </div>
+  
+                  <div class="col-5">
+                    <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+                    <label for="menuImg" class="fieldTitle"> <strong>Select file:</strong></label>
+                    <form>
+                      <!-- <label for="myfile"></label><br> -->
+                      <input type="file" class="form-control" accept=".jpeg,.jpg,.png" [disabled]="br_url" id="mybrunchtopfile" name="myfile[]"
+                        (change)="dinnerchangetopimage($event)">
+                    </form>
+                    <!-- <i data-bs-toggle="modal" data-bs-target="#myModal13" type="button" [hidden]="Brunch_top_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"></i> -->
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="brunch_top">
+                      <div class="img-wrap rounded" [hidden]="Brunch_top_preview">
+                        <span class="close" [hidden]="!show_toast" (click)="deletephoto('brunch_top')">&times;</span>
+  
+                        <img src="{{img_brunch_top}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#myModal13">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i></label>
+                    <!-- Or, we can collect a photo found on your web site and add it to the top of your
+                                   Brunch menu: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label>  -->
+                      <input type="text" class="form-control" id="url_dinnertop" name="url" size="28" #dinnertopurl [disabled]="br_url"
+                        value="{{brunch_top}}" (keyup)="checkvalidity($event,'brt_url')"
+                        (change)="checkvalidity($event,'brt_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+                </div>
+  
+  
+  
+              </div>
+  
+  
+              <!-- Menu Image -->
+  
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+  
+                    <label class="titleCustom"><strong>MENU:</strong></label><br>
+                    <!-- Upload a PDF file of your Brunch menu -->
+                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.
+                  </div>
+                  <div class="col-5">
+                    <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+                    <label for="menuImg" class="fieldTitle"> Select files:</label>
+                    <input type="file" class="form-control" accept=".pdf" [disabled]="br_url" id="myfile" name="myfile" multiple
+                      (change)="changedinnermenuimage($event)">
+                    <!-- <i data-bs-toggle="modal" data-bs-target="#myModal14" type="button" [hidden]="Brunch_menu_preview" class="fa fa-picture-o fa-2x" aria-hidden="true"></i> -->
+                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                    <div class="container1">
+  
+                      <div class="img-wrap rounded" [hidden]="Brunch_menu_preview"
+                        *ngFor="let u of img_brunch_menu;let i=index">
+                        <!-- <span class="close" (click)="deletemultiple('brunch_menu',i)">&times;</span>  -->
+                        <!-- <i type="button" class="fa fa-file-pdf-o" style="font-size:48px;color:red"></i> -->
+  
+                        <span class="close" [hidden]="!show_toast"
+                          (click)="deletemultiple('dinner_menu',i,u.id)">&times;</span>
+                        <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <!-- <br><br><br> -->
+                    <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> -->
+                    <label for="menuImg" class="fieldTitle">Your Web Site Address/URL:
+                      <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                    </label> <!-- Or, please provide a web site address/url where we can collect your menu content: -->
+                    <form>
+                      <!-- <label for="url">Enter the url:</label> -->
+                      <input type="text" class="form-control" id="url_dinnermenu" name="url" size="28" #dinnermenuurl [disabled]="br_url"
+                        value="{{brunch_menu}}" (keyup)="checkvalidity($event,'brm_url')"
+                        (change)="checkvalidity($event,'brm_url')">
+                    </form>
+                    <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                      contact you</p>
+                  </div>
+  
+                </div>
+  
+  
+  
+              </div>
+  
+              <!-- Section Image -->
+              <!-- <div class="secDifer">
+                              <div class="row">
+  
+                                  <div class="col-12">
+                                      <label class="titleCustom"><strong>SECTION:</strong></label>
+                                    
+                                      Please be sure to include your Kids, Desert and Beverage menus, if you have one.<br>
+                                    </div>
+                                    <div class="col-5">
+                                      <label for="menuImg" class="fieldTitle">Select files:</label>
+                                      <input type="file" accept=".pdf" [disabled]="br_url" id="myfile" name="myfile[]" multiple
+                                          (change)="changedinnersectionimage($event)">
+                                     
+                              <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+        
+                                          <div class="container1">
+                                          <div class="img-wrap rounded" [hidden]="Brunch_section_preview" *ngFor="let u of img_brunch_section;let i=index">
+                                        
+                                            <span class="close" [hidden]="!show_toast" (click)="deletemultiplelunchsection('brunch_section',i,u.id)">&times;</span>
+  
+                                            <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+                                          </div>
+                                        </div>
+                                  </div>
+                                  <div class="col-5" id="input_url">
+  
+                                      <label for="menuImg" > <strong>Your Web Site Address/URL:<i class="fa fa-info-circle tooltipCustom" aria-hidden="true"
+                                        #tooltip="matTooltip"
+                                       matTooltip="You can either upload files or provide a url below"
+                                        ></i></strong></label>
+                                   
+                                      <form>
+                               
+                                          <input type="text"
+                                          [disabled]="br_url"
+                                      (keyup)="checkvalidity($event,'brs_url')" (change)="checkvalidity($event,'brs_url')"
+                                           value="{{brunch_sec}}"
+                                          id="url_section" name="Url"  size="28" #SECTIONURlDINNER>
+                                   
+  
+                                      </form>
+                                      <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                                        contact you</p>
+                                  </div>
+  
+  
+  
+                              </div>
+                          </div> -->
+  
+              <!-- Display Day And time -->
+              <!-- <div class="secDifer">
+                              <label class="titleCustom"><strong>DISPLAY DAY &AMP; TIMES:</strong></label>
+                              Your "dynamic" Menu will automatically change to your breakfast menu, based on your day/time
+                              of day instructions below.<br>
+  
+                              Select the days and times to display your Breakfast menu, every week:<br><br>
+  
+  
+                              <form >
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Every Day</label><br>
+                              </form>
+  
+                              <form class="form-inline" >
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Monday</label><br>
+                                  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                  <label for="vehicle3"> Tuesday</label><br>
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Wednesday</label><br>
+                              </form>
+                              <form class="form-inline" >
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Thursday</label><br>
+                                  <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                                  <label for="vehicle3"> Friday</label><br>
+                                  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                  <label for="vehicle1"> Saturday</label><br>
+                                  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                                  <label for="vehicle2"> Sunday</label><br>
+                              </form>
+  
+                              <form class="form-inline" action="">
+                                  <label for="selfcling">Start Time:</label>
+                                  <input type="text" id="selfcling" name="selfcling" value="" size="4"><br><br>
+                                  <label for="selfcling">End Time:</label>
+                                  <input type="text" id="selfcling" name="selfcling" value="" size="4">
+                              </form>
+  
+  
+                          </div> -->
+              <div class="secDifer">
+                <label class="titleCustom"><strong>DISPLAY DAY & TIMES:</strong></label>
+                Your "dynamic" Menu will automatically change to your Brunch menu, based on your day/time
+                of day instructions below.<br>
+  
+                Select the days and times to display your Brunch menu, every week:<br><br>
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" id="vehicle14" name="vehicle1" (change)="checkbrucnhday($event,'everyday')">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" (change)="checkbrucnhday($event,'monday')" id="vehicle24">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" (change)="checkbrucnhday($event,'tuesday')" id="vehicle34">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" (change)="checkbrucnhday($event,'wednesday')" id="vehicle44">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="br_url" (change)="checkbrucnhday($event,'thursday')"
+                        id="vehicle54">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="br_url" (change)="checkbrucnhday($event,'friday')"
+                        id="vehicle64">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="br_url" (change)="checkbrucnhday($event,'sat')" id="vehicle74">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="br_url" (change)="checkbrucnhday($event,'sun')" id="vehicle84">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline" action="">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" id="start_dinner" [disabled]="br_url" name="selfcling" value="{{Brunch_start}}"
+                        size="4" #start_break (change)="checkstart($event)"><br><br>
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" class="form-control" id="end_dinner" [disabled]="br_url" name="selfcling" value="{{Brunch_end}}"
+                        size="4" #end_break (change)="checksend($event)">
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+  
+  
+              </div>
+  
+              <button mat-raised-button [hidden]="!show_toast" class="btn btn-success m-1" type="submit"
+                (click)="opennextab3('laguna',dinnermenuurl.value,dinnertopurl.value,dinnercoverurl.value,dinner.value,start_break.value,end_break.value)">Save
+                & Continue</button>
+  
+              <!-- <button mat-raised-button
+                          [disabled]="br_url"
+  
+  
+                          class="btn btn-success m-1"  type="submit" (click)="opennextab3('laguna',dinnermenuurl.value,dinnertopurl.value,dinnercoverurl.value,SECTIONURlDINNER.value,dinner.value,start_break.value,end_break.value)">Save & Continue</button> -->
+  
+              <!-- <button mat-raised-button
+                              class="btn btn-success m-1" [disabled]="br_url || brstart_url || brend_url || brc_url || brt_url || brm_url || brs_url" type="submit" (click)="opennextab3('laguna',dinnermenuurl.value,dinnertopurl.value,dinnercoverurl.value,SECTIONURlDINNER.value,dinner.value,start_break.value,end_break.value)">Save & Continue</button> -->
+            </div>
+  
+            <div id="Shrewsbury" class="tabcontent" hidden>
+              <label class="titleCustom" for="bkmenu">
+                <input type="checkbox" [disabled]="dinner_button" id="special_bkmenu" name="special"
+                  (change)="enableordisablefields($event)">
+                <input hidden [(ngModel)]="special">
+                <!-- EXCLUSIVE:    {{exclusive}} -->
+                <strong>Specials Menu</strong></label>
+              {{special_ins}}
+  
+  
+              <div class="secDifer">
+                <label class="titleCustom"><strong>MENU:</strong></label>
+                Upload a PDF file of your Specials menu.
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg"> <label for="menuImg"> <strong>File</strong></label><br> -->
+                <form>
+                  <label for="myfile" class="fieldTitle">Select files:</label>
+                  <input class="form-control" [disabled]="special_button" type="file" id="myfile" name="myfile" accept=".pdf" multiple
+                    (change)="getstock_imege($event)">
+                </form>
+  
+                <div class="container1">
+                  <div class="img-wrap rounded" [hidden]="special_section_preview"
+                    *ngFor="let u of img_special;let i=index">
+                    <span class="close" (click)="deletemultiplelunchsection('special_section',i,u.id)"
+                      [hidden]="special_button">&times;</span>
+                    <!-- <span class="close">&times;</span> -->
+  
+                    <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+                  </div>
+                </div>
+  
+                <!-- <br>
+                            <form>
+                            <input type="checkbox" id="menuImg" name="menuImg" value="menuImg">
+                            <label for="menuImg"> <strong>Your Web Site Address/URL:</strong></label><br>
+                            </form> -->
+                Or, please provide a web site address/url where we can collect your menu content:
+                <form>
+                  <input class="form-control" [disabled]="special_button" type="text" id="url" name="url" [(ngModel)]="special_url"
+                    (change)="check_special()" size="28" placeholder="Enter the URL">
+                </form>
+                <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                  contact you</p>
+  
+  
+                <p>Please select your SPECIALS menu image from our gallery.<br>
+                  When you select your SPECIALS menu image, it will include a color coordinated pop-up
+                  (per the below, if you would like your SPECIALS menu to display WITH your normally
+                  scheduled menu, a "pop-up" will display.)</p>
+                <!-- {{common_for_special_menu}} -->
+                <button mat-raised-button [disabled]="special_button" data-bs-toggle="modal" data-bs-target="#myModal21"
+                  class="btn btn-success">Select Image</button>
+                <div class="container1" id="break_cover">
+                  <div class="img-wrap rounded" [hidden]="see_photo">
+                    <span class="close" (click)="deletephoto('special')" [hidden]="special_button">&times;</span>
+  
+                    <img src="{{common_for_special_menu}}" height="50px" width="50px" data-bs-toggle="modal"
+                      data-bs-target="#myModal15">
+  
+                  </div>
+                </div>
+  
+  
+              </div>
+  
+              <div class="secDifer">
+                <label class="titleCustom"><strong>DISPLAY DAY &amp; TIMES:</strong></label>
+                When you select your <strong>SPECIALS</strong> menu's day/times, a new TAB will display at
+                the top of your menu platform to alert your customers that a Specials menu is available.
+                <strong>NOTE:</strong> If you would like to schedule "more than one"
+                <strong>SPECIALS</strong> menu at a time, please complete one (and submit), then start
+                another. Always do one at a time. You have <strong>"TWO OPTIONS"</strong> for how your
+                <strong>SPECIALS</strong> menu will
+                be displayed:<br>
+                <strong>EXCLUSIVELY:</strong> Your <strong>SPECIALS</strong> menu will display<strong>
+                  "by itself"</strong> on your selected day/time (replacing your normally scheduled
+                menus.) <br>
+  
+                <strong>IN ADDITION:</strong> Your <strong>SPECIALS</strong> Menu will be displayed
+                <strong>"with"</strong> your normally scheduled menu, on your selected day/time.<br>
+  
+                Additionally, a <strong>SPECIALS</strong> TAB will appear on the navigation bar to alert
+                your customers that a Specials menu is available.
+  
+                <br><strong>NOTE:</strong> If you would like to schedule "more than one"
+                <strong>SPECIALS</strong> menu at a time, please complete one (and submit), then start
+                another. Always do one at a time.
+              </div>
+              <!-- Exclusive Part -->
+              <div class="secDifer">
+                <label for="exclusively" class="titleCustom">
+                  <input type="radio" [disabled]="special_button" id="exclusively" name="inAddition" value="Exclusively"
+                    (change)="enable_exclusive_inaddition($event,'exclusive')"> EXCLUSIVELY</label>
+  
+                If you would like your <strong>SPECIALS</strong> menu to display
+                <strong>EXCLUSIVELY</strong> (your "normally scheduled" menus <strong>will not</strong>
+                display, and will be <strong>REPLACED</strong> with your <strong>SPECIALS</strong> menu),
+                please select the display days/times:<br>
+  
+  
+                <!-- For Exclusive every week -->
+  
+                <label for="everyWeek" class="fieldTitle"><input type="radio" id="everyWeek" [disabled]="enable_exclusive"
+                    name="everySpecificWeek" (change)="enable_everyweek($event,'every_week','exclusive')"> EVERY
+                  WEEK</label>
+  
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" [disabled]="enable_days" id="vehicle_se" name="vehicle"
+                        (change)="checkspecialday($event,'everyday')">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'monday')"
+                        name="vehicle2" id="vehicle_s2">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'tuesday')"
+                        name="vehicle3" id="vehicle_s3">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'wednesday')"
+                        name="vehicle1" id="vehicle_s4">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'thursday')"
+                        name="vehicle2" id="vehicle_s5">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'friday')"
+                        name="vehicle3" id="vehicle_s6">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'sat')"
+                        name="vehicle1" id="vehicle_s7">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="enable_days" (change)="checkspecialday($event,'sun')"
+                        name="vehicle2" id="vehicle_s8">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" readonly id="start_exclusive" name="selfcling" size="4"><br><br>
+  
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" class="form-control" readonly id="end_exclusive" name="selfcling" size="4">
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+                <!-- For Exclusive Specific Date -->
+                <label for="specificWeek" class="fieldTitle"><input [disabled]="enable_exclusive" type="radio"
+                    id="specificWeek" name="everySpecificWeek" value="SPECIFIC DATE"
+                    (change)="enable_everyweek($event,'specific_date','exclusive')"> SPECIFIC DATE</label>
+                Select the specific
+                date that you would like your <strong>SPECIALS</strong> menu to display<br>
+  
+                <!-- <input   type="date" id="special_exc"  value="{{date_time | date:'yyyy-MM-dd'}}" #date name="special"  [disabled]="enable_date_specific" (change)="changedate(date.value,'exclusive_specific_date')"> -->
+                <br>Date for Specials Menu:<br>
+                <label for="special_from_dt"><b>From:</b></label>
+                <input (change)="get_frm_date($event)" class="form-control" type="date" id="special_from_dt" name="special"
+                  value="{{menu_frm_dt}}"> &nbsp;
+                <label for="special_to_dt"><b>To:</b></label>
+                <input (change)="get_to_date($event)" class="form-control" type="date" id="special_to_dt" name="special"
+                  value="{{menu_to_dt}}">
+                <br>
+                TIME: Select the normally scheduled menu that your SPECIALS menu will display with:
+  
+                <form class="form-inline">
+                  <input type="checkbox" [disabled]="enable_exclusive" id="break"
+                    (change)="checkregularid($event,'break',1)">
+                  <label for="vehicle2"> Breakfast</label><br>
+                  <input type="checkbox" [disabled]="enable_exclusive" id="lunch"
+                    (change)="checkregularid($event,'lunch',2)">
+                  <label for="vehicle3"> Lunch</label><br>
+                  <input type="checkbox" [disabled]="enable_exclusive" id="dinner"
+                    (change)="checkregularid($event,'dinner',3)">
+                  <label for="vehicle1"> Dinner</label><br>
+                  <input type="checkbox" [disabled]="enable_exclusive" id="brunch"
+                    (change)="checkregularid($event,'brunch',4)">
+                  <label for="vehicle2"> Brunch</label><br>
+                </form>
+              </div>
+  
+              <!-- Addition Part -->
+              <div class="secDifer">
+                <label for="inAddition" class="titleCustom">
+                  <input type="radio" [disabled]="special_button" id="inAddition" name="inAddition" value="In Addition"
+                    (change)="enable_exclusive_inaddition($event,'addition')">
+                  IN ADDITION</label>
+                If you would like your <strong>SPECIALS</strong> menu to display <strong>IN
+                  ADDITION</strong> to your "normally scheduled" menus (your <strong>SPECIALS </strong>
+                menu will be displayed <strong>WITH</strong> your Specials menu), please select the display
+                days/times:<br>
+                <br>NOTE: When your customer views your normally scheduled menu, they will ALSO see a
+                pop-up, indicating there is a SPECIALS menu to view. <br><br>
+  
+  
+                <label for="everyWeekAddi" class="fieldTitle"><input type="radio" id="everyWeekAddi"
+                    [disabled]="enable_addition" name="everySpecificWeekAddi" value="EVERY WEEK In Addition"
+                    (change)="enable_everyweek($event,'every_week_addition','addition')"> EVERY WEEK</label>
+  
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa"
+                        (change)="check_everyday_addition($event,'everyday')">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa1"
+                        (change)="check_everyday_addition($event,'mon')">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa2"
+                        (change)="check_everyday_addition($event,'tue')">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa3"
+                        (change)="check_everyday_addition($event,'wed')">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa4"
+                        (change)="check_everyday_addition($event,'thu')">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa5"
+                        (change)="check_everyday_addition($event,'fri')">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa6"
+                        (change)="check_everyday_addition($event,'sat')">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="enable_days_addition" id="vehicle_sa7"
+                        (change)="check_everyday_addition($event,'sun')">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline" action="">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" readonly id="start_addition" name="selfcling" size="4"><br><br>
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" class="form-control" readonly id="end_addition" name="selfcling" size="4">
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+                <label for="specificWeekAddi" class="fieldTitle"><input type="radio" [disabled]="enable_addition"
+                    id="specificWeekAddi" name="everySpecificWeekAddi" value="SPECIFIC DATE In Addition"
+                    (change)="enable_everyweek($event,'specific_addition','addition')"> SPECIFIC DATE</label>
+                <form>
+                  Select the specific
+                  date that you would like your <strong>SPECIALS</strong> menu to display
+                  <br>Date for Specials Menu:<br>
+                  <!-- <input type="date" id="special" value="{{add_date | date:'yyyy-MM-dd'}}" #add name="special" [disabled]="enable_specific_date_addition" (change)="changedate(add.value,'addition_specific_date')"> -->
+                  <input (change)="get_frm_date($event)" class="form-control" type="date" id="special_from_dt" name="special"
+                    value="{{menu_frm_dt}}"> &nbsp;
+                  <input (change)="get_to_date($event)" class="form-control" type="date" id="special_to_dt" name="special"
+                    value="{{menu_to_dt}}">
+                </form>
+                <strong>TIME:</strong> Select the normally scheduled menu that your SPECIALS menu will
+                display with:<br>
+  
+                <form class="form-inline">
+                  <input type="checkbox" [disabled]="enable_addition" (change)="check_addition($event,'break',1)"
+                    id="specials_breakfast">
+                  <label for="vehicle2"> Breakfast</label><br>
+                  <input type="checkbox" [disabled]="enable_addition" (change)="check_addition($event,'lunch',2)"
+                    id="specials_lunch">
+                  <label for="vehicle3"> Lunch</label><br>
+                  <input type="checkbox" [disabled]="enable_addition" (change)="check_addition($event,'dinner',3)"
+                    id="specials_dinner">
+                  <label for="vehicle1"> Dinner</label><br>
+                  <input type="checkbox" [disabled]="enable_addition" (change)="check_addition($event,'brunch',4)"
+                    id="specials_brunch">
+                  <label for="vehicle2"> Brunch</label><br>
+                </form><br>
+              </div>
+              <!-- <button mat-raised-button class="btn btn-success" type="submit">Previous</button>  -->
+              <button mat-raised-button class="btn btn-success m-1" type="submit" [disabled]="special_button"
+                (click)="save_special()">Save & Continue</button>
+            </div>
+  
+  
+  
+            <div id="others" class="tabcontent" hidden>
+              <div class="row mt-2 mb-2">
+                <div class="col-4">
+                  <select class="form-select" [disabled]="!show_toast" (change)="selectmenu($event)" id="getmenu">
+                    <option value="">Select</option>
+                    <option *ngFor="let get_menu of get_createmenu" value="{{get_menu.id}}">{{get_menu.menu_description}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div [hidden]="get_menu_id==''">
+                <label class="titleCustom" for="others_menu">
+                  <input type="checkbox" checked id="others_menu" (change)="getcheckedmenu($event)"> <strong
+                    class="m-1">{{get_menu_text}}</strong></label>
+              </div>
+              <!-- <label class="titleCustom" for="others_menu" >
+                        <input *ngIf="get_menu_text!=''" type="checkbox" id="others_menu"> <strong class="m-1">{{get_menu_text}}</strong></label> -->
+              <!-- <input hidden type="text" value="1" #break> -->
+              With the content that you provide to us below, we will design your menu platform. If you offer a
+              different menu for Breakfast, Lunch, Dinner, Brunch, etc., you can provide us with that
+              information, and we will create your dynamic menu platform, displaying the appropriate menu, at
+              your desired times/days. If you offer the same menu every day, simply add the content to the
+              appropriate option.<br><br>
+  
+              After we set-up your platform the first time, you can then browse and change photos and edit
+              your menu items and pricing, as needed. The Cover Image is non-editable.<br><br>
+              <!-- Cover Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12"><label class="titleCustom"><strong>COVER PAGE IMAGE (non editable)</strong></label>
+                    This will be used for your online
+                    menu, and used for the background image for your Menu QR Code signage.</div>
+                  <div class="col-5">
+                    <form>
+  
+                      <label for="myfile" class="fieldTitle">Select file:</label>
+                      <button mat-raised-button id="hid" hidden (click)="open_crop_modal()">openmodal</button>
+                      <!-- <input type="file" id="myfile" name="myfile" [disabled]="b_url"  (change)="Breakfast($event)"> -->
+                      <!-- <i type="button" [hidden]="Breakfast_cover_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal"></i> -->
+                      <input name="show_name" class="form-control" type="file" id="myothercoverfile" accept=".jpeg,.jpg,.png"
+                        [disabled]="check_button" (change)="othertab($event,'cover')">
+  
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <!-- <div></div> -->
+                    <div class="container1" id="break_cover">
+                      <div class="img-wrap rounded" [hidden]="get_cov">
+                        <span class="close" (click)="deletephoto('other_cover')" [hidden]="!show_toast">&times;</span>
+                        <img src="{{get_img_cover}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#othermodal11">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="" class="fieldTitle">Your Web Site Address/URL:
+                      <i class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it as your background
+                        Breakfast menu image. -->
+                    </label>
+  
+                    <!-- <form> -->
+  
+                    <!-- <label for="url">Enter the url:</label>  -->
+                    <input type="text" class="form-control" size="28" [disabled]="check_button" placeholder="Enter the URL"
+                      [(ngModel)]="get_cover_url">
+                    <!-- </form> -->
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+  
+                </div>
+  
+  
+  
+  
+  
+              </div>
+              <!-- Top Image -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="titleCustom"><strong>TOP IMAGE</strong></label>
+                    This image will be added to the top of this menu.
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Select file:</label>
+                    <form>
+                      <!-- <label for="myfile">Upload 1 Breakfast JPG or PNG images:</label><br> -->
+                      <input type="file" class="form-control" accept=".jpeg,.jpg,.png" id="myothertopfile" name="myfile"
+                        [disabled]="check_button" (change)="othertab($event,'top')">
+                      <!-- <i type="button" [hidden]="Breakfast_top_preview"  class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal1"></i> -->
+  
+                      <!-- <br><br> -->
+                    </form>
+                    <p style="font-style: italic">(File format: .jpeg, .jpg, .png maximum size: 2MB)</p>
+  
+                    <div class="container1" id="break_top">
+                      <div class="img-wrap rounded p-1" [hidden]="get_top">
+                        <span class="close" (click)="deletephoto('other_top')" [hidden]="!show_toast">&times;</span>
+  
+                        <img src="{{get_img_top}}" height="50px" width="50px" data-bs-toggle="modal"
+                          data-bs-target="#othermodal_top">
+  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle"> Your Web Site Address/URL: <i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, we can collect a photo found on your web site and add it to the top of your
+                        Breakfast menu: -->
+                    </label>
+  
+  
+                    <!-- <label for="url">Enter the url:</label>  -->
+                    <!-- <form> -->
+                    <input type="text" class="form-control" [disabled]="check_button" size="28" [(ngModel)]="get_top_url">
+                    <!-- </form> -->
+                    <p style="font-style: italic">If we cannot collect the photos from your web site, we will
+                      contact you</p>
+                  </div>
+  
+                </div>
+  
+  
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg" (change)="TOPIMAGECHECKED($event)"> -->
+  
+  
+                <!-- <input type="checkbox" id="menuImg" name="menuImg" value="menuImg" (change)="changetopImage($event)"> -->
+  
+                <!--  -->
+              </div>
+              <!-- Menu  -->
+              <div class="secDifer">
+                <div class="row">
+                  <div class="col-12"><label class="titleCustom"><strong>MENU:</strong></label>
+                    <!-- Upload a PDF file of your Breakfast menu.<br> -->
+                    Please be sure to include your Kids, Desert and Beverage menus, if you have one.</div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Select files:</label>
+                    <input type="file" class="form-control" [disabled]="check_button" id="othermenufile" name="myfile" multiple="multiple"
+                      accept=".pdf" (change)="othertab($event,'menu')">
+                    <!-- <i type="button" [hidden]="Breakfast_menu_preview" class="fa fa-picture-o fa-2x" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#myModal2"></i> -->
+                    <p style="font-style: italic">(File format: .pdf maximum size: 2MB)</p>
+  
+                    <div class="container1">
+                      <div class="img-wrap rounded" [hidden]="menu_img_show"
+                        *ngFor="let u of img_menu_others;let i=index">
+                        <span class="close" (click)="deletemultiple('other_menu',i,u.id)"
+                          [hidden]="!show_toast">&times;</span>
+                        <a (click)="openpdf(u.img_path)"><i type="button" class="fa fa-file-pdf-o"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <label for="menuImg" class="fieldTitle">Your Web Site Address/URL:<i
+                        class="fa fa-info-circle tooltipCustom" aria-hidden="true" #tooltip="matTooltip"
+                        matTooltip="You can either upload files or provide a url below"></i>
+                      <!-- Or, please provide a web site address/url where we can collect your menu content: -->
+                    </label>
+                    <!-- 
+                         <form> -->
+                    <!-- <label for="url">Enter the url:</label>  -->
+                    <input type="text" class="form-control" size="28" [disabled]="check_button" [(ngModel)]="get_menu_url">
+                    <!-- </form> -->
+                    <p style="font-style: italic">If we cannot collect the content from your web site, we will
+                      contact you</p>
+  
+                  </div>
+  
+                </div>
+  
+              </div>
+              <!-- Display Day and Time -->
+              <div class="secDifer">
+                <label class="titleCustom"><strong>DISPLAY DAY & TIMES:</strong></label>
+                Your "dynamic" Menu will automatically change to this menu, based on your day/time
+                of day instructions below.<br>
+  
+                Select the days and times to display your this menu, every week:
+                <div class="row">
+                  <div class="col-5">
+                    <form>
+                      <input type="checkbox" [disabled]="check_button" id="vehicle_other_all"
+                        (change)="checkeveryday($event)">
+                      <label for="vehicle1" class="m-2"> Every Day</label><br>
+                    </form>
+  
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="check_button" value="2" name="vehicle[]" id="vehicle_other_2"
+                        (change)="CheckDay()">
+                      <label for="vehicle2"> Monday</label><br>
+                      <input type="checkbox" [disabled]="check_button" value="3" name="vehicle[]" id="vehicle_other_3"
+                        (change)="CheckDay()">
+                      <label for="vehicle3"> Tuesday</label><br>
+                      <input type="checkbox" [disabled]="check_button" value="4" name="vehicle[]" id="vehicle_other_4"
+                        (change)="CheckDay()">
+                      <label for="vehicle1"> Wednesday</label><br>
+                    </form>
+                    <form class="form-inline">
+                      <input type="checkbox" [disabled]="check_button" value="5" name="vehicle[]" id="vehicle_other_5"
+                        (change)="CheckDay()">
+                      <label for="vehicle2"> Thursday</label><br>
+                      <input type="checkbox" [disabled]="check_button" value="6" name="vehicle[]" id="vehicle_other_6"
+                        (change)="CheckDay()">
+                      <label for="vehicle3"> Friday</label><br>
+                      <input type="checkbox" [disabled]="check_button" value="7" name="vehicle[]" id="vehicle_other_7"
+                        (change)="CheckDay()">
+                      <label for="vehicle1"> Saturday</label><br>
+                      <input type="checkbox" [disabled]="check_button" value="8" name="vehicle[]" id="vehicle_other_8"
+                        (change)="CheckDay()">
+                      <label for="vehicle2"> Sunday</label><br>
+                    </form>
+  
+                  </div>
+                  <div class="col-5">
+                    <form class="form-inline" action="">
+                      <label for="selfcling">Start Time:</label>
+                      <input type="time" class="form-control" [disabled]="check_button" id="start_other" name="selfcling" size="4"><br><br>
+                      <label for="selfcling">End Time:</label>
+                      <input type="time" class="form-control" [disabled]="check_button" id="end_other" name="selfcling" size="4">
+                    </form>
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+  
+  
+  
+  
+              </div>
+              <button mat-raised-button class="btn btn-success m-1" type="submit" [hidden]="check_button"
+                (click)="sendothersmenuvalues()">Save & Continue</button>
+  
+              <!-- <button mat-raised-button class="btn btn-success" type="submit">Previous</button> -->
+              <!-- <button mat-raised-button
+                    class="btn btn-success m-1" type="submit"
+                    [disabled]="b_url"
+  
+  
+                    (click)="opennextab(COVERPAGEURL.value,TOPIMAGEURL.value,MENUURL.value,SECTIONURL.value,break.value,START_break.value,END_break.value)"
+                    >Save & Continue</button> -->
+  
+              <!-- <button mat-raised-button
+                        class="btn btn-success m-1" type="submit" [disabled]="b_url || bc_url || bt_url || bm_url || bs_url || bstart_url || bend_url"
+                        (click)="opennextab(COVERPAGEURL.value,TOPIMAGEURL.value,MENUURL.value,SECTIONURL.value,break.value,start_break.value,end_break.value)"
+                        >Save & Continue</button> -->
+  
+            </div>
+  
+            <br><br><br>
+            <!-- <div class="loader"></div> -->
+  
+           
+          </div>
+  
+  
+  
+  
+  
+  
+        </div>
+      </div>
+  
+  
+  
+      <!-- <ngx-spinner [hidden]="Show"></ngx-spinner> -->
+  
+  
+      <br>
+      <!-- Footer -->
+  
+   
+  
+    <!-- End page content -->
+  
+  
+  
+  
+  
+  
+
+  <div id="snackbar">Successfully Inserted</div>
+  <div id="snackbar1">{{error_msg}}</div>
+  <div id="snackbar2">{{for_timing_problem}}</div>
+  <div id="snackbar3">Successfully Updated</div>
+  <div id="snackbar5">Successfully Submited</div>
+  <div id="snackbar6">{{this.suc_special}}</div>
+  
+  
+  
+  
+  
+  <div id="snackbar4"><i class="fa fa-warning p-1"></i><span>Please provide valid file format within given size</span>
+  </div>
+  
+  <!-- For Image Cropper -->
+  
+  <!-- <div class="modal" id="mymod" [hidden]="valu" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <h4 class="modal-title" >Adjust
+            Image</h4>
+  
+  
+            <i class="fa fa-times-circle fa-2x" type="button"  (click)="close_it()" ></i>
+  
+  
+        </div>
+  
+  
+        <div class="modal-body">
+          <image-cropper [hidden]="hide" [imageChangedEvent]="common_image"
+            [maintainAspectRatio]="true"
+  
+            [onlyScaleDown]="true"
+  
+            [cropperMaxWidth]="797"
+            [roundCropper]="true"
+  
+            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+            [style.display]="showCropper ? null: 'none'" [transform]="transform">
+          </image-cropper><br>
+          <div class="row">
+         <div class="col-4 text-center"></div>
+  
+         <div class="col-2 text-center">
+            <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i>
+        </div>
+        <div class="col-2">
+            <i class="fa fa-minus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i>
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+  
+          <button mat-raised-button class="btn btn-danger"
+           (click)="click_it()">Save</button>
+              </div>
+  
+      </div>
+    </div>
+    </div> -->
+  
+  
+  
+  
+  <!-- <div class="spinner-border" ></div> -->
+  <!-- For the image of breakfast cover -->
+  
+  
+  <div class="modal fade in" id="myModal11">
+    <div class="modal-dialog">
+  
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+  
+          <img src="{{this.img_cover}}" class="img-fluid">
+  
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  <div class="modal fade in" id="othermodal11">
+    <div class="modal-dialog">
+  
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+  
+          <img src="{{this.get_img_cover}}" class="img-fluid">
+  
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  <div class="modal fade in" id="othermodal_top">
+    <div class="modal-dialog">
+  
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+  
+          <img src="{{this.get_img_top}}" class="img-fluid">
+  
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <!-- For the image of breakfast top -->
+  <div class="modal fade in" id="myModal1">
+    <div class="modal-dialog">
+  
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+  
+          <img src="{{img_top}}" class="img-fluid">
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  <!-- For the image of breakfast menu -->
+  <div class="modal fade in" id="myModal2">
+    <div class="modal-dialog modal">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+  
+          <!-- Hello -->
+          <!-- <img src="{{u}}"  height="70%" width="100%"> -->
+  
+  
+  
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+  
+  
+    </div>
+  </div>
+  <!-- For the image of breakfast section -->
+  <div class="modal fade in" id="myModal3">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_section_break">
+  
+              <img src="{{u}}" height="70%" width="100%">
+  
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of launch cover -->
+  <div class="modal fade in" id="myModal4">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_launch_cover}}" class="img-fluid">
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of launch top -->
+  <div class="modal fade in" id="myModal5">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_launch_top}}" class="img-fluid">
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- For the image of Launch Menu -->
+  <div class="modal fade in" id="myModal6">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_launch_menu">
+              <img src="{{u}}" height="70%" width="100%">
+            </div>
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of Launch Section -->
+  <div class="modal fade in" id="myModal7">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_launch_section">
+              <img src="{{u}}" height="70%" width="100%">
+            </div>
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- For the image of dinner cover -->
+  <div class="modal fade in" id="myModal8">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_dinner_cover}}" class="img-fluid">
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of dinner top -->
+  <div class="modal fade in" id="myModal9">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_dinner_top}}" class="img-fluid">
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- For the image of dinner Menu -->
+  <div class="modal fade in" id="myModal10">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_dinner_menu">
+              <img src="{{u}}" height="70%" width="100%">
+            </div>
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of dinner Section -->
+  <div class="modal fade in" id="myModal11">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_dinner_section">
+              <img src="{{u}}" height="70%" width="100%">
+            </div>
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- For the image of brunch cover -->
+  <div class="modal fade in" id="myModal12">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_brunch_cover}}" class="img-fluid">
+          <!-- common_break_menu -->
+          <!-- < data="{{common_break_menu}}"> -->
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of brunch top -->
+  <div class="modal fade in" id="myModal13">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <img src="{{img_brunch_top}}" class="img-fluid">
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- For the image of brunch Menu -->
+  <div class="modal fade in" id="myModal14">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+          <!-- <button mat-raised-button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6" *ngFor="let u of img_brunch_menu">
+              <img src="{{u}}" height="70%" width="100%">
+            </div>
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- For the image of stock image after select from special Section -->
+  <div class="modal fade in" id="myModal15">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+  
+        <div class="modal-header">
+          <h4 class="modal-title">Image</h4>
+  
+        </div>
+  
+  
+        <div class="modal-body text-center">
+  
+  
+          <img src="{{common_for_special_menu}}" class="img-fluid">
+  
+          <!-- <iframe width='100%' height='100%' src='{{this.img_break_section}}'></iframe> -->
+  
+          <!-- <ngx-extended-pdf-viewer
+  
+  
+              [src]="img_break_section"
+              [useBrowserLocale]="true"
+               height="100vh"
+              ></ngx-extended-pdf-viewer> -->
+        </div>
+  
+  
+  
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div id="id01" class="modal">
+    <div class="w3-modal-content">
+  
+      <div class="modal-dialog-lg">
+  
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Adjust
+              Image</h4>
+  
+  
+            <i class="fa fa-times-circle fa-2x" type="button" (click)="close_it(common.value)"></i>
+  
+  
+          </div>
+  
+  
+          <div class="modal-body">
+            <input type="text" hidden value="{{common_value}}" #common>
+  
+            <div class="alert alert-danger" [hidden]="show_alert">
+              <strong>Alert!</strong> This file doesn't match the dimension criteria (height: {{crop_height}}px & width: {{crop_width}}px). Quality will be compromised if you wish not to change it.
+            </div>
+            <!-- <image-cropper [hidden]="hide" [imageChangedEvent]="common_image" [maintainAspectRatio]="true"
+              [onlyScaleDown]="false" [cropperMaxWidth]="crop_width" [cropperMaxHeight]="crop_height" format="jpeg"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()" [style.display]="showCropper ? null: 'none'" [transform]="transform">
+            </image-cropper> -->
+            <image-cropper [hidden]="hide" [imageChangedEvent]="common_image"
+            [maintainAspectRatio]="false" 
+            [containWithinAspectRatio]="contain_within_aspect_ratio"	
+          
+            [aspectRatio]="aspect_ratio"
+            [onlyScaleDown]="false" 
+            
+            [cropperMaxWidth]="crop_width"
+            [cropperMaxHeight]="crop_height"
+            [cropperMinWidth]="crop_min_width"
+            [cropperMinHeight]="crop_min_height"
+            [onlyScaleDown]="false"
+            
+            (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+            [style.display]="showCropper ? null: 'none'" [transform]="transform">
+          </image-cropper>
+            <div class="row">
+              <div class="col-5"></div>
+  
+              <div class="col-1 ">
+                <i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn" (click)="zoomOut()"></i>
+              </div>
+              <div class="col-1">
+                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i>
+              </div>
+            </div>
+          </div>
+          <footer class="w3-container w3-left mt-2 mb-2">
+            <div class="row">
+              <div class="col-11"></div>
+              <div class="col-1"><button mat-raised-button class="btn btn-danger" (click)="click_it(common.value)">Save</button></div>
+  
+            </div>
+  
+          </footer>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  <!-- For the image of special Section -->
+  <div class="modal fade in" id="myModal21">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+  
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="main_Brouse mainImgBrowse">
+            <div class="titleImgBrowse">
+              <h2>Title</h2>
+              <div id="myBtnContainer" class="dropDownImg">
+                <select #cats (change)="getStockimageonselectcategory(cats.value)">
+                  <option value="">Show all</option>
+                  <option *ngFor="let cat of category_name" value="{{cat.id}}">{{cat.name}}</option>
+                  <!-- <option onclick="filterSelection('all')"> Show all</option>
+              <option onclick="filterSelection('nature')"> Nature</option>
+              <option onclick="filterSelection('cars')"> Cars</option>
+              <option onclick="filterSelection('people')"> People</option> -->
+                </select>
+  
+              </div>
+            </div>
+  
+  
+  
+  
+            <!-- Portfolio Gallery Grid -->
+            <div class="row_Brouse">
+              <!-- class="column_Brouse nature" -->
+              <div class="column_Brouse nature" *ngFor="let stock of stock_img;let i=index">
+                <div class="content_Brouse">
+  
+                  <!-- <img src="/assets/images/mountains.jpg" alt="Mountains" style="width:100%"> -->
+                  <img [src]="img_url + stock.img_path" alt=""
+                    (click)="selectedimage(i,stock.img_path,stock.img_catg,stock_img.length)" id="image_{{i}}">
+                </div>
+              </div>
+  
+            </div>
+  
+            <!-- END MAIN -->
+          </div>
+        </div>
+  
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button mat-raised-button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="save_it('close')">Close</button>
+          <button mat-raised-button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="save_it('save')">Save
+            Changes</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-card>
+
+</div>

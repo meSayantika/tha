@@ -1,0 +1,141 @@
+<div class="content-div">
+  <mat-card>
+   <br>
+ <mat-card-content>
+ <div>
+   <form [formGroup]="pcavoiceForm">
+    <div class="row px-2">
+     <div class="col-12">
+     
+       <!-- <div class="row mt-4">
+         <div class="col-12">
+           <label for="">Select Category</label>
+           <select  [(ngModel)]="category" class="form-control" name="rest_serve" formControlName="rest_serve" >
+             <option value="">Select one</option>
+             <option value="R">Restaurant</option>
+             <option value="S">Service</option>
+         
+           </select>
+         </div>
+      
+       </div> -->
+       <div class="row mt-3 p-2">
+         <label for="">Text</label>
+         <textarea maxlength="801" name="vText" formControlName="vText" id="" cols="30" rows="10" placeholder="Type something (Maximum 800 characters)" class="form-control"></textarea>
+         <small *ngIf="this.pcavoiceForm.controls.vText.errors?.maxlength" class="text-danger">
+           800 character limit reached
+         </small>   
+       </div>
+     <div class="row mt-3">
+       <div class="col-12">
+     
+         <label for="">Select language</label>
+         <select name="voice" formControlName="voice" class="form-control">
+           <option value="">Select one</option>
+          <option *ngFor="let v of voices" value="{{v.id}}">{{v.langName}} - {{v.id}} </option>
+         </select>
+         <!-- <div class="col-md-6">
+           <label>Single Select2</label>
+           <select class="js-states select-2 form-control">
+             <option *ngFor="let v of voices" value="{{v.id}}">{{v.langName}} - {{v.id}} </option>
+           </select>
+         </div> -->
+         <!-- <mat-form-field class="example-full-width">
+           <input type="text" (input)="_filter($event)"
+                  placeholder="Pick one"
+                  matInput
+                  formControlName="voice"
+                  [matAutocomplete]="auto">
+           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+             <mat-option *ngFor="let option of filteredOptions" [value]="option.id">
+               {{option.langName}} - {{option.id}}
+             </mat-option>
+           </mat-autocomplete>
+         </mat-form-field> -->
+       </div>
+       
+     </div>
+     <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4 mt-4">
+        <label for="customRange3" class="form-label">Speed : {{value}}</label>
+<input type="range" class="form-range" formControlName="speed" name="speed" (change)="show()" [(ngModel)]="value" min="0" max="200" step="5" id="customRange3">
+      </div>
+      <div class="col-4"></div>
+     </div>
+     <div class="row mt-4">
+       <div class="col-4"></div>
+       <div class="col-4">
+         <button mat-raised-button class="btn btn-danger col-12" (click)="generateVoice()">
+           Generate Voice
+         </button>
+       </div>
+       <div class="col-4">
+         <div >
+           <button [disabled]="disableVT=='V'" *ngIf="showButton" (click)="play()" mat-mini-fab color="accent" matTooltip="Play" aria-label="Example icon button with a bookmark icon">
+             <mat-icon>play_arrow</mat-icon>
+           </button>
+           <button  [disabled]="disableVT=='V'" *ngIf="!showButton" mat-mini-fab (click)="stop()" color="warn" matTooltip="Stop" aria-label="Example icon button with a bookmark icon">
+             <mat-icon>stop</mat-icon>
+           </button>
+         </div>
+        
+       </div>
+     </div>
+       <div class="row p-5">
+         <div class="col-1"></div>
+         <div class="col-2 mt-3">
+          <!-- <h1 > <label [ngClass]="disableVT=='V'?'text-muted':''" for="">Voice</label> </h1>  -->
+         </div>
+         <div class="col-3 pl-2">
+          
+         </div>
+         <div class="col-5 mt-3">
+         </div>
+       </div>
+       
+         <div class="row mt-4 " *ngIf="this.id!=0">
+           <div class="col-2"></div>
+           <div class="col-4 ml-3">
+             <h2> <input type="radio" name="disb" formControlName="disb" [(ngModel)]="disableVT" value="V"> &nbsp; <label for=""> Disable voice</label></h2>    
+ 
+           </div>
+         <div class="col-6">
+        <h2> <input type="radio" name="disb" formControlName="disb" [(ngModel)]="disableVT" value="T"> &nbsp; <label for=""> Disable text</label></h2>    
+ 
+         </div>
+       </div>
+     </div>
+     <div class="col-4">
+         
+       <div class="row">
+         <div class="col-12 " style="border-left:1px solid rgb(190, 187, 187)">
+ 
+           <small class="text-muted " style="justify-content: space-between;">
+     <!-- <div class="vl"></div> -->
+ 
+           
+           </small>
+          
+         </div>
+       </div>
+     </div>
+    </div>
+   </form>
+ 
+   <div class="row mt-4">
+    <!-- <div class="col-11"></div> -->
+    <div class="col-2">
+     <button class="btn btn-success" mat-raised-button (click)="submitAud()"> Submit</button>
+    </div>
+   </div>
+ </div>
+ </mat-card-content>
+  </mat-card>
+ </div>
+ 
+ <!-- <div class="fab-main">
+   <button matTooltip="Back" mat-mini-fab (click)="go_prev_page()"> <mat-icon>arrow_back</mat-icon> </button>
+ 
+     </div> -->
+ 

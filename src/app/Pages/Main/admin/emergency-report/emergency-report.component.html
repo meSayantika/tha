@@ -1,0 +1,112 @@
+
+  
+  <div class="float-start">
+    <button mat-mini-fab color="accent" class="btn btn-success" (click)="openSearch()" matTooltip="Search by date">
+      <mat-icon> search</mat-icon>
+    </button>
+  </div>
+  <div class="float-end">
+    <button mat-mini-fab color="accent" class="btn btn-success" matTooltip="Create Report" (click)="go_to_message('0')">
+      <mat-icon> offline_bolt</mat-icon>
+    </button>
+  </div> 
+  
+  <mat-form-field appearance="outline" style="width:100%" class="mt-4">
+    <mat-label>Search message</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+  <div class="float-end">
+    <button mat-icon-button color="primary" matTooltip="Refresh" [ngClass]="{'rotate': isClicked}" (click)="getEmergency()" [hidden]="hideRefresh">  <mat-icon>
+     refresh
+    </mat-icon></button> 
+   </div>
+      <div class="mat-elevation-z8 ">
+      
+        <table class="mt-4" mat-table [dataSource]="dataSource">
+          
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="record_dt">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> <i> {{element.record_date?.substr(0,10)}}</i>  </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <td mat-cell *matCellDef="let element">  <button color="primary" mat-icon-button (click)="go_to_message(element.id)"><mat-icon>edit</mat-icon> </button>	</td>
+          </ng-container>
+          <!-- Symbol Column -->
+       
+          <ng-container matColumnDef="preview">
+            <th mat-header-cell *matHeaderCellDef> Preview </th>
+            <td mat-cell *matCellDef="let element"> 
+              <button  style="color:gray" (click)="previewMsg(element)" mat-icon-button>
+              <mat-icon>remove_red_eye</mat-icon> </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element" > 
+              <span *ngIf="element.repo_status=='P'" class="text-danger">
+               
+               Pending 
+
+              </span>
+              <span *ngIf="element.repo_status=='S'" class="text-success">
+               
+                Solved
+
+              </span>
+              <span *ngIf="element.repo_status=='F'" class="text-warning">
+               
+               Forwarded
+
+              </span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+           
+            <th mat-header-cell *matHeaderCellDef> 
+              
+              
+              Action 
+              
+            </th>
+            <td mat-cell *matCellDef="let element" > <small> <i>  {{element.action_taken}} </i></small>   </td>
+          </ng-container>
+          <ng-container matColumnDef="send">
+            <th mat-header-cell *matHeaderCellDef> Send 
+
+             
+            </th>
+            <td mat-cell *matCellDef="let element" class="text_muted">
+              <button  style="color:darkolivegreen" mat-icon-button>
+                <mat-icon>send</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20,getEmData?.msg.length]" showFirstLastButtons>
+       
+        </mat-paginator>
+       <!-- <div class="float-end">
+        <button class="fab-main" mat-mini-fab matTooltip="Refresh" color="accent" (click)="getEmergency()" [hidden]="hideRefresh" >
+          <mat-icon>refresh</mat-icon>
+    
+        </button>
+       </div> -->
+       
+      </div>
+ 
+ 
+

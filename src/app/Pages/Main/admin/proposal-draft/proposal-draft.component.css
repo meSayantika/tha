@@ -1,0 +1,33 @@
+.content-div{
+    margin-left:250px;margin-top:43px; padding-right: 3%;
+}
+mat-card{
+    background-color: rgb(236, 236, 236);
+    max-height: 600px;
+    overflow: auto;
+}
+mat-card-header{
+    text-align: center;
+}
+label{
+    font-weight: 500;
+    color: #555;
+}
+p, span{
+    color:#555
+}
+strong{color:#3f51b5}
+
+.showAns{
+    /* background-color: rgb(250, 247, 247); */
+}
+.fab-main {
+    position: fixed;
+    right: 5em;
+    opacity: 0.5;
+    bottom: 31em;
+}
+.fab-main:hover{
+    opacity:1
+}
+

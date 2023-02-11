@@ -1,0 +1,146 @@
+<div class="content-div">
+  <mat-card>
+    <div class="w3-white">
+     
+      <!-- <?php echo file_get_contents("navigation-admin.html"); ?> -->
+          <h5><strong><mat-icon> table_chart</mat-icon> Restaurant Database</strong></h5>
+                  
+                  You can locate a record by searching on any of the criteria shown below or scrolling through the list to find the entry. Clicking EDIT will bring up that restaurant's record.<br><br>
+                  <mat-form-field appearance="outline" class="float-end">
+                      <mat-label>Search</mat-label>
+                      <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
+                    </mat-form-field> 
+                 <!-- datatable containting restaurant record -->
+                    <!-- <div [hidden]="show_spinner" class="loader"></div> -->
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  
+                      <!--- Note that these columns can be defined in any order.
+                            The actual rendered columns are set as a property on the row definition" -->
+                    
+                      <!-- Position Column -->
+                      <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element">{{element.id}}  </td>
+                      </ng-container>
+                    
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="restaurant_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="restaurant_name"> Restaurant Name </th>
+                        <td mat-cell *matCellDef="let element">{{element.restaurant_name}}</td>
+                      </ng-container>
+                    
+                      <!-- Weight Column -->
+                      <ng-container matColumnDef="phone_no">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="phone_no"> Phone </th>
+                        <td mat-cell *matCellDef="let element">{{element.phone_no}} </td>
+                      </ng-container>
+                    
+                      <!-- Symbol Column -->
+                      <ng-container matColumnDef="contact_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="contact_name"> Contact Name </th>
+                        <td mat-cell *matCellDef="let element">{{element.contact_name}}  </td>
+                      </ng-container>
+                      <ng-container matColumnDef="setup" class="text-center" >
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="setup"> Setup Mode</th>
+                        <td mat-cell *matCellDef="let element"><mat-slide-toggle color="primary" id="setupmodeid{{element.id}}" (change)="click_setup($event,element.id)" [checked]="element.approval_flag=='S'"></mat-slide-toggle> </td>
+                      </ng-container>
+                      <ng-container matColumnDef="edit" class="text-center" >
+                          <th mat-header-cell *matHeaderCellDef > Manage </th>
+                          <td  mat-cell *matCellDef="let element">
+                           
+                              <a [hidden]="element.approval_flag!='S'" class="text-center pull-left editLink" id="setup{{element.id}}" (click)="go_details(element.id)">
+                                <mat-icon matTooltip="View / Edit" matTooltipPosition="above" color="primary">edit</mat-icon>
+
+                          </a>
+                        </td>
+                      </ng-container>
+                              
+                         
+                              <ng-container matColumnDef="manage" class="text-center" >
+                                <th mat-header-cell *matHeaderCellDef > Status </th>
+                                <td  mat-cell *matCellDef="let element">
+                                 
+                                  <!-- <button type="button" class="btn btn-success  btn-sm" *ngIf="element.approval_flag=='A'"><small> Approved</small></button>    
+                                  <button type="button" class="btn btn-warning  btn-sm" *ngIf="element.approval_flag=='U'"><small>Pending</small></button> 
+                                  <button type="button" class="btn btn-primary  btn-sm" *ngIf="element.approval_flag=='S'"><small>Setup</small></button>  -->
+  
+                                  <label class="statusAppro" *ngIf="element.approval_flag=='A'">Approved</label>
+                                  <label class="statusPending" *ngIf="element.approval_flag=='U'">Pending</label>
+                                  <label class="statusSetup" *ngIf="element.approval_flag=='S'">Setup</label>
+                              </td>
+                            </ng-container>
+                     
+                            <ng-container matColumnDef="delete">
+                              <th mat-header-cell class="text-center" *matHeaderCellDef > Action </th>
+                              <td class="text-center" mat-cell *matCellDef="let element">
+                              
+                                  <i matTooltip="Delete {{element.restaurant_name}}"
+                                  matTooltipPosition="above" (click)="del_res(element.id)" class="fa fa-trash-o" aria-hidden="true" style="color:#e44b4b; cursor:pointer; font-size:20px;"></i>
+                             
+                              
+                                  <mat-icon matTooltip="Delete {{element.restaurant_name}}" matTooltipPosition="above" 
+                                  (click)="del_res(element.id)" style="cursor:pointer; color:#540B0E">delete</mat-icon>
+                                  
+                              
+                              
+                          
+                          </td>
+                            </ng-container>
+                    
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Select page of users"></mat-paginator>
+                <br><br>
+                
+      
+          
+          
+          
+          
+          
+         
+    
+          
+      <!-- <?php echo file_get_contents("footer.html"); ?>	 -->
+      <!-- <app-footer></app-footer> -->
+          <!-- </div> -->
+          
+     
+      <!-- <script>var mySidebar=document.getElementById("mySidebar");var overlayBg=document.getElementById("myOverlay");function w3_open(){if(mySidebar.style.display==='block'){mySidebar.style.display='none';overlayBg.style.display="none";}else{mySidebar.style.display='block';overlayBg.style.display="block";}}function w3_close(){mySidebar.style.display="none";overlayBg.style.display="none";}</script>
+      <script>var sc_project=11145952;var sc_invisible=1;var sc_security="40b893f9";</script>
+      <script src="//www.statcounter.com/counter/counter.js" async></script>
+      <noscript>
+      <div class="statcounter">
+      <img class="statcounter" src="//c.statcounter.com/11145952/0/40b893f9/1/" alt="Web Analytics" data-pagespeed-url-hash="1232143930">
+      </div>
+      </noscript> -->
+
+  <!-- snackbar -->
+  <!-- spinner -->
+  <!-- modal to show warning message before deleting a restaurant -->
+      <div id="myModal_delete_section" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <button type="button" class="close" data-bs-dismiss="modal">&times;</button> -->
+              <h4 class="modal-title">Alert!</h4>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Are you sure you want to delete?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >No</button>
+             
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete_restaurant()" >Yes</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+</div>
+  </mat-card>
+</div>

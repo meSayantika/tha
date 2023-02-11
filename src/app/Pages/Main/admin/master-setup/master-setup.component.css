@@ -1,0 +1,41 @@
+.content-div{
+    margin-left:250px;margin-top:43px; padding-right: 3%;;
+}
+
+.thumImgContainer{width: 100%; display: inline-block;}
+.thumImgContainer .thumImgSm{max-width: 100px;
+    display: inline-block; position: relative;
+    margin-right: 20px;}
+.thumImgContainer .thumImgSm:last-child{margin-right: 0;}
+.thumImgContainer .thumImgSm img{border: #ccc solid 1px; border-radius: 5px;}
+
+
+.thumImgContainer .thumImgSm .close {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 5px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s linear;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+    }
+    .thumImgContainer .thumImgSm:hover .close {
+    opacity: 1;
+    
+    }
+  strong{color:#3f51b5}
+
+mat-card{
+    background-color: rgb(236, 236, 236);
+    max-height: 550px;
+    overflow: auto;
+}
+    

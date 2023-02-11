@@ -1,0 +1,27 @@
+[
+    {
+        "id":"adminDashboard",
+        "name":"Dashboard",
+        "ref":"admin/adminlanding"
+    },
+    {
+        "id":"adminSetup",
+        "name":"Order Setup",
+        "ref":"admin/adminsetup"
+    },
+    {
+        "id":"adminQuestionnaire",
+        "name":"Questionnaire",
+        "ref":"admin/questionnaire"
+    },
+    {
+        "id":"adminHotelAccount",
+        "name":"Hotel Accounts",
+        "ref":"admin/hotel_account"
+    },
+    {
+        "id":"adminHotelDB",
+        "name":"Menu Setup",
+        "ref":"admin/hotelDB"
+    }
+]

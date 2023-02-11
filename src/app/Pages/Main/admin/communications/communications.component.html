@@ -1,0 +1,63 @@
+
+  <div class="float-end">
+    <button mat-mini-fab color="accent" class="btn btn-success" matTooltip="Create Message" (click)="go_to_message('0')">
+      <mat-icon> message</mat-icon>
+    </button>
+  </div> <br> <br> <br>
+ 
+  <mat-form-field appearance="outline" style="width:100%">
+    <mat-label>Search message</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+  
+      <div class="mat-elevation-z8 ">
+        <table class="mt-4" mat-table [dataSource]="dataSource">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let element"> <i> {{element.msg_title}}</i>  </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <td mat-cell *matCellDef="let element">  <button color="primary" mat-icon-button (click)="go_to_message(element.id)"><mat-icon>edit</mat-icon> </button>	</td>
+          </ng-container>
+          <!-- Symbol Column -->
+       
+          <ng-container matColumnDef="preview">
+            <th mat-header-cell *matHeaderCellDef> Preview </th>
+            <td mat-cell *matCellDef="let element"> 
+              <button  style="color:gray" (click)="previewMsg(element)" mat-icon-button>
+              <mat-icon>remove_red_eye</mat-icon> </button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="cron_job">
+            <th mat-header-cell *matHeaderCellDef> Scheduled At </th>
+            <td mat-cell *matCellDef="let element" > <small class="text_muted">  <i>{{element.msg_snt_dt.substr(0,10)}} | {{element.msg_snt_time}}</i> </small> </td>
+          </ng-container>
+          <ng-container matColumnDef="send">
+            <th mat-header-cell *matHeaderCellDef> Send </th>
+            <td mat-cell *matCellDef="let element" class="text_muted">
+              <button (click)="send_msg(element.id)" style="color:darkolivegreen" mat-icon-button>
+                <mat-icon>send</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20,msgData?.msg.length]" showFirstLastButtons></mat-paginator>
+      </div>
+ 
+ 
+

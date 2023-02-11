@@ -1,0 +1,540 @@
+<div class="content-div">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title >
+      <strong>   <mat-icon>receipt</mat-icon>  Questionnaire Form </strong>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <div class="imgcontainer">
+  
+        <!-- <img src="/assets/images/sll_logo.png" alt="Avatar" class="avatar"> -->
+        
+        </div>
+        <div class="container">
+         <!--  -->
+         <mat-horizontal-stepper linear="false" #stepper>
+          <mat-step [stepControl]="basicInfo" >
+            <form [formGroup]="basicInfo">
+              <!-- <mat-form-field> --> <br>
+                <!-- <mat-label>Address</mat-label> -->
+            <small>    <ng-template matStepLabel>Basic info.</ng-template></small>
+                <label [hidden]="flag=='U'" for="hotel_name">First call</label>
+          <input [hidden]="flag=='U'" type="date" class="form-control" formControlName="firstCall"> <br>
+          <label [hidden]="flag=='U'" for="hotel_name">Note</label>
+          <textarea [hidden]="flag=='U'" name="note" formControlName="note" class="form-control" id="" cols="30" rows="5"></textarea> <br>    
+          <label for="hotel_name">Hotel Name</label>
+          <input type="text" class="form-control" formControlName="hotel_name"> <br>
+          <label for="hotel_addr">Hotel Address</label>
+          <input type="text" class="form-control" formControlName="hotel_addr"> <br>
+          <label for="hotel_url">URL</label>
+          <input type="text" class="form-control" formControlName="hotel_url"> <br>
+          <label for="hotel_phone"  >Phone</label>
+          <input type="text" class="form-control" id="tel" (change)="check_mail($event)"formControlName="hotel_phone"> <br>
+          <label for="hotel_email"  >Email</label>
+          <input type="text" class="form-control" id="em" (change)="check_mail($event)"formControlName="hotel_email"> <br>
+          <label for="hotel_contact">Contact</label>
+          <input type="text" class="form-control" formControlName="hotel_contact"> <br>
+          <label for="hotel_title">Title</label>
+          <input type="text" class="form-control" formControlName="hotel_title"> <br>
+          <label for="hotel_contact_phone">Contact Phone</label>
+          <input type="text" class="form-control" formControlName="hotel_contact_phone"> <br>
+          <label for="hotel_contact_email">Contact Email</label>
+          <input type="text" class="form-control" formControlName="hotel_contact_email"> <br>
+              <!-- </mat-form-field> -->
+              <div> <br>
+              
+                <button mat-raised-button class="btn btn-success" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="platformInfo" >
+            <form [formGroup]="platformInfo">
+              <!-- <mat-form-field> --> <br>
+                <!-- <mat-label>Address</mat-label> -->
+                <ng-template matStepLabel>Platform info.</ng-template>
+                <label for="room_no">Number of Rooms?</label>
+                <input type="number" class="form-control" formControlName="room_no"> <br>
+                <label for="multi_lang">Do you need a guest platform in more than one language?</label> &nbsp;
+                <input type="radio" formControlName="multi_lang" name="multi_lang" value="Y">
+                <label for="multi_lang"> &nbsp; <b>Yes </b> </label> &nbsp;
+                <input type="radio" formControlName="multi_lang" name="multi_lang" value="N">
+                <label for="multi_lang"> &nbsp; <b>No </b></label><br> <br>
+                <label for="prim_lang">Primary Language?</label>
+                <select name="prim_lang" id="prim_lang" formControlName="prim_lang" class="form-select">
+                  <option value=""></option>
+                  <option *ngFor="let lang of langDataPrimary" value="{{lang.code}}">{{lang.name}}</option>
+                
+                </select><br>
+                <label for="second_lang">Secondary Language?</label>
+                <select name="second_lang" id="second_lang" formControlName="second_lang" class="form-select">
+                  <option value=""></option>
+                  <option  *ngFor="let lang of langDataSecondary" value="{{lang.code}}">{{lang.name}}</option>
+                  
+                </select>
+                <!-- <angular2-multiselect [data]="langData" [(ngModel)]="selectedItems" 
+                 [settings]="dropdownSettings" 
+                  (onSelect)="onItemSelect($event)" 
+                  (onDeSelect)="OnItemDeSelect($event)"
+                  (onSelectAll)="onSelectAll($event)"
+                  (onDeSelectAll)="onDeSelectAll($event)" formControlName="second_lang"></angular2-multiselect> -->
+                <br>
+                <label for="add_lang">Additional language platforms needed?</label>
+                <input type="text" class="form-control" formControlName="add_lang"> <br>
+                 <div class="row">
+                  <div class="col-6">
+                    <label for="rest_no">Number of Restaurants?</label>
+                    <input type="number" class="form-control" formControlName="rest_no">
+                  </div>
+                  <div class="col-6">
+                    <label for="bar_no">Number of Bars?</label>
+                    <input type="number" class="form-control" formControlName="bar_no"> 
+                  </div>
+                 </div> <br>
+                <br>
+              <!-- </mat-form-field> -->
+              <div> <br>
+                <button mat-raised-button class="btn btn-danger" matStepperPrevious>Back</button> &nbsp;
+                <button mat-raised-button class="btn btn-success" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step >
+          <mat-step [stepControl]="restbarInfo" >
+            <form [formGroup]="restbarInfo">
+              <!-- <mat-form-field> --> <br>
+                <!-- <mat-label>Address</mat-label> -->
+                <ng-template matStepLabel>Restaurants & Bars</ng-template>
+                <p>
+                  The options for CHAT or RESERVATION "PER RESTAURANT" are INCLUDED in your platform package. 
+                  If you select CHAT, guests can click to instantly chat with your individual restaurants or services (spa, gym, golf, etc.)
+                  If you would like to UPGRADE to add CALL (which is VOICE, VIDEO and CHAT) or CHAT BOT (automated communications, 
+                  no "live" communication), there is a small upcharge to your monthly subscription fee, and we will provide you with a 
+                  quote. <br><br>
+                  If your restaurant requires a RESERVATION, you have two options (all included in your platform): <br>
+                  -We can integrate your current RESERVATION APP (OpenTable, Resy, Book a Table, etc.) <br>
+                  -We can link the RESERVATION button to a CALL or CHAT communication. <br> <br>
+                  Just indicate if your restaurant requires a reservation, or not.
+                 </p>
+                <p>
+                  Name of each Restaurant or Bar, Menus (Breakfast, Lunch, Dinner, Brunch, etc.) and your Communication selection:
+                 </p> 
+                <div formArrayName="restDtls">
+                   <div *ngFor="let r of rest_dtls.controls; let i=index">
+                        <div formGroupName="{{i}}">
+                          <p>
+                            <label for="rest_flag_r{{i}}"> <b>Restaurant</b> </label> &nbsp;
+                            <input type="radio" formControlName="rest_flag" id="rest_flag_r{{i}}" value="R">
+                            <label for="rest_flag_b{{i}}"> &nbsp; <b>Bar</b></label> &nbsp;
+                            <input type="radio" formControlName="rest_flag" id="rest_flag_b{{i}}" value="B"> <br>
+                            <label for="rest_nm"> Name</label> &nbsp;
+                            <input type="text" class="form-control" formControlName="rest_nm" name="rest_nm">
+                           </p>
+                          <p>
+                           <label> Menus:</label>  
+                            <label for="break_menu"> &nbsp; <b>Breakfast</b> </label> &nbsp;
+                            <input type="checkbox" formControlName="break_menu" name="break_menu" value="Y">&nbsp;&nbsp;&nbsp;
+                            <label for="lunch_menu"> &nbsp; <b>Lunch</b></label> &nbsp;
+                            <input type="checkbox" formControlName="lunch_menu" name="lunch_menu" value="Y">&nbsp;&nbsp;&nbsp;
+                            <label for="dinner_menu"> &nbsp; <b>Dinner</b> </label> &nbsp;
+                            <input type="checkbox" formControlName="dinner_menu" name="dinner_menu" value="Y">&nbsp;&nbsp;&nbsp;
+                            <label for="brunch_menu"> &nbsp; <b>Brunch</b></label> &nbsp;
+                            <input type="checkbox" formControlName="brunch_menu" name="brunch_menu" value="Y">&nbsp;&nbsp;&nbsp;
+                            <label for="bar_menu"> &nbsp; <b>Bar Menu</b> </label> &nbsp;
+                            <input type="checkbox" formControlName="bar_menu" name="bar_menu" value="Y">
+                            <label for="special_menu"> &nbsp; <b>Special Menu</b> </label> &nbsp;
+                            <input type="checkbox" formControlName="special_menu" name="special_menu" value="Y">
+                          </p>
+                          <p>
+                            Please select CHAT or CALL or CHAT BOT
+                          </p> 
+                          <p>
+                            <label for="chatcallbot_co{{i}}"> <b>Chat only</b> </label> &nbsp;
+                            <input type="radio" formControlName="chatcallbot" id="chatcallbot_co{{i}}" value="CO">
+                            <label for="chatcallbot_ca{{i}}"> &nbsp; <b>Call (Voice/Video/Chat)</b> </label> &nbsp;
+                            <input type="radio" formControlName="chatcallbot" id="chatcallbot_ca{{i}}" value="CA">
+                            <label for="chatcallbot_cb{{i}}"> &nbsp; <b>Chat Bot (Voice/Video/Chat)</b> </label> &nbsp;
+                            <input type="radio" formControlName="chatcallbot" id="chatcallbot_cb{{i}}" value="CB"> <br>
+                            <label for="reservation">Does this restaurant require a reservation?</label> &nbsp;
+                            <input type="radio" [(ngModel)]="reservationFlag" formControlName="reservation" id="reservation_y{{i}}" value="Y">
+                            <label for="reservation_y{{i}}"> &nbsp; <b>Yes </b> </label> &nbsp;
+                            <input type="radio" [(ngModel)]="reservationFlag" formControlName="reservation" id="reservation_n{{i}}" value="N">
+                            <label for="reservation_n{{i}}"> &nbsp; <b>No </b></label><br> <br>
+                          </p>
+                          <p [hidden]="reservationFlag=='N'">
+                            If Yes: <br>
+                            <label for="app">Do you use a RESERVATION APP (OpenTable, Resy, Book a Table, etc.)? if so, we will contact you to intergrate your <br>
+                              current reservation system into your platform?</label> &nbsp;
+                            <input type="radio" formControlName="app" id="app_y{{i}}" value="Y">
+                            <label for="app_y{{i}}"> &nbsp; <b>Yes </b> </label> &nbsp;
+                            <input type="radio" formControlName="app" id="app_n{{i}}" value="N">
+                            <label for="app_n{{i}}"> &nbsp; <b>No </b></label><br> <br>
+                          </p>
+                          <p [hidden]="reservationFlag=='N'">
+                            Guest can contact you to make a reservation. <br>
+                            Select one: 
+                            <label for="guestChat_co{{i}}"> &nbsp; <b>Chat </b> </label> &nbsp;
+                            <input type="radio" formControlName="guestChat" id="guestChat_co{{i}}" value="CO">
+                            <label for="guestChat_ca{{i}}"> &nbsp; <b>Call </b></label>&nbsp;
+                            <input type="radio" formControlName="guestChat" id="guestChat_ca{{i}}" value="CA">
+                            
+                          </p>
+                         <span>
+                          <div class="row">
+                            <div class="col-10 float-end pl-5" >
+                             <span style="color:#3f51b5;cursor:pointer" (click)="addRest()">  Add Another Restaurant/Bar </span> 
+                            </div>
+                            <div class="col-1">
+                              <button class="float-end" mat-mini-fab color="primary" (click)="addRest()">
+                                <mat-icon >add</mat-icon>
+                              </button> 
+                            </div><div class="col-1">
+                              <button class="float-end" mat-mini-fab color="accent" *ngIf="rest_dtls.length>1" (click)="openDialogForRow(i,r,'R')">
+                                <mat-icon >remove</mat-icon>
+                              </button>
+                            </div>
+                            &nbsp;
+                            </div>
+                         </span>
+                        </div>
+                   </div>
+                </div>
+                <br>
+              <!-- </mat-form-field> -->
+              <div> <br>
+                <button mat-raised-button class="btn btn-danger" matStepperPrevious>Back</button> &nbsp;
+                <button mat-raised-button class="btn btn-success" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="servedeptInfo" >
+            <form [formGroup]="servedeptInfo">
+              <!-- <mat-form-field> --> <br>
+                <!-- <mat-label>Address</mat-label> -->
+                <ng-template matStepLabel>Services & Departments</ng-template>
+            <p>   Note: CALENDAR, MENU/SERVICE LIST and CHAT "PER DEPARTMENT" are included in your platform package. <br>
+                If you would like to UPGRADE CHAT or CALL (which is VOICE/VIDEO/CHAT) or add CHAT BOT, there is a small up-charge to your monthly subscription fee, and we will provide a quote. <br>
+         You can leave some departments CHAT only, and for others upgrde with CALL (VOICE/VIDEO/CHAT) or CHAT BOT if that better suites that specific, department's needs. </p> 
+         <hr>
+         
+        <span><h4><b>Front Desk:</b></h4></span> 
+         
+         <p>
+           <label for="f_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+           <input type="radio" formControlName="f_chat_call" name="f_chat_call" value="CO">
+           <label for="f_chat_call"> &nbsp; <b>Call only</b> </label> &nbsp;
+           <input type="radio" formControlName="f_chat_call" name="f_chat_call" value="CA"> <br>
+         </p>
+         <hr>
+         
+         <span>
+           <h4><b>Room Service:</b></h4>
+           <input type="radio" [(ngModel)]="rsFlag" formControlName="room_service" name="room_service" value="Y">
+                     <label for="room_service"> &nbsp; <b>Yes </b> </label> &nbsp;
+                     <input type="radio" [(ngModel)]="rsFlag" formControlName="room_service" name="room_service" value="N">
+                     <label for="room_service"> &nbsp; <b>No </b></label><br> <br>
+           
+           
+         </span>
+         <p>
+           <label> Menus:</label>  {{rsFlag}}
+            <label for="rs_break_menu"> &nbsp; <b>Breakfast</b> </label> &nbsp;
+            <input [hidden]="rsFlag=='N'" type="checkbox" formControlName="rs_break_menu" name="rs_break_menu" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="rs_lunch_menu"> &nbsp; <b>Lunch</b></label> &nbsp;
+            <input [hidden]="rsFlag=='N'" type="checkbox" formControlName="rs_lunch_menu" name="rs_lunch_menu" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="rs_dinner_menu"> &nbsp; <b>Dinner</b> </label> &nbsp;
+            <input [hidden]="rsFlag=='N'" type="checkbox" formControlName="rs_dinner_menu" name="rs_dinner_menu" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="rs_brunch_menu"> &nbsp; <b>Brunch</b></label> &nbsp;
+            <input [hidden]="rsFlag=='N'" type="checkbox" formControlName="rs_brunch_menu" name="rs_brunch_menu" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="rs_specials"> &nbsp; <b>Specials</b> </label> &nbsp;
+            <input [hidden]="rsFlag=='N'" type="checkbox" formControlName="rs_specials" name="rs_specials" value="Y">
+          </p>
+         
+         
+          <p>
+           <label for="rs_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+           <input type="radio" formControlName="rs_chat_call" name="rs_chat_call" value="CO">
+           <label for="rs_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+           <input type="radio" formControlName="rs_chat_call" name="rs_chat_call" value="CA"> 
+           <label for="rs_chat_call"> &nbsp; <b>Chat Bot</b> </label> &nbsp;
+           <input type="radio" formControlName="rs_chat_call" name="rs_chat_call" value="CB"> <br>
+          </p>
+         <hr>
+         
+          <!-- <span>
+           <h4><b>Spa:</b></h4>
+         
+           <input type="radio" formControlName="spa" name="spa" value="Y">
+           <label for="spa"> &nbsp; <b>Yes </b> </label> &nbsp;
+           <input type="radio" formControlName="spa" name="spa" value="N">
+           <label for="spa"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+           <label for="spa_nm"> Spa Name</label> &nbsp;
+                   <input type="text" class="form-control" formControlName="spa_nm" name="spa_nm">
+          </span><br>
+          <p>
+            <label for="spa_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp;
+            <input type="checkbox" formControlName="spa_menu_services" name="spa_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="spa_calendar"> &nbsp; <b>Calendar</b></label> &nbsp;
+            <input type="checkbox" formControlName="spa_calendar" name="spa_calendar" value="Y">&nbsp;&nbsp;&nbsp;
+            <label for="spa_call_chat"> &nbsp; <b>Chat only</b> </label> &nbsp;
+            <input type="radio" formControlName="spa_call_chat" name="spa_call_chat" value="CO">
+            <label for="spa_call_chat"> &nbsp; <b>Call (Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+            <input type="radio" formControlName="spa_call_chat" name="spa_call_chat" value="CA"> 
+            <label for="spa_call_chat"> &nbsp; <b>Chat Bot Ugrade</b> </label> &nbsp;
+            <input type="radio" formControlName="spa_call_chat" name="spa_call_chat" value="CB"> <br>
+            <label for="spa_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+            <input type="text" class="form-control" formControlName="spa_comments" name="spa_comments" value="spa_comments">
+           </p>
+         <hr>
+         
+           <span>
+             <h4><b>Activities Desk:</b></h4>
+           
+             <input type="radio" formControlName="activities_desk" name="activities_desk" value="Y">
+             <label for="activities_desk"> &nbsp; <b>Yes </b> </label> &nbsp;
+             <input type="radio" formControlName="activities_desk" name="activities_desk" value="N">
+             <label for="activities_desk"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+             
+            </span><br>
+            <p>
+              <label for="ad_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp;
+              <input type="checkbox" formControlName="ad_menu_services" name="ad_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+              <label for="ad_calendar"> &nbsp; <b>Calendar</b></label> &nbsp;
+              <input type="checkbox" formControlName="ad_calendar" name="ad_calendar" value="Y">&nbsp;&nbsp;&nbsp;
+              <label for="ad_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+              <input type="radio" formControlName="ad_chat_call" name="ad_chat_call" value="CO">
+              <label for="ad_chat_call"> &nbsp; <b>Call only(Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+              <input type="radio" formControlName="ad_chat_call" name="ad_chat_call" value="CA"> 
+              <label for="ad_chat_call"> &nbsp; <b>Chat Bot Upgrade</b> </label> &nbsp;
+              <input type="radio" formControlName="ad_chat_call" name="ad_chat_call" value="CB"> <br>
+              <label for="ad_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+              <input type="text" class="form-control" formControlName="ad_comments" name="ad_comments" value="ad_comments">
+             </p>
+         <hr>
+         
+             <span>
+               <h4><b>Gym:</b></h4>
+             
+               <input type="radio" formControlName="gym" name="gym" value="Y">
+               <label for="gym"> &nbsp; <b>Yes </b> </label> &nbsp;
+               <input type="radio" formControlName="gym" name="gym" value="N">
+               <label for="gym"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+               
+              </span><br>
+              <p>
+                <label for="gym_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp;
+                <input type="checkbox" formControlName="gym_menu_services" name="gym_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+                <label for="gym_calendar"> &nbsp; <b>Calendar</b></label> &nbsp;
+                <input type="checkbox" formControlName="gym_calendar" name="gym_calendar" value="Y">&nbsp;&nbsp;&nbsp;
+                <label for="gym_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+                <input type="radio" formControlName="gym_chat_call" name="gym_chat_call" value="CA">
+                <label for="gym_chat_call"> &nbsp; <b>Call (Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+                <input type="radio" formControlName="gym_chat_call" name="gym_chat_call" value="CO"> 
+                <label for="gym_chat_call"> &nbsp; <b>Chat Bot Upgrade</b> </label> &nbsp;
+                <input type="radio" formControlName="gym_chat_call" name="gym_chat_call" value="CB"> <br>
+                <label for="gym_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+                <input type="text" class="form-control" formControlName="gym_comments" name="gym_comments" value="gym_comments">
+               </p>
+               <hr>
+         
+             <span>
+               <h4><b>Salon:</b></h4>
+             
+               <input type="radio" formControlName="salon" name="salon" value="Y">
+               <label for="salon"> &nbsp; <b>Yes </b> </label> &nbsp;
+               <input type="radio" formControlName="salon" name="salon" value="N">
+               <label for="salon"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+               <label for="spa_nm"> Salon Name</label> &nbsp;
+               <input type="text" class="form-control" formControlName="salon_nm" name="salon_nm">
+              </span><br>
+              <p>
+                <label for="salon_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp;
+                <input type="checkbox" formControlName="salon_menu_services" name="salon_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+                <label for="salon_calendar"> &nbsp; <b>Calendar</b></label> &nbsp;
+                <input type="checkbox" formControlName="salon_calendar" name="salon_calendar" value="Y">&nbsp;&nbsp;&nbsp;
+                <label for="salon_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+                <input type="radio" formControlName="salon_chat_call" name="salon_chat_call" value="CO">
+                <label for="salon_call_only"> &nbsp; <b>Chat only</b> </label> &nbsp;
+                <input type="radio" formControlName="salon_chat_call" name="salon_chat_call" value="CA"> 
+                <label for="salon_chat_bot"> &nbsp; <b>Chat Bot Upgrade</b> </label> &nbsp;
+                <input type="radio" formControlName="salon_chat_call" name="salon_chat_call" value="CB"> <br>
+                <label for="salon_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+                <input type="text" class="form-control" formControlName="salon_comments" name="salon_comments" value="salon_comments">
+               </p>
+               <hr>
+         
+               <span>
+                 <h4><b>Gift Shop:</b></h4>
+               
+                 <input type="radio" formControlName="gift_shop" name="gift_shop" value="Y">
+                 <label for="gift_shop"> &nbsp; <b>Yes </b> </label> &nbsp;
+                 <input type="radio" formControlName="gift_shop" name="gift_shop" value="N">
+                 <label for="gift_shop"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+                 
+                </span><br>
+                <p>
+                 
+                  <label for="gift_shop_chat_call"> &nbsp; <b>Chat only</b> </label> &nbsp;
+                  <input type="radio" formControlName="gift_shop_chat_call" name="gift_shop_chat_call" value="CO">
+                  <label for="gift_shop_chat_call"> &nbsp; <b>Call (Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+                  <input type="radio" formControlName="gift_shop_chat_call" name="gift_shop_chat_call" value="CA"> 
+                  <label for="gift_shop_chat_call"> &nbsp; <b>Chat Bot Upgrade</b> </label> &nbsp;
+                  <input type="radio" formControlName="gift_shop_chat_call" name="gift_shop_chat_call" value="CB"> <br>
+                  <label for="gift_shop_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+                  <input type="text" class="form-control" formControlName="gift_shop_comments" name="gift_shop_comments" value="gift_shop_comments">
+                 </p>
+                 <hr>
+         
+                 <span>
+                   <h4><b>Business Center:</b></h4>
+                 
+                   <input type="radio" formControlName="bs" name="bs" value="Y">
+                   <label for="bs"> &nbsp; <b>Yes </b> </label> &nbsp;
+                   <input type="radio" formControlName="bs" name="bs" value="N">
+                   <label for="bs"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+                   
+                  </span><br>
+                  <p>
+                   
+                   <label for="bs_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp;
+                <input type="checkbox" formControlName="bs_menu_services" name="bs_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+                   
+                    <label for="bs_chat_call"> &nbsp; <b>Call (Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+                    <input type="radio" formControlName="bs_chat_call" name="bs_chat_call" value="CO"> 
+                    <label for="bs_chat_call"> &nbsp; <b>Chat Bot Upgrade</b> </label> &nbsp;
+                    <input type="radio" formControlName="bs_chat_call" name="bs_chat_call" value="CB"> 
+                  </p>  -->
+                  <br>
+                    <p>
+                      <span>
+                      <div formArrayName="contact_name">
+                        <div *ngFor="let c of contact_names.controls; let i=index">
+                          <div formGroupName="{{i}}">
+                            <label for="contact_nm"> Name</label> &nbsp;  <br>
+                           <div class="row">
+                            <div class="col-12">
+                              <input type="text" class="form-control" formControlName="contact_nm" name="contact_nm">
+                              <label for="contact_menu_services"> &nbsp; <b>Menu/Services List</b> </label> &nbsp; 
+                              <input type="checkbox" formControlName="contact_menu_services" name="contact_menu_services" value="Y">&nbsp;&nbsp;&nbsp;
+                              <label for="contact_calendar"> &nbsp; <b>Calendar</b></label> &nbsp;
+                              <input type="checkbox" formControlName="contact_calendar" name="contact_calendar" value="Y">&nbsp;&nbsp;&nbsp;
+                              <label for="contact_chat_call_co{{i}}"> &nbsp; <b>Chat only</b> </label> &nbsp;
+                              <input type="radio" formControlName="contact_chat_call" id="contact_chat_call_co{{i}}" value="CO">
+                              <label for="contact_chat_call_ca{{i}}"> &nbsp; <b>Call (Voice/Video/Chat Upgrade)</b> </label> &nbsp;
+                              <input type="radio" formControlName="contact_chat_call" id="contact_chat_call_ca{{i}}" value="CA">  <br>
+                              <label for="contact_comments"> &nbsp; <b>Comments</b> </label> &nbsp;
+                              <input type="text" class="form-control" formControlName="contact_comments" name="contact_comments">
+                            </div>
+                            
+                           </div>
+                           
+                          </div>
+                         <div class="row pt-3">
+                          <div class="col-10" style="color:#3f51b5">
+                           <span style="color:#3f51b5;cursor: pointer;" (click)="addName()">  Add Another Service/Department </span> 
+                          </div>
+                          <div class="col-1">
+                            <button (click)="addName()" class="float-end" mat-mini-fab color="primary">
+                              <mat-icon>add</mat-icon>
+                            </button>
+                          </div>
+                          <div class="col-1">
+                            <button (click)="openDialogForRow(i,c,'S')" *ngIf="contact_names.length>1" class="float-end"  mat-mini-fab color="accent">
+                              <mat-icon>remove</mat-icon>
+                            </button>
+                          </div>
+                         </div>
+                        </div>
+                       
+                      </div>
+                        
+                
+                       </span>
+                
+         
+                    
+         <hr>
+        
+          <br>
+          <button mat-raised-button class="btn btn-danger" matStepperPrevious>Back</button> &nbsp;
+                <button mat-raised-button class="btn btn-success" matStepperNext>Next</button>
+            
+            </form>
+          </mat-step>
+     
+          <mat-step [stepControl]="contactInfo" >
+            <form [formGroup]="contactInfo">
+              <ng-template matStepLabel>Contact info.</ng-template>
+             
+     <br>
+   
+      <p>
+    
+       <label for="chain">Is this hotel a part of a chain? (or are there sister properties associated with this hotel)?</label> &nbsp;
+       <input type="radio" formControlName="chain" name="chain" value="Y">
+              <label for="chain"> &nbsp; <b>Yes </b> </label> &nbsp;
+              <input type="radio" formControlName="chain" name="chain" value="N">
+              <label for="chain"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+      </p>
+      <p>
+    
+        <label for="quote">If Yes, would like to quote for additional properties?</label> &nbsp;
+        <input type="radio" formControlName="quote" name="quote" value="Y">
+               <label for="quote"> &nbsp; <b>Yes </b> </label> &nbsp;
+               <input type="radio" formControlName="quote" name="quote" value="N">
+               <label for="quote"> &nbsp; <b>No </b></label> &nbsp; <br><br>
+       </p>
+       <p>
+        <label for="additional_comments">Any other comments/questions?</label> <br>
+      <textarea name="additional_comments" class="form-control" formControlName="additional_comments" id="additional_comments"></textarea>
+       </p> <br>
+              
+              
+             <br>
+             <div>
+                <button mat-raised-button class="btn btn-danger" matStepperPrevious>Back</button> &nbsp;
+                <!-- <button mat-raised-button class="btn btn-danger" *ngIf="flag!='U'" (click)="stepper.reset()">Reset</button> -->
+                <button mat-raised-button class="btn btn-success float-end" type="submit" (click)="sendProposal()" *ngIf="flag=='U'">Send to admin</button> <br> <br>
+                <button mat-raised-button class="btn btn-success float-end" type="submit" (click)="send_email()" *ngIf="flag=='A' && this.eFlag!='E'">Send to hotel</button> <br> <br>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="additionalQ" *ngIf="this.eFlag=='E'">
+            <form [formGroup]="additionalQ">
+              <ng-template matStepLabel>Additonal info.</ng-template>
+             
+     <br>
+   
+     
+     
+       <p>
+        <label for="additional_qt">Any other additional questions?</label> <br>
+      <textarea name="additional_qt" class="form-control" formControlName="additional_qt" id="additional_qt"></textarea>
+       </p> <br>
+       <p>
+        <label for="additional_ans">Additional answers...</label> <br>
+      <textarea name="additional_ans" class="form-control" formControlName="additional_ans" id="additional_ans"></textarea>
+       </p> <br>
+              
+              
+             <br>
+             <div>
+                <button mat-raised-button class="btn btn-danger" matStepperPrevious>Back</button> &nbsp;
+                <!-- <button mat-raised-button class="btn btn-danger" *ngIf="flag!='U'" (click)="stepper.reset()">Reset</button> -->
+                <button mat-raised-button class="btn btn-success float-end" type="submit" (click)="sendProposal()" *ngIf="flag=='U'">Send to admin</button> <br> <br>
+                <button mat-raised-button class="btn btn-success float-end" type="submit" (click)="send_email()" *ngIf="flag=='A'">Send to hotel</button> <br> <br>
+              </div>
+            </form>
+          </mat-step>
+        </mat-horizontal-stepper>
+         <!--  -->
+    
+
+   
+  
+</div>
+
+<div class="fab-main">
+  <button matTooltip="Back" mat-mini-fab (click)="go_prev_page()"> <mat-icon>arrow_back</mat-icon> </button>
+
+    </div>

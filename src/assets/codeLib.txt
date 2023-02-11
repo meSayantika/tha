@@ -1,0 +1,5 @@
+
+===============================================================
+server error handling
+,error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)}
+======================================================================

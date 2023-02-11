@@ -1,0 +1,218 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/cdk/overlay-prebuilt.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.success{
+    background-color:rgb(255, 255, 255);
+    border-top: 8px solid #6d8675;
+    color:#6d8675 ;
+}
+.mat-simple-snackbar-action {
+  color: rgb(141, 140, 140);
+  
+}  
+.error{
+    background-color: rgb(255, 255, 255);
+    border-top: 8px solid #540B0E;
+    color: #540B0E;
+}
+.info{
+    background-color: rgb(255, 255, 255);
+    border-top: 8px solid #033f63;
+
+    color: #033f63;
+}
+.warning{
+  background-color: rgb(255, 255, 255);
+  border-top: 8px solid #cda555;
+
+    color:#cda555;
+}
+
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #999a9b;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #515455;
+  }
+
+  /* You can add global styles to this file, and also import other style files */
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+
+
+
+/* html,body,h1,h2,h3,h4,h5{font-family:"Raleway",sans-serif} */
+html,h1,h2,h3,h4,h5{font-family:"Raleway",sans-serif}
+
+
+html {
+    height: 100%;
+}
+
+body{
+
+    /* font-family: Arial, Helvetica, sans-serif; */
+display: flex;
+min-height: 100%;
+flex-direction: column;
+margin: 0; padding:0;
+}
+
+.globalMain{display: grid; flex: 1 0 auto;} 
+
+
+/* body{font-family: "Raleway", sans-serif;} */
+
+
+
+
+.formTable{max-width: 600px; width: 100%;}
+
+.rowCustomFour{width: 100%; margin-bottom: 15px; display: inline-block;}
+.rowCustomFour .fieldSecHalf{width: 50%; float: left; padding-right: 15px;}
+.rowCustomFour .fieldSecHalf:last-child{padding-right: 0;}
+.rowCustomFour .fieldSecHalf label{width: 100%; font-size: 14px; display: block; margin: 5px 0 5px 0;}
+
+.rowCustomFour .fieldSecFull{width:100%; float: none; padding-right: 0;}
+.rowCustomFour .fieldSecFull label{width: 100%; font-size: 14px; display: block; margin: 5px 0 5px 0;}
+
+.formCss{display: block;
+width: 100%;
+height: calc(1.5em + .75rem + 2px);
+padding: .375rem .75rem;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; margin: 0 !important;}
+
+.formCssTextArea{display: block;
+width: 100%;
+height: calc(1.5em + .75rem + 2px);
+padding: .375rem .75rem;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; margin: 0 !important; height:160px;}
+
+
+.aboutTextarea{margin-top: 10px; display: block;
+width: 100%;
+height: calc(1.5em + .75rem + 2px);
+padding: .375rem .75rem;
+font-size: 1rem;
+font-weight: 400;
+line-height: 1.5;
+color: #495057;
+background-color: #fff;
+background-clip: padding-box;
+border: 1px solid #ced4da;
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; margin: 0 !important; height: 406px;}
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+
+
+/* .img-wrap {
+   position: relative;
+    display: inline-block;
+     border: 1px #00477e solid;
+     font-size: 0;
+} */
+.img-wrap .close {
+
+    position: absolute;
+
+    top: 2px;
+
+    right: 2px;
+
+    z-index: 100;
+
+    background-color: #FFF;
+
+    padding: 5px 2px 2px;
+
+    color: #000;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    opacity: 0; transition: all 0.2s linear;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    line-height: 10px;
+
+    border-radius: 50%;
+}
+.img-wrap:hover .close {
+    opacity: 1;
+
+}
+ body.modal-open{
+    overflow: auto !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+   
+}
+.build-font{
+    font-size: 1.44rem !important;
+  }
+  .color-head{
+    background-color: indigo;
+      color: white;
+      font-size: larger;
+      padding: 2%;
+  }
+  .head-font{
+    font-size: large;
+  }
+ .btn-success{
+  background-color: #3f51b5;
+  color:white
+ }
+ .btn-success:hover{
+  background-color: white;
+  color:#3f51b5
+ }
+ .btn-danger{
+  background-color: rgb(255, 255, 255);
+  color: #3f51b5;
+ }
+ .btn-danger:hover{
+  background-color: #3f51b5;
+  color:white
+ }
+/* .modal-backdrop {
+    z-index: -1;
+  }  */

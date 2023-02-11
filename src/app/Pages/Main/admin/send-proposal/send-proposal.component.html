@@ -1,0 +1,149 @@
+<div class="content-div">
+  <!-- payment dashboard -->
+<p>Once payment has been authorized you will be taken to your Platform Setup page</p>
+<div class="row">
+<div class="col-8">
+<div class="container">
+<div id="birthday" class="tabcontent">
+  <label class="titleCustom" for="option3"> <strong> Selected Package: {{pkg_name}}  (Setup Fee- ${{setup_fee}}, Monthly Fee- ${{monthly_fee}}) </strong> </label>
+
+</div>
+<div id="birthday" class="tabcontent">
+  <label class="titleCustom" for="option1a"><input disabled [hidden]="op1=='N'" checked type="checkbox" id="option1a" name="option1a"
+       #option1a   value="Calendar"> &nbsp;
+      <strong>Birthday/Anniversary - {{price_b}} </strong> <span [hidden]="op1=='Y'">  (Not Selected)</span></label>
+  Your diners ( while awaiting their meal ) can tap the Birthday/Anniversary tab, read the details
+  and then fill out the form (agreeing to the Privacy Policy and T&amp;Cs for using their data),
+  click Submit, and FOUR things happen...<br><br>
+
+    <div [innerHTML]="editorText1">
+
+    </div>
+      <br><br>
+
+
+  <!-- <button mat-raised-button class="w3-button w3-green" type="submit" (click)="enable_event(option1a.checked)">Next</button> -->
+</div>
+<div id="entertainment" class="tabcontent">
+<label class="titleCustom" for="option2a"><input [hidden]="op2=='N'" disabled checked type="checkbox" id="option2a" name="option2a"
+    #option2a    value="Calendar"> &nbsp;
+    <strong>Entertainment / Event Calendar - {{price_e}}</strong> <span [hidden]="op2=='Y'">  (Not Selected)</span></label>
+<div [innerHTML]="editorText2">
+
+</div> <br><br>
+
+</div>
+<div id="wallSignHolder" class="tabcontent">
+<label class="titleCustom" for="option3"> 
+  
+  <strong>Acrylic Two-Sided Tabletop or Wall Sign Holder</strong></label>
+Includes your printed, Menu + Birthday/Anniversary QR Code signage, placed on both sides of the
+tabletop holder, or a single printed Menu + Birthday/Anniversary QR Code sign for the wall
+mounted holder.<br>
+Please add the number of sign holders that you would like:<br><br>
+<div class="row">
+  <div class="col-8">
+    <label for="tblsign">5" x 7" Tabletop Sign Holder - {{cling_data1}} </label>
+  </div>
+  <div class="col-2">
+    <input readonly class="form-control" type="text" id="tblsign" name="tblsign" [(ngModel)]="Tabletop_Sign_Holder" size="4" #tblsign>      
+  </div>
+</div>
+
+<div class="row mt-1">
+  <div class="col-8">
+    <label for="wallsign1">5" x 7" Wall Mount Sign Holder - {{cling_data2}}</label>
+  </div>
+  <div class="col-2">
+    <input readonly type="text" class="form-control" id="wallsign1" name="wallsign1" [(ngModel)]="Wall_Mount_Sign_Holder1" size="4" #wallsign1>
+  </div>
+</div>
+<div class="row mt-1">
+  <div class="col-8">
+    <label for="wallsign2">8.5" x 11" Wall Mount Sign Holder - {{cling_data3}}</label>
+  </div>
+  <div class="col-2">
+    <input readonly type="text" class="form-control" id="wallsign2" name="wallsign2" [(ngModel)]="Wall_Mount_Sign_Holder2" size="4" #wallsign2>  
+  </div>
+</div>
+
+  <label class="titleCustom" for="option4">
+
+      <strong>Self-adhering 6" x 10" Window Cling</strong></label>
+  Includes your custom Contact Information QR Code and the Laguna Beach FUN Directory QR Code.
+  One is included in your Menu Platform package, order here for additional pieces.<br><br>
+
+  <div class="row">
+    <div class="col-8">
+  <label for="selfcling">6" x 10" Window Clings - {{cling_data4}}</label>
+    </div>
+    <div class="col-2">
+      <input readonly type="text" class="form-control" id="selfcling" name="selfcling" [(ngModel)]="Window_Clings" size="4" #selfcling>
+
+    </div>
+
+  </div>
+  
+  <br>
+
+</div>
+<div class="tabcontent">
+<!-- <ul id="myUL">
+<li *ngFor="let x of getVenues?.msg; let i=index;"><span class="caret" (click)="open_tree(i)">{{x.venue_name}}</span>
+  <ul class="nested{{i}}" id="nested_ul{{i}}">
+    <li *ngFor="let m of getMenus;let t=index;">{{m.menu_name}}</li>
+     <li>Coffee</li>
+  </ul>
+</li>
+</ul> -->
+
+<select #select_venue (change)="open_venue(select_venue.value)" class="form-select" >
+<option value="">Select venue</option>
+<option *ngFor="let x of getVenues?.msg; let i=index;" value="{{x.id}}" >{{x.venue_name}}</option>
+
+</select>
+<div class="mt-2">
+<ul class="listItem">
+  <li *ngFor="let m of getMenus" class="mt-3">
+    <input type="checkbox" name="menu{{m.id}}" id="{{m.id}}" checked disabled>&nbsp;<label for="menu{{m.id}}">{{m.menu_name}}</label>
+    <!-- <label for="menu{{m.id}}" class="ml-2">{{m.menu_name}}</label> -->
+  </li>
+</ul>
+</div>
+<div class="mt-2">
+ <textarea id="spec_change" class="form-control mb-2" *ngIf="flag==1" placeholder="Please add your question(s) here..." rows="5"></textarea>
+
+ <button mat-raised-button class="btn btn-success" *ngIf="flag==1" type="submit" (click)="amend_menu('C')">Confirm</button> &nbsp; &nbsp;
+ <button mat-raised-button class="btn btn-danger pl-5" *ngIf="flag==1" type="submit" (click)="amend_menu('R')">Update</button>
+
+</div>
+</div>
+
+
+</div>
+</div>
+  <!-- list of prices and items -->
+  <div class="col-4">
+    <div class="container">
+      <h4><label style="color:#3f51b5"> <mat-icon style="font-size:15px">add_shopping_cart</mat-icon> Cart  </label>  <span class="price" style="color:black"><b style="color:#3f51b5">6</b></span></h4>
+      <p>Setup Fee <span class="price">${{breakupsetup}}</span></p>
+      <p>Monthly Fee <span class="price">${{breakupmonthly}}</span></p>
+      <p>Calendar <span class="price">${{breakupcal}}</span></p>
+      <p>Birthday/Anniversary <span class="price">${{breakupbirthday}}</span></p>
+      <p>Sign<span class="price">${{table_total}}</span></p>
+      <p>Window Cling <span class="price">${{breakupwindow}}</span></p>
+      <!-- <p><a href="#">Printed Menu</a> <span class="price">$0</span></p>
+      <p><a href="#">Ebrochure</a> <span class="price">$0</span></p> -->
+      <hr>
+      <p>Total <span class="price" style="color:black"><b>${{grand_total}}</b></span></p>
+   
+  <!-- <form action="menu-setup.php" target="_self">	 -->
+    <button mat-raised-button class="btn btn-success p-2" *ngIf="flag==0" type="submit" (click)="go_to_payment()">Confirm</button> &nbsp;
+    <button mat-raised-button (click)="go_to_edit()" class="btn btn-danger p-2" *ngIf="flag==0">
+      Edit
+ </button>
+
+    </div>
+  </div>	
+<br>
+</div>

@@ -1,0 +1,375 @@
+<div class="content-div">
+ <mat-card>
+  <mat-card-title >
+    <strong>   <mat-icon>receipt</mat-icon>  Create Messages </strong>
+</mat-card-title>
+<hr> <br>
+<mat-card-content> 
+  
+  <form [formGroup]="msgForm">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <label for="">Select Message Type</label>
+        <select name="msg_type" [(ngModel)]="type" class="form-control" formControlName="msg_type" id="">
+          <option value="">Select Message Type</option>
+          <option value="H">Hotel Message Center</option>
+          <option value="E">Emergency Messages</option>
+          <option value="V">VIP Messages</option>
+          <option value="M">Employee Messages</option>
+          <option value="G">Group Messages</option>
+        </select>
+      </div>
+      <div class="col-1 mt-4">
+        <button mat-mini-fab *ngIf="type=='V'" color="accent" matTooltip="Add VIP" (click)="add_vip()" aria-label="Example icon button with a menu icon">
+          <mat-icon>person_add</mat-icon>
+        </button>
+
+      </div>
+
+    </div> <br>
+    <hr>
+    <div class="row mt-4">
+      <div class="col-12">
+        <label for="">Select Audience</label>
+        <select name="audience" [(ngModel)]="aud" (change)="change_aud()" class="form-control" formControlName="audience" id="">
+          <option value="">Select Audience</option>
+          
+          <option *ngIf="type=='H'" value="1">All Guests</option>
+          <option *ngIf="type=='E'" value="2">All Guests/ Groups/ Employees</option>
+          <option *ngIf="type=='G'" value="5">Single Group</option>
+          <option *ngIf="type=='G'" value="6">Group Leader</option>
+          <option *ngIf="type=='V'" value="4">Single VIP</option>
+          <option *ngIf="type=='V'" value="3">All VIPs</option>
+          <option *ngIf="type=='M'" value="7">All Employees</option>
+        
+        </select>
+
+      </div>
+     
+    </div>
+    <div class="row mt-4">
+      <div class="col-8">
+        <label for="">Upload Image</label>
+        <input type="file" (change)="event_image_change($event)" class="form-control" name="msg_img" id="" formControlName="msg_img">
+        <button hidden  id="logo_crop" (click)="open_crop_modal()" ></button>
+
+      </div>
+      <div class="col-3 mt-4">
+        <button mat-raised-button class="btn btn-danger col-12" (click)="openstockmodal()">Select from gallery</button>
+      </div>
+      <div class="col-1 mt-4">
+        <button mat-mini-fab color="accent" matTooltip="Preview image" *ngIf="spstockImg" (click)="openDialog('imgPrev',spstockImg)" aria-label="Example icon button with a menu icon">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">
+        <div class="row mt-4">
+          <div class="col-12">
+            <label for="">Message Title</label>
+            <input type="text" class="form-control" name="msg_title" id="" formControlName="msg_title">
+          </div>
+        </div>
+        <div class="row mt-4">
+         
+            <div class="col-12">
+              <label for="">Message Subtitle</label>
+              <input type="text" class="form-control" name="msg_sub_title" id="" formControlName="msg_sub_title">
+            </div>
+          
+        </div>
+      </div>
+      <div class="col-6 mt-3">
+        <label for="">Message Body</label>
+
+      <textarea name="msg_body" id="" class="form-control" cols="30" rows="5" formControlName="msg_body"></textarea>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-9">
+        <label for="">Select Language</label>
+        <select name="language" class="form-control" formControlName="language" id="">
+          <option value="">Select Language</option>
+         
+          <option value="E">English</option>
+        
+        </select>
+  
+      </div>
+      <div class="col-3 mt-4">
+        <button mat-raised-button class="btn btn-danger col-12">Translate</button>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">
+        <div class="row mt-4">
+          <div class="col-12">
+            <label for="">Translated Message Title</label>
+            <input type="text" readonly class="form-control" name="trans_msg_title" id="" formControlName="trans_msg_title">
+          </div>
+        </div>
+        <div class="row mt-4">
+         
+            <div class="col-12">
+              <label for="">Translated Message Subtitle</label>
+              <input type="text" readonly class="form-control" name="trans_msg_sub_title" id="" formControlName="trans_msg_sub_title">
+            </div>
+          
+        </div>
+      </div>
+      <div class="col-6 mt-3">
+        <label for="">Translated Message Body</label>
+
+      <textarea name="trans_msg_body" readonly id="" class="form-control" cols="30" rows="5" formControlName="trans_msg_body"></textarea>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">
+        <label for="">Select Directory Section</label>
+        <select name="dept_link" class="form-control" [(ngModel)]="bitly_url" formControlName="dept_link" id="">
+          <option value="">Select Directory Section</option>
+         
+         <option *ngFor="let x of getVenues let i=index;" value="{{x.id}}" [hidden]="x.calendar=='N'" >{{x.name}} Calendar</option> 
+        
+        </select>
+
+      </div>
+      <div class="col-2 mt-4">
+        <button mat-raised-button class="btn btn-danger col-12" [disabled]="!bitly_url" (click)="gen_bitly()">Generate Bitly</button>
+      </div>
+      <div class="col-4">
+        <label for="">Bitly URL</label>
+        <input type="text" readonly class="form-control" formControlName="bitlyUrl" name="bitlyUrl">
+      </div>
+      <!-- <div class="col-6">
+        <label for="">Select Service Link</label>
+        <select name="serv_link" class="form-control" formControlName="serv_link" id="">
+          <option value="">Select Service Link</option>
+         
+          <option value="E">Service</option>
+        
+        </select>
+
+      </div> -->
+    </div>
+    <div class="row mt-4">
+      <div class="col-1"></div>
+      <div class="col-5 mt-4">
+        <input type="checkbox" name="send_msg" [(ngModel)]="time_period" id="" formControlName="send_msg" value="Y"> &nbsp;  <label for="" style="font-size:17px;">Send message within a time period</label>
+        
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3  mt-4">
+            <input type="time" [hidden]="time_period=='false'" name="send_msg_from" id="" class="form-control" formControlName="send_msg_from">
+          </div>
+          <div class="col-1 mt-4">
+         <h2> <label for="">to </label>  </h2> 
+          </div>
+          <div class="col-3  mt-4">
+            <input type="time" [hidden]="time_period=='false'" name="send_msg_to" id="" class="form-control" formControlName="send_msg_to">
+         
+          </div>
+        </div>
+         
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12">
+        <label for="">Schedule Message</label>
+        <select name="fire_msg" [(ngModel)]="msg_time" class="form-control" formControlName="fire_msg" id="">
+          <option value="">Choose Category</option>
+          <option value="O">Once</option>
+          <option value="D">Daily</option>
+          <option value="W">Weekly</option>
+          <option value="M">Monthly</option>
+        
+        </select>
+
+      </div>
+      
+    </div>
+    <div class="row mt-4" *ngIf="msg_time=='O'">
+      
+        <div class="col-6">
+          <label for="">Date</label>
+          <input type="date" name="once_dt" formControlName="once_dt" class="form-control" id="">
+        </div>
+     
+        <div class="col-6">
+          <label for="">Time</label>
+          <input type="time" name="once_time" formControlName="once_time" class="form-control" id="">
+       
+      </div>
+    </div>
+    <div class="row mt-4" *ngIf="msg_time=='D'">
+      <div class="col-12">
+        <label for="">Time</label>
+        <input type="time" name="daily_time" formControlName="daily_time" class="form-control" id="">
+      </div>
+    </div>
+      <div class="row mt-4" *ngIf="msg_time=='W'">
+        <div class="col-6">
+          <label for="">Select Day</label>
+          <select name="weekly_day" class="form-control" formControlName="weekly_day" id="">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="">Time</label>
+          <input type="time" name="weekly_time" formControlName="weekly_time" class="form-control" id="">
+       
+        </div>
+      </div>
+      <div class="row mt-4" *ngIf="msg_time=='M'">
+        <div class="col-6">
+          <label for="">Date</label>
+         <input type="date" name="monthly_date" formControlName="monthly_date" class="form-control" id="">
+        </div>
+        <div class="col-6">
+          <label for="">Time</label>
+          <input type="time" name="monthly_time" formControlName="monthly_time" class="form-control" id="">
+       
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="row">
+          <div class="col-12">
+          <h3> <label for="">Save message for:</label> </h3>  
+          </div>
+        </div>
+        <div class="row ml-3">
+          <div class="col-2 pl-3">
+            <input type="radio" name="save_message" formControlName="save_message" id="" value="D"> &nbsp; <label for="">90 Days</label>
+  
+          </div>
+          <div class="col-6 pl-3">
+            <input type="radio" name="save_message" formControlName="save_message" id="" value="I"> &nbsp; <label for="">Indefinite</label>
+  
+          </div>
+        </div>
+        
+      </div>
+  
+</form> 
+<!-- <div class="specialMenuImg">
+                             
+  <div class="imgSectionSpecial"><a style="cursor: pointer;" (click)="openDialog('imgPrev',spstockImg)"><img  src="{{spstockImg}}"/></a></div>
+  
+</div> -->
+<div class="row mt-5 mt-3 pt-5">
+  <div class="col-4"></div>
+  <div class="col-6"></div>
+
+  <div class="col-1 ml-5" style="margin-left:7%">
+    <button mat-raised-button class=" btn btn-success" (click)="sendMessage()">Submit</button>
+  </div>
+</div>
+</mat-card-content>
+ </mat-card>
+</div>
+<div class="modal cropModulContent" id="id02" style="margin-left:25%;">
+        
+  <div class="modal-dialog">
+
+    <div class="modal-content modal_contentCustom">
+
+        <!-- Modal body -->
+<div class="modal-body">
+<div class="main_Brouse mainImgBrowse">
+  <div class="titleImgBrowse">
+    <h2>Choose Image</h2>
+    <div id="myBtnContainer" class="dropDownImg">
+    <select #cats (change)="getStockimageonselectcategory(cats.value)">
+      <option value="">Show all</option>
+      <option *ngFor="let cat of category_name" value="{{cat.id}}">{{cat.name}}</option>
+    <!-- <option onclick="filterSelection('all')"> Show all</option>
+    <option onclick="filterSelection('nature')"> Nature</option>
+    <option onclick="filterSelection('cars')"> Cars</option>
+    <option onclick="filterSelection('people')"> People</option> -->
+    </select>
+ 
+  </div>
+    </div>
+
+
+
+
+  <!-- Portfolio Gallery Grid -->
+  <div class="row_Brouse">
+    <!-- class="column_Brouse nature" -->
+    <div  class="column_Brouse nature"   *ngFor="let stock of st_img;let i=index">
+      <div class="content_Brouse" >
+    
+        <!-- <img src="/assets/images/mountains.jpg" alt="Mountains" style="width:100%"> -->
+       <!-- {{apiurlset +'stock/' + stock.img_path}} -->
+        <img [src]="apiurlset+'stock/' + stock.img_path"   alt="" (click)="selectedimage(i,stock.img_path,stock.img_catg,st_img.length)" id="image_{{i}}">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- END MAIN -->
+  </div>
+</div>
+<div class="modal-footer">
+<button type="button" mat-raised-button class="btn btn-success"  (click)="save_it('close')">Close</button> &nbsp;
+<button type="button" mat-raised-button class="btn btn-danger"  (click)="save_it('save')">Save Changes</button>
+
+</div>
+
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="modal cropModulContent" id="id01" tabindex="-1" role="dialog" style="margin-left:25%">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal_contentCustom">
+    
+      <div class="modal-body">
+        <ul class="cropBtnTop">
+          <li><i class="fa fa-minus-circle fa-2x " type="button" [hidden]="ZoomIn"  (click)="zoomOut()"></i></li>
+<li>                <i class="fa fa-plus-circle fa-2x " type="button" [hidden]="Zoomout" (click)="zoomIn()"></i></li>
+      <!-- <li>                <button class="cropCloseBtn" (click)="close_modal_on_crop()">&times;</button></li> -->
+      
+</ul>
+
+         
+          <image-cropper [hidden]="hide" [imageChangedEvent]="img_cover"
+          [maintainAspectRatio]="true" 
+        
+          [onlyScaleDown]="false" 
+         
+          [cropperMaxWidth]="crop_width"
+          [cropperMaxHeight]="crop_height"
+          
+          
+          (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+          [style.display]="showCropper ? null: 'none'" [transform]="transform">
+        </image-cropper>
+      </div>
+      <div class="modal-footer cropFooter">
+        <button class="btn btn-danger"   
+          (click)="click_it()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fab-main">
+  <button matTooltip="Back" mat-mini-fab (click)="go_prev_page()"> <mat-icon>arrow_back</mat-icon> </button>
+
+    </div>

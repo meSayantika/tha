@@ -1,0 +1,87 @@
+<div class="sidebar">
+
+  <ng-container *ngFor="let menu of menuData">
+
+    <a routerLinkActive="active" routerLink="{{menu.ref}}">{{menu.name}}</a>
+    <mat-divider></mat-divider>
+  </ng-container>
+
+  <a (click)="openDialog('')">Sign Out</a>
+  <mat-divider></mat-divider>
+</div>
+
+<div class="sidebar">
+
+  <!-- <ng-container *ngFor="let menu of menuData">
+
+    <a routerLinkActive="active" routerLink="{{menu.ref}}">
+    
+      {{menu.name}}
+    
+    </a>
+   
+    <mat-divider></mat-divider>
+  </ng-container> -->
+
+  <a routerLink="admin/adminlanding" routerLinkActive="active">Home</a>
+  <mat-divider></mat-divider>
+  <mat-accordion>
+   
+    <mat-divider></mat-divider>
+    <mat-expansion-panel hideToggle style="background-color:#3f51b5;color:white">
+  <mat-expansion-panel-header>
+  <mat-panel-title style="color:white; font-size:small;padding-left:-2px">
+    Hotel Accounts 
+  </mat-panel-title>
+
+  </mat-expansion-panel-header>
+  <mat-divider></mat-divider>
+
+  <p>
+
+    <a routerLink="admin/add_hotel" routerLinkActive="active">Add a new hotel</a>
+    <mat-divider></mat-divider>
+    
+    <a routerLink="admin/house_account" routerLinkActive="active">House Accounts</a>
+    <mat-divider></mat-divider>
+    
+    <a routerLink="admin/sales_account" routerLinkActive="active">Sales Accounts</a>
+    <mat-divider></mat-divider>
+    
+    <a routerLink="admin/all_account" routerLinkActive="active">All Hotels</a>
+    <mat-divider></mat-divider>
+  </p>
+  </mat-expansion-panel>
+  </mat-accordion>
+  <mat-divider></mat-divider>
+  <a routerLink="admin/adminsetup" routerLinkActive="active" >Master</a>
+  <mat-divider></mat-divider>
+  <a>Tawk</a>
+  <mat-divider></mat-divider>
+
+  <a>Hosting</a>
+  <mat-divider></mat-divider>
+
+  <a>3rd Party API</a>
+  <mat-divider></mat-divider>
+
+  <a>Accounting</a>
+  <mat-divider></mat-divider>
+
+  <a>Support</a>
+  <mat-divider></mat-divider>
+
+  <a>Training</a>
+  <mat-divider></mat-divider>
+
+  <a>Hotel Databases</a>
+  <mat-divider></mat-divider>
+
+  <a>Admin Info.</a>
+  <mat-divider></mat-divider>
+
+  <a (click)="openDialog('')">Sign Out</a>
+ 
+ 
+
+</div>

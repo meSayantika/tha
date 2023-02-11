@@ -1,0 +1,48 @@
+<div class="sidebar" *ngIf="status=='A'">
+
+  <ng-container *ngFor="let menu of menuData">
+
+    <a routerLinkActive="active" routerLink="{{menu.ref}}">{{menu.name}}</a>
+    <mat-divider></mat-divider>
+  </ng-container>
+
+  <a (click)="openDialog('')">Sign Out</a>
+  <mat-divider></mat-divider>
+</div>
+
+<div class="sidebar" *ngIf="status=='U'">
+
+  <a routerLink="home" routerLinkActive="active">Home</a>
+  <mat-divider></mat-divider>
+
+  <mat-divider></mat-divider>
+  <a routerLink="setup" routerLinkActive="active" >Setup</a>
+  <mat-divider></mat-divider>
+  <a>Tawk</a>
+  <mat-divider></mat-divider>
+
+  <a>Hosting</a>
+  <mat-divider></mat-divider>
+
+  <a>3rd Party API</a>
+  <mat-divider></mat-divider>
+
+  <a>Accounting</a>
+  <mat-divider></mat-divider>
+
+  <a>Support</a>
+  <mat-divider></mat-divider>
+
+  <a>Training</a>
+  <mat-divider></mat-divider>
+
+  <a>Hotel Databases</a>
+  <mat-divider></mat-divider>
+
+  <a>Admin Info.</a>
+  <mat-divider></mat-divider>
+
+  <a (click)="openDialog('')">Sign Out</a>
+ 
+ 
+</div>

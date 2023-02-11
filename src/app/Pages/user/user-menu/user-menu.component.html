@@ -1,0 +1,66 @@
+
+<div class="bgimgBreakFast" [ngStyle]="{'background-image': 'url(' + cover_img + ')'}" style="height:100vh;background-repeat: no-repeat;
+background-attachment: absolute;
+background-position: center;">
+
+<mat-toolbar style="background-color:black; color:white">
+  <button  mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+ </button>
+ <!-- <span>My App</span> -->
+ <span class="example-spacer"></span>
+ <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+ </button>
+ <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+</button> -->
+<small class="text-center" ><mat-icon (click)="go_to_directory()" >home</mat-icon> The Hotel Directory</small>
+</mat-toolbar>
+
+  <div class="row mt-4 btnSpace text-center">
+    <div *ngFor="let menu of menus" >
+      <button mat-raised-button class="btn btn-sm" (click)="view_menu(menu)">
+       {{menu=='B'?'Breakfast':(menu=='R'?'Brunch':(menu=='D'?'Dinner':(menu=='L'?'Lunch':(menu=='S'?'Special':(menu=='A'?'Bar':'Menu Service List')))))}}
+   
+      </button>
+     </div>
+  </div >
+  <div class="row text-center btnSecondRow">
+    <!-- <div class="col-4"> -->
+      <div class="btn-group" role="group" aria-label="Basic example"> 
+        <button mat-raised-button class="btn" (click)="readSpecial()">Specials</button>
+
+        <!-- </div> -->
+        <!-- <div class="col-4"> -->
+          <button mat-raised-button class="btn">Updates</button>
+    
+        <!-- </div> -->
+        <!-- <div class="col-4"> -->
+          <button mat-raised-button class="btn">Entertainment</button>
+      </div>
+     
+
+    <!-- </div> -->
+  </div>
+  <div class="row">
+    <!-- {{top_img}} -->
+    <div class="col-4"></div>
+    <div class="col-4">
+      <img src="{{spstockImg}}" height="100" width="100" style="border-radius:50%" alt="">
+    </div>
+    <div class="col-4"></div>
+  </div>
+  <div class="row text-center btnSecondRow pb-3">
+    <div class="btn-group" role="group" aria-label="Basic example"> 
+
+      <button mat-raised-button class="btn" (click)="play();showPlay=!showPlay" [disabled]="showPlay"><mat-icon>play_arrow</mat-icon></button>
+
+      <button mat-raised-button class="btn" (click)="stop();showPlay=!showPlay" [disabled]="!showPlay"><mat-icon>stop</mat-icon></button>
+   
+      <button mat-raised-button class="btn" (click)="readText()"><mat-icon>chrome_reader_mode</mat-icon></button>
+
+    </div>
+  </div>
+</div>
+
+ 
+ 
+  

@@ -1,0 +1,24 @@
+.btn{
+    background-color: black;
+    color:white;
+    width:30%;
+    font-size: x-small
+}
+
+.btn:hover{
+    background-color: rgb(255, 255, 255);
+    color:black
+}
+
+.btnSpace{
+    display: flex;
+    justify-content: space-between;
+    padding:2%;
+}
+
+.btnSecondRow{
+    display:flex;
+    justify-content: space-around;
+    padding:5%
+}
+
