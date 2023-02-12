@@ -1,6 +1,6 @@
 <div class="content-div">
   <mat-card>
-    <h2><strong> <mat-icon>assignment</mat-icon> Manage Hotel Progress</strong></h2>
+    <h2><strong> <mat-icon>home</mat-icon>Sales Accounts-ADD A SALES PERSON</strong></h2>
   </mat-card>
 
   <div>
@@ -15,37 +15,17 @@
 
             <form [formGroup]="hotelInfo">
               <div class="row">
-                <div class="col-12">
-
-                  <label for="">Date</label>
-                  <input readonly class="form-control p-2" type="text" formControlName="hotel_date" name="hotel_date">
-
-                </div>
+                <div class="col-6">
+                  <label for="">Name</label>
+                  <input class="form-control p-2" type="text" formControlName="hotel" name="hotel">
+                  </div>
+                  <div class="col-6">
+                    <label for="">Address</label>
+                    <input class="form-control p-2" type="text" formControlName="address" name="address">
+                  </div>
               </div> <br>
               <div class="row pb-2">
-
-                <div class="col-4">
-                  <label for="">Hotel</label>
-                  <input class="form-control p-2" type="text" formControlName="hotel" name="hotel">
-                </div>
-                <div class="col-4">
-                  <label for="">Address</label>
-                  <input class="form-control p-2" type="text" formControlName="address" name="address">
-                </div>
-                <div class="col-4">
-                  <label for="">Country</label>
-                  <select class="form-select p-2" name="country" formControlName="country">
-                    <option value="">Select Country</option>
-                    <!-- <option *ngFor="let c of countryData" value="{{c.id}}">{{c.name}}</option> -->
-                  </select>
-                </div>
-              </div> <br>
-              <div class="row">
-                <div class="col-4">
-                  <label for="">Website</label>
-                  <input class="form-control p-2" type="text" formControlName="website" name="website">
-                </div>
-                <div class="col-4">
+              <div class="col-4">
                   <label for="">Phone</label>
                   <input class="form-control p-2" type="text" formControlName="phone" name="phone">
                 </div>
@@ -53,44 +33,34 @@
                   <label for="">WhatsApp</label>
                   <input class="form-control p-2" type="text" formControlName="whatsapp" name="whatsapp">
                 </div> <br>
-
-              </div> <br>
-              <div class="row">
-                <div class="col-4">
-                  <label for="">Contact name</label>
-                  <input class="form-control p-2" type="text" formControlName="contact_name" name="contact_name">
-                </div> <br>
-                <div class="col-4">
-                  <label for="">Position</label>
-                  <input class="form-control p-2" type="text" formControlName="contact_position"
-                    name="contact_position">
-                </div>
                 <div class="col-4">
                   <label for="">Email</label>
                   <input class="form-control p-2" type="text" formControlName="email" name="email">
                 </div> <br>
-
               </div> <br>
               <div class="row">
-                <div class="col-6">
-                  <label for="">Contact phone</label>
-                  <input class="form-control p-2" type="text" formControlName="contact_phone" name="contact_phone">
+                <div class="col-4">
+                  <label for=""> Start Date</label>
+                  <input readonly class="form-control p-2" type="text" formControlName="hotel_date" name="hotel_date">
                 </div>
-                <div class="col-6">
-                  <label for="">Contact WhatsApp</label>
+                <div class="col-4">
+                  <label for="">Territory</label>
                   <input class="form-control p-2" type="text" formControlName="contact_whatsapp"
                     name="contact_whatsapp">
-                </div>
-                <br>
-
-              </div> <br>
+                </div><br>
+                <div class="col-4">
+                  <label for="">Commission</label>
+                  <input class="form-control p-2" type="text" formControlName="contact_whatsapp"
+                    name="contact_whatsapp">
+                </div><br>
+                 </div> <br>
               <div class="row">
                 <div class="col-12">
-                  <label for="">Notes</label>
+                  <label for="">Comments</label>
                   <textarea name="notes" class="form-control" formControlName="notes" id="" cols="30"
                     rows="5"></textarea>
                 </div>
-                <br>
+                <!-- <br>
 
               </div> <br>
               <div class="row">
@@ -123,7 +93,7 @@
                 <div class="col-4 pt-2" style="text-align:center">
                   <button class="btn btn-success" mat-raised-button (click)="updatehotelInfo()">Update</button>
                 </div>
-                <div class="col-4"></div>
+                <div class="col-4"></div> -->
 
               </div>
             </form>
