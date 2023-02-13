@@ -25,11 +25,11 @@
       </div>
       <div class="row mt-4">
         <div class="col-6">
-          <input  class="form-control p-3" type="text" placeholder="Contact Position" formControlName="cnct_position" >
+          <input  class="form-control p-3" type="text" placeholder="Contact Position" formColName="cnct_position" >
         <mat-label *ngIf="f.cnct_position.errors?.required && (f.cnct_position.dirty || f.cnct_position.touched)" class="text-danger">* Position is required</mat-label>
         </div>
         <div class="col-6"><input class="form-control p-3"  type="text" placeholder="Contact Person Phone" formControlName="cnct_phone_no" name="cnct_phone_no">
-          <mat-label *ngIf="f.cnct_phone_no.errors?.required && (f.cnct_phone_no.dirty || f.cnct_phone_no.touched)" class="text-danger">* Contact Phone is required</mat-label>
+          <mat-label *ngIf="f.cnct_phone_nontro.errors?.required && (f.cnct_phone_no.dirty || f.cnct_phone_no.touched)" class="text-danger">* Contact Phone is required</mat-label>
         </div>
         </div>
         <div class="row mt-4">
