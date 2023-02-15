@@ -87,3 +87,10 @@ table {
     /* max-height: 550px; */
     overflow: auto;
 }
+.tab button:hover {
+  background-color: #b8c1f4;
+}
+.tab button.active {
+  background-color: #3F51B5;
+  color: #fff;
+}

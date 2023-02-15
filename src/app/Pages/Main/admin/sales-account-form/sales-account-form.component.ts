@@ -5,6 +5,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { MessageService } from 'src/app/Services/message.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from 'src/app/Core/dialogBox/dialogBox.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sales-account-form',
@@ -28,6 +29,8 @@ export class SalesAccountFormComponent implements OnInit {
   modeData: any;
   del_id:any
   delData:any
+  email_body:any
+  email_title:any
   // for hotel account
   displayedHotelColumns: string[] = ['id', 'restaurant_name', 'date_enquiry','country','setup','edit', 'delete'];
   
@@ -48,6 +51,9 @@ export class SalesAccountFormComponent implements OnInit {
       commission1: ['', [Validators.required]],
       comments: ['', [Validators.required]],
       email_send_date: [''],
+      email_body: ['', [Validators.required]],
+      email_title: ['', [Validators.required]],
+
     });
     if(this.id>0){
     this.getAgentDtls()
@@ -191,5 +197,39 @@ export class SalesAccountFormComponent implements OnInit {
      this.msg.errorMsg('ED')
     }
     },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+
+  generate_email(){
+    if(this.f.agent_name.value!=''){
+    this.email_title = `Welcome ${this.f.agent_name.value}`
+    var alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+        'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+        'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    var a = alpha[Math.floor(Math.random() * 62)];
+    var b = alpha[Math.floor(Math.random() * 62)];
+    var c = alpha[Math.floor(Math.random() * 62)];
+    var d = alpha[Math.floor(Math.random() * 62)];
+    var e = alpha[Math.floor(Math.random() * 62)];
+    var sum = a + b + c + d + e;
+
+    this.email_body = `Hello ${this.f.agent_name.value},
+
+    Please log in to your account with the following credentials to add and manage hotels.
+
+    Login Link: ${environment.routeUrl}/main/sales/saleslogin
+    UserID: ${this.f.phone.value}
+    Password: ${sum}
+    
+    Thank You,
+    Cindy Ferguson`
+    this.hotelInfo.patchValue({
+      email_body: this.email_body,
+      email_title: this.email_title,
+    })
+    }else{
+      this.msg.globalError('Please enter name and phone first')
+    }
   }
 }

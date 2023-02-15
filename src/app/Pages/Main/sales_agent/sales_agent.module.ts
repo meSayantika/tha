@@ -5,8 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes:Routes=[
   {
-  path:'',
-  component:Sales_agentComponent, 
+  path:'', component:Sales_agentComponent, 
   children: [
     { path: 'saleslogin', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
     { path: 'salesdashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
@@ -22,4 +21,6 @@ const routes:Routes=[
   ],
   declarations: [Sales_agentComponent]
 })
-export class Sales_agentModule { }
+export class Sales_agentModule {
+ constructor(){ console.log('sales module is loaded')}
+ }
