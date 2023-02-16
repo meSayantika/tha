@@ -11,10 +11,10 @@ export class MainComponent implements OnInit {
   constructor(private router:Router) { }
   showHeader=false
   ngOnInit() {
-    this.showHeader=this.router.url.includes('adminlogin') || this.router.url.includes('send_proposal') || this.router.url.includes('confirm_pay')|| this.router.url.includes('hotelForm') || this.router.url.includes('view_proposal') || this.router.url.includes('sales')?false:true
+    this.showHeader=this.router.url.includes('adminlogin') || this.router.url.includes('send_proposal') || this.router.url.includes('confirm_pay')|| this.router.url.includes('hotelForm') || this.router.url.includes('view_proposal')|| this.router.url.includes('saleslogin')?false:true
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationEnd)
-      this.showHeader=event.url.includes('adminlogin') || this.router.url.includes('send_proposal')|| this.router.url.includes('confirm_pay')|| this.router.url.includes('hotelForm') || this.router.url.includes('view_proposal') || this.router.url.includes('sales')  ?false:true
+      this.showHeader=event.url.includes('adminlogin') || this.router.url.includes('send_proposal')|| this.router.url.includes('confirm_pay')|| this.router.url.includes('hotelForm') || this.router.url.includes('view_proposal')|| this.router.url.includes('saleslogin')?false:true
     })
   }
 

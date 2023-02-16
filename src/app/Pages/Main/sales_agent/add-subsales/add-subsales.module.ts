@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard.component';
+import { AddSubsalesComponent } from './add-subsales.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle'
@@ -17,26 +17,27 @@ import {MatTabsModule} from '@angular/material/tabs';
 const routes: Routes=[
   {
     path:'',
-    component:DashboardComponent
-  }
+    component:AddSubsalesComponent
+}
 ]
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
     MatButtonModule,
     MatTooltipModule,
     MatTableModule,
-    MatTabsModule,
-    MatIconModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSlideToggleModule,
+    MatSortModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatSortModule,
     MatInputModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardComponent]
+  declarations: [AddSubsalesComponent]
 })
-export class DashboardModule { }
+export class AddSubsalesModule { }

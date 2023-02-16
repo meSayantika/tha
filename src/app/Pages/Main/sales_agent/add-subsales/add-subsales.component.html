@@ -1,0 +1,143 @@
+<div class="content-div">
+  <mat-card>
+    <h2><strong> <mat-icon>home</mat-icon>Sub-Sales Account Details</strong></h2>
+    <form [formGroup]="subsalesInfo">
+      <div class="row">
+        <div class="col-7" style="border-right:1px solid rgb(190, 187, 187)">
+
+          <div style="overflow-x:auto;" class="p-3">
+            <div class="row">
+              <div class="col-6">
+                <label for="">Name</label>
+                <input class="form-control p-2" type="text" placeholder="name" formControlName="agent_name"
+                  name="agent_name">
+                <mat-label *ngIf="g.agent_name.errors?.required && (g.agent_name.dirty || g.agent_name.touched)"
+                  class="text-danger">*
+                  Name is required</mat-label>
+              </div>
+              <div class="col-6">
+                <label for="">Address</label>
+                <!-- <input class="form-control p-2" type="text" formControlName="address" name="address"> -->
+                <textarea name="comments" class="form-control" placeholder="address" formControlName="address"
+                  name="address" id="" cols="30" rows="1"></textarea>
+                <mat-label *ngIf="g.address.errors?.required && (g.address.dirty || g.address.touched)"
+                  class="text-danger">* Address is required</mat-label>
+              </div>
+            </div> <br>
+            <div class="row pb-2">
+              <div class="col-4">
+                <label for="">Phone</label>
+                <input class="form-control p-2" type="text" placeholder="phone" formControlName="phone"
+                  name="phone">
+                <mat-label *ngIf="g.phone.errors?.required && (g.phone.dirty || g.phone.touched)"
+                  class="text-danger">*
+                  phone No is required</mat-label>
+              </div>
+              <div class="col-4">
+                <label for="">WhatsApp</label>
+                <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp"
+                  name="whatsapp">
+                <mat-label *ngIf="g.whatsapp.errors?.required && (g.whatsapp.dirty || g.whatsapp.touched)"
+                  class="text-danger">* whatsapp is required</mat-label>
+              </div> <br>
+              <div class="col-4">
+                <label for="">Email</label>
+                <input class="form-control p-2" type="text" placeholder="email" formControlName="email"
+                  name="email">
+                <div *ngIf="g.email.errors?.required  && (g.email.dirty || g.email.touched)" class="text-danger">
+                  <mat-label class="text-danger" [hidden]="!g.email.errors?.required">
+                    * Email is required
+                  </mat-label>
+                  <div *ngIf="g.email.touched">
+                    <mat-label class="text-danger" *ngIf="g.email.errors?.pattern">
+                      * Not a valid email
+                    </mat-label>
+                  </div>
+                </div>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-6">
+                <label for=""> Start Date</label>
+                <input class="form-control p-2" type="date" formControlName="start_date" name="start_date">
+                <mat-label *ngIf="g.start_date.errors?.required && (g.start_date.dirty || g.start_date.touched)"
+                  class="text-danger">*
+                  start_date is required</mat-label>
+              </div>
+              <div class="col-6">
+                <label for="">Territory</label>
+                <select name="territory" class="form-control p-2" formControlName="territory" id="">
+                  <option value="">Select territory</option>
+                  <option value="1">Territory 1</option>
+                  <option value="2">Territory 2</option>
+                  <option value="3">Territory 3</option>
+                </select>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-6">
+                <label for="">1st phase(%)</label>
+                <input class="form-control p-2" type="text" placeholder="1st phase" formControlName="commission"
+                  name="commission">
+                <mat-label *ngIf="g.commission.errors?.required && (g.commission.dirty || g.commission.touched)"
+                  class="text-danger">*
+                  1st phase is required</mat-label>
+              </div>
+              <div class="col-6">
+                <label for="">2nd phase(%)</label>
+                <input class="form-control p-2" type="text" placeholder="2nd phase" formControlName="commission1"
+                  name="commission1">
+                <mat-label *ngIf="g.commission1.errors?.required && (g.commission1.dirty || g.commission1.touched)"
+                  class="text-danger">*
+                  2nd phase is required</mat-label>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-12">
+                <label for="">Comments</label>
+                <textarea name="comments" class="form-control" placeholder="write here..."
+                  formControlName="comments" id="" cols="30" rows="5"></textarea>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class="col-12">
+                <label for="">Email Send Date</label>
+                <input readonly class="form-control p-2" type="date" formControlName="email_send_date"
+                  name="email_send_date">
+              </div>
+            </div><br>
+            <div>
+              <button mat-raised-button class="btn btn-success" (click)="updatedInfo()">Submit</button> &nbsp;
+            </div>
+          </div>
+        </div>
+        <div class="col-5">
+
+          <div class="row">
+            <div class="col-12">
+              <label for="">Email Title</label>
+              <input class="form-control p-2" type="text" placeholder="Email Title" formControlName="email_title" name="email_title">
+              <mat-label *ngIf="g.email_title.errors?.required && (g.email_title.dirty || g.email_title.touched)"
+                class="text-danger">*
+                Title is required</mat-label>
+            </div><br>
+            <div class="col-12 mt-3">
+              <label for="">Email Body</label>
+              <textarea name="email_body" class="form-control" placeholder="write here..."
+                formControlName="email_body" id="" cols="30" rows="5"></textarea>
+                <mat-label *ngIf="g.email_body.errors?.required && (g.email_body.dirty || g.email_body.touched)"
+                class="text-danger">*
+                Title is required</mat-label>
+            </div>
+            <div class="row">
+            <div class="col-12 container mt-3">
+              <button mat-raised-button class="btn btn-danger col-12" (click) = 'generate_email()'>Generate Email</button> &nbsp;
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+  </div>
+
