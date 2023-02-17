@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.fetchdata();
-    // this.id = 1;
+    this.id = localStorage.getItem('user_id')
     // console.log();
 
     this.dashboardInfo = this.formBuilder.group({

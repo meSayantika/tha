@@ -31,6 +31,8 @@ export class SalesAccountFormComponent implements OnInit {
   delData:any
   email_body:any
   email_title:any
+  pwd:any;
+  msg_flag=false;
   // for hotel account
   displayedHotelColumns: string[] = ['id', 'restaurant_name', 'date_enquiry','country','setup','edit', 'delete'];
   
@@ -94,9 +96,14 @@ export class SalesAccountFormComponent implements OnInit {
       email: this.f.email.value,
       start_date: this.f.start_date.value,
       territory: this.f.territory.value,
-      commission: this.f.commission.value,
+      frst_comm:this.f.commission.value,
+      snd_comm:this.f.commission1.value,
       comments: this.f.comments.value,
-      email_send_date: this.f.email_send_date.value,
+      email_title:this.f.email_title.value,
+      email_body:this.f.email_body.value,
+      pwd:this.pwd,
+      msg_flag:this.msg_flag
+
     }
     this.dataServe.global_service(1, '/sales_agent', data).subscribe(dt => {
       this.salesData = dt;
@@ -200,7 +207,8 @@ export class SalesAccountFormComponent implements OnInit {
   }
 
   generate_email(){
-    if(this.f.agent_name.value!=''){
+    if(this.f.agent_name.value&& this.f.phone.value!=''){
+      this.msg_flag=true
     this.email_title = `Welcome ${this.f.agent_name.value}`
     var alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
         'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -213,6 +221,7 @@ export class SalesAccountFormComponent implements OnInit {
     var d = alpha[Math.floor(Math.random() * 62)];
     var e = alpha[Math.floor(Math.random() * 62)];
     var sum = a + b + c + d + e;
+    this.pwd=sum
 
     this.email_body = `Hello ${this.f.agent_name.value},
 

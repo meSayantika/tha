@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { DialogBoxComponent } from 'src/app/Core/dialogBox/dialogBox.component';
 import { environment } from 'src/environments/environment';
+import { F } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-add-subsales',
@@ -22,11 +23,13 @@ export class AddSubsalesComponent implements OnInit {
   salesData: any;
   email_title: any;
   email_body: any;
-
+  msg_flag=false;
+  pwd:any;
   constructor(private activatedRoute:ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private dataServe: DataService,private msg: MessageService,public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.id = 1;
+    this.id = this.activatedRoute.snapshot.params['id'];
+    this.id = atob(this.id)
     console.log();
 
     this.subsalesInfo = this.formBuilder.group({
@@ -73,8 +76,9 @@ export class AddSubsalesComponent implements OnInit {
   updatedInfo(){
       var data = {
         id: this.id,
-        user: 'admin@gmail.com',
-        hotel_id: localStorage.getItem('rid'),
+        sales_agent_id:localStorage.getItem('user_id'),
+        user:localStorage.getItem('email'),
+        // hotel_id: localStorage.getItem('rid'),
         agent_name: this.g.agent_name.value,
         address: this.g.address.value,
         phone: this.g.phone.value,
@@ -84,9 +88,12 @@ export class AddSubsalesComponent implements OnInit {
         territory: this.g.territory.value,
         commission: this.g.commission.value,
         comments: this.g.comments.value,
-        email_send_date: this.g.email_send_date.value,
+        email_title:this.g.email_title.value,
+        email_body:this.g.email_body.value,
+        pwd: this.pwd,
+        // email_send_date: this.g.email_send_date.value,
       }
-      this.dataServe.global_service(1, '/sales_agent', data).subscribe((dt: any) => {
+      this.dataServe.global_service(1, '/sub_sales_agent', data).subscribe((dt: any) => {
         this.salesData = dt;
         if (this.salesData.suc > 0) {
           this.msg.successMsg('SS'); this.subsalesInfo.reset()
@@ -103,6 +110,7 @@ export class AddSubsalesComponent implements OnInit {
     }
     generate_email(){
         if(this.g.agent_name.value!=''){
+          this.msg_flag=true;
         this.email_title = `Welcome ${this.g.agent_name.value}`
         var alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -115,7 +123,7 @@ export class AddSubsalesComponent implements OnInit {
         var d = alpha[Math.floor(Math.random() * 62)];
         var e = alpha[Math.floor(Math.random() * 62)];
         var sum = a + b + c + d + e;
-    
+        this.pwd=sum;
         this.email_body = `Hello ${this.g.agent_name.value},
     
          Please log in to your account with the following credentials to add and manage hotels.
