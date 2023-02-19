@@ -229,6 +229,11 @@ export class DashboardComponent implements OnInit {
     })
     
   }
+  go_hotelinfo(v:any){
+    this.router.navigate(['main/sales/saleshotelinfo',btoa(v)]).catch(data=>{
+      this.msg.globalError(data);
+    })
+  }
   next(id:any){
     this.router.navigate(['main/sales/addsubsales',btoa(id)]).catch(data=>{
       this.msg.globalError(data);

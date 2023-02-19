@@ -76,7 +76,7 @@ export class AddSubsalesComponent implements OnInit {
   updatedInfo(){
       var data = {
         id: this.id,
-        sales_agent_id:localStorage.getItem('user_id'),
+        sales_id:localStorage.getItem('user_id'),
         user:localStorage.getItem('email'),
         // hotel_id: localStorage.getItem('rid'),
         agent_name: this.g.agent_name.value,
@@ -86,7 +86,8 @@ export class AddSubsalesComponent implements OnInit {
         email: this.g.email.value,
         start_date: this.g.start_date.value,
         territory: this.g.territory.value,
-        commission: this.g.commission.value,
+        frst_comm:this.g.commission.value,
+        snd_comm:this.g.commission1.value,
         comments: this.g.comments.value,
         email_title:this.g.email_title.value,
         email_body:this.g.email_body.value,

@@ -10,6 +10,7 @@ const routes:Routes=[
     { path: 'saleslogin', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
     { path: 'salesdashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
     { path: 'addsubsales/:id', loadChildren: () => import('./add-subsales/add-subsales.module').then(m => m.AddSubsalesModule) },
+    { path: 'saleshotelinfo/:id', loadChildren: () => import('./sales_hotel_info/sales_hotel_info.module').then(m => m.Sales_hotel_infoModule) },
     { path:'',redirectTo:'saleslogin',pathMatch:'full'}
   ]
 }
