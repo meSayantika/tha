@@ -13,7 +13,7 @@
         <form [formGroup]="dashboardInfo">
           <div class="row">
             <div class="col-12">
-                <div style="overflow-x:auto;" class="p-3">
+              <div style="overflow-x:auto;" class="p-3">
                 <div class="row">
                   <div class="col-6">
                     <label for="">Name</label>
@@ -65,177 +65,202 @@
                   </div>
                 </div><br>
                 <div class="text-center">
-                  <button mat-raised-button class="btn btn-success" (click)="updatedashboardInfo()">Submit</button> &nbsp;
+                  <button mat-raised-button class="btn btn-success" (click)="updatedashboardInfo()">Submit</button>
+                  &nbsp;
                 </div>
               </div>
             </div>
-            </div>
-          </form>
-          </mat-card>
-      </mat-tab>
-      <mat-tab label="SUB-Sales People">
-        <ng-template mat-tab-label>
-          <mat-icon>people</mat-icon> &nbsp;
-          SUB-Sales People
-        </ng-template>
-          <mat-card>
-            <div class="row">
-              <div class="col-6">
-                <h2 class="float-start"><strong> <mat-icon> home</mat-icon> Sales Accounts</strong></h2>
-              </div>
-              <div class="col-6">
-                <button class="btn btn-success float-end" mat-mini-fab color="accent"   matTooltip="Add sales person"
-                  aria-label="Button that displays a tooltip when focused or hovered over">
-                  <a class="" (click)="next(0)">
-                    <mat-icon>add</mat-icon>
-                  </a>
-                </button>
-              </div>
-            </div>
-            <div *ngIf="this.userData.msg?.length">
-              <mat-form-field appearance="outline" class="float-end mt-2">
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
-              </mat-form-field>
-              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-        
-                
-                <ng-container matColumnDef="id">
-                  <th mat-header-cell *matHeaderCellDef> # </th>
-                  <td mat-cell *matCellDef="let element">{{element.id}} </td>
-                </ng-container>
-        
-                
-                <ng-container matColumnDef="restaurant_name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header="restaurant_name"> Name </th>
-                  <td mat-cell matTooltip="{{element.agent_name}}" *matCellDef="let element">
-                    <p>{{element.agent_name}}</p>
-                  </td>
-                </ng-container>
-        
-               
-                <ng-container matColumnDef="date_enquiry">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header="date_enquiry">Contact </th>
-                  <td mat-cell matTooltip="{{element.phone_no}}" *matCellDef="let element">
-                    <p>{{element.phone_no}}</p>
-                  </td>
-                </ng-container>
-                <ng-container matColumnDef="edit">
-                  <th mat-header-cell *matHeaderCellDef class="text-center"> Manage </th>
-                  <td mat-cell *matCellDef="let element" class="text-center">
-        
-                    <a class="editLink" id="setup{{element.id}}" (click)="go_details(element.id)">
-                      <mat-icon matTooltip="Create / View / Edit" matTooltipPosition="above" color="primary">edit</mat-icon>
-                    </a>
-                  </td>
-                </ng-container>
-        
-                <ng-container matColumnDef="delete">
-                  <th mat-header-cell class="text-center" *matHeaderCellDef> Action </th>
-                  <td class="text-center" mat-cell *matCellDef="let element">
-        
-                    <mat-icon matTooltip="Delete {{element.restaurant_name}}" matTooltipPosition="above"
-                      (click)="del_res(element.id)" style="cursor:pointer; color:#540B0E">delete</mat-icon>
-        
-                  </td>
-                </ng-container>
-        
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, this.userData.msg.length]" showFirstLastButtons
-                aria-label="Select page of users"></mat-paginator>
-              <br><br>
-            </div>
-            <div style="text-align:center" *ngIf="!this.userData.msg?.length">
-              No Data!
-            </div>
-          </mat-card>
-      </mat-tab>
-      <mat-tab label="Hotel Accounts">
-        <ng-template mat-tab-label>
-          <mat-icon>hotel</mat-icon> &nbsp;
-          Hotel Accounts
-        </ng-template>
-        <mat-card>
-          <div class="row">
-            <div class="col-6">
-              <h2 class="float-start"><strong> <mat-icon> hotel</mat-icon> Hotel Accounts</strong></h2>
-            </div>
-            <div class="col-6">
-              <button class="btn btn-success float-end" mat-mini-fab color="accent"   matTooltip="Add sales person"
-                aria-label="Button that displays a tooltip when focused or hovered over">
-                <a class="" (click)="next(0)">
-                  <mat-icon>add</mat-icon>
+          </div>
+        </form>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="SUB-Sales People">
+      <ng-template mat-tab-label>
+        <mat-icon>people</mat-icon> &nbsp;
+        Sub-Sales People
+      </ng-template>
+      <mat-card>
+        <div class="row">
+          <div class="col-6">
+            <h2 class="float-start"><strong> <mat-icon> home</mat-icon> Sales Accounts</strong></h2>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-success float-end" mat-mini-fab color="accent" matTooltip="Add sales person"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+              <a class="" (click)="next(0)">
+                <mat-icon>add</mat-icon>
+              </a>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="this.userData?.msg?.length">
+          <mat-form-field appearance="outline" class="float-end mt-2">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
+          </mat-form-field>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> # </th>
+              <td mat-cell *matCellDef="let element">{{element.id}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Name </th>
+              <td mat-cell matTooltip="{{element.agent_name}}" *matCellDef="let element">
+                <p>{{element.agent_name}}</p>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="contact">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="contact">Contact </th>
+              <td mat-cell matTooltip="{{element.phone_no}}" *matCellDef="let element">
+                <p>{{element.phone_no}}</p>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Manage </th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+
+                <a class="editLink" id="setup{{element.id}}" (click)="go_details(element.id)">
+                  <mat-icon matTooltip="Create / View / Edit" matTooltipPosition="above" color="primary">edit</mat-icon>
                 </a>
-              </button>
-            </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell class="text-center" *matHeaderCellDef> Action </th>
+              <td class="text-center" mat-cell *matCellDef="let element">
+
+                <mat-icon matTooltip="Delete {{element.restaurant_name}}" matTooltipPosition="above"
+                  (click)="del_res(element.id)" style="cursor:pointer; color:#540B0E">delete</mat-icon>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displaySubSales"></tr>
+            <tr mat-row *matRowDef="let row; columns: displaySubSales;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, this.userData.msg.length]" showFirstLastButtons
+            aria-label="Select page of users"></mat-paginator>
+          <br><br>
+        </div>
+        <div style="text-align:center" *ngIf="!this.userData?.msg?.length">
+          No Data!
+        </div>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Hotel Accounts">
+      <ng-template mat-tab-label>
+        <mat-icon>hotel</mat-icon> &nbsp;
+        Hotel Accounts
+      </ng-template>
+      <mat-card>
+        <div class="row">
+          <div class="col-6">
+            <h2 class="float-start"><strong> <mat-icon> hotel</mat-icon> Hotel Accounts</strong></h2>
           </div>
-          <div *ngIf="this.userData.msg?.length">
-            <mat-form-field appearance="outline" class="float-end mt-2">
-              <mat-label>Search</mat-label>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
-            </mat-form-field>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-      
-              
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> # </th>
-                <td mat-cell *matCellDef="let element">{{element.id}} </td>
-              </ng-container>
-      
-              
-              <ng-container matColumnDef="restaurant_name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header="restaurant_name"> Name </th>
-                <td mat-cell matTooltip="{{element.agent_name}}" *matCellDef="let element">
-                  <p>{{element.agent_name}}</p>
-                </td>
-              </ng-container>
-      
-             
-              <ng-container matColumnDef="date_enquiry">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header="date_enquiry">Contact </th>
-                <td mat-cell matTooltip="{{element.phone_no}}" *matCellDef="let element">
-                  <p>{{element.phone_no}}</p>
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="edit">
-                <th mat-header-cell *matHeaderCellDef class="text-center"> Manage </th>
-                <td mat-cell *matCellDef="let element" class="text-center">
-      
-                  <a class="editLink" id="setup{{element.id}}" (click)="go_hotelinfo(element.id)">
-                    <mat-icon matTooltip="Create / View / Edit" matTooltipPosition="above" color="primary">edit</mat-icon>
-                  </a>
-                </td>
-              </ng-container>
-      
-              <ng-container matColumnDef="delete">
-                <th mat-header-cell class="text-center" *matHeaderCellDef> Action </th>
-                <td class="text-center" mat-cell *matCellDef="let element">
-      
-                  <mat-icon matTooltip="Delete {{element.restaurant_name}}" matTooltipPosition="above"
-                    (click)="del_res(element.id)" style="cursor:pointer; color:#540B0E">delete</mat-icon>
-      
-                </td>
-              </ng-container>
-      
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, this.userData.msg.length]" showFirstLastButtons
-              aria-label="Select page of users"></mat-paginator>
-            <br><br>
+          <div class="col-6">
+            <button class="btn btn-success float-end" mat-mini-fab color="accent" matTooltip="Add sales person"
+              aria-label="Button that displays a tooltip when focused or hovered over">
+              <a class="" (click)="go_addhotel(0)">
+                <mat-icon>add</mat-icon>
+              </a>
+            </button>
           </div>
-          <div style="text-align:center" *ngIf="!this.userData.msg?.length">
-            No Data!
-          </div>
-        </mat-card>
-        </mat-tab>
-        <mat-tab label="Commission Payments">
-          <ng-template mat-tab-label>
-            <mat-icon> attach_money</mat-icon> &nbsp;
-            Commission Payments
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
-  </div>
+        </div>
+        <div *ngIf="this.hotelData?.msg?.length">
+          <mat-form-field appearance="outline" class="float-end mt-2">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
+          </mat-form-field>
+          <table mat-table [dataSource]="hotelDataSource" class="mat-elevation-z8" matSort>
+
+            <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> # </th>
+              <td mat-cell *matCellDef="let element">{{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="restaurant_name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="restaurant_name"> Hotel </th>
+              <td mat-cell matTooltip="{{element.restaurant_name}}" *matCellDef="let element">
+                <p>{{element.restaurant_name}}</p>
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="date_enquiry">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="date_enquiry"> Date of enquiry </th>
+              <td mat-cell *matCellDef="let element">{{element.contact_date | date:'dd/mm/YYYY'}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="country">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="country">Country</th>
+              <td mat-cell *matCellDef="let element">{{element.country}} </td>
+            </ng-container>
+            <ng-container matColumnDef="setup" class="text-center">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header="setup"> Activate hotel</th>
+              <td mat-cell *matCellDef="let element"><mat-slide-toggle id="setupmodeid{{element.id}}"
+                  (change)="click_setup($event,element.id)" [checked]="element.approval_flag=='Y'"></mat-slide-toggle>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Manage </th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+
+                <a class="editLink" id="setup{{element.id}}" (click)="go_hotelinfo(element.id)">
+                  <mat-icon matTooltip="Create / View / Edit" matTooltipPosition="above" color="primary">edit</mat-icon>
+                </a>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="manage" class="text-center">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Status </th>
+              <td mat-cell *matCellDef="let element">
+
+                <label class="statusAppro" *ngIf="element.proposal_status=='C'">Confirmed</label>
+                <label class="statusPending" *ngIf="element.proposal_status=='P'">Pending</label>
+                <label class="statusSetup" *ngIf="element.proposal_status=='S'">Send</label>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell class="text-center" *matHeaderCellDef> Action </th>
+              <td class="text-center" mat-cell *matCellDef="let element">
+
+                <mat-icon matTooltip="Delete {{element.restaurant_name}}" matTooltipPosition="above"
+                  (click)="del_res(element.id)" style="cursor:pointer; color:#540B0E">delete</mat-icon>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, this.hotelData.msg.length]" showFirstLastButtons
+            aria-label="Select page of users"></mat-paginator>
+          <br><br>
+        </div>
+        <div style="text-align:center" *ngIf="!this.hotelData?.msg?.length">
+          No Data!
+        </div>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Commission Payments">
+      <ng-template mat-tab-label>
+        <mat-icon> attach_money</mat-icon> &nbsp;
+        Commission Payments
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

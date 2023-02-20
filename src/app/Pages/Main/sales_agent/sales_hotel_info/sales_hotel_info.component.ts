@@ -18,7 +18,7 @@ export class Sales_hotel_infoComponent implements OnInit {
   countryData: any;
   r_id: any;
   qTabForm!: FormGroup;
-
+  dashboardData: any;
   constructor(public dialog: MatDialog,private activatedRoute:ActivatedRoute,private router:Router,private msg:MessageService,private dataServe:DataService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class Sales_hotel_infoComponent implements OnInit {
     this.r_id=this.activatedRoute.snapshot.params['id'];
     this.r_id=atob(this.r_id);
     localStorage.setItem('rid',this.r_id)
-
+    this.getDashboardData();
 
     this.hotelInfo=this.formBuilder.group({
       hotel_date: [''],
@@ -53,6 +53,46 @@ export class Sales_hotel_infoComponent implements OnInit {
     
   })
     }
+
+    
+  getDashboardData(){
+    this.dataServe.global_service(0,'/res_dtls_custom',`id=${this.r_id}`).subscribe(data=>{console.log(data)
+      this.dashboardData=data;
+      // this.show_spinner=true;
+      this.dashboardData=this.dashboardData.msg;
+      // this.rest_nm=;
+      // this.rest_contact=this.dashboardData[0].contact_name;
+      // this.rest_phone=;
+      // this.rest_em=;
+      // this.rest_web=;
+      // this.rest_monthly=this.dashboardData[0].monthly_fee;
+      // this.rest_setup=this.dashboardData[0].setup_fee;
+      this.dashboardData[0].addr_line2=this.dashboardData[0].addr_line2?this.dashboardData[0].addr_line2:''
+      // this.rest_add=this.dashboardData[0].addr_line1+" "+this.dashboardData[0].addr_line2+" "+this.dashboardData[0].zip+" "+this.dashboardData[0].city+", "+this.dashboardData[0].country
+      this.hotelInfo.patchValue({
+        hotel_date:this.dashboardData[0].contact_date.substr(0,10),
+        hotel:this.dashboardData[0].restaurant_name,
+        address:this.dashboardData[0].addr_line1,
+        country:this.dashboardData[0].country_id,
+        website:this.dashboardData[0].website,
+        phone:this.dashboardData[0].phone_no,
+        whatsapp:this.dashboardData[0].whatsapp_no,
+        contact_name:this.dashboardData[0].contact_name,
+        contact_position:this.dashboardData[0].cnct_position,
+        contact_phone:this.dashboardData[0].cnct_phone_no,
+        contact_whatsapp:this.dashboardData[0].cnct_whatsapp_no,
+        email:this.dashboardData[0].email,
+        notes:this.dashboardData[0].remarks || this.dashboardData[0].remarks!=undefined || this.dashboardData[0].remarks!="undefined"?this.dashboardData[0].remarks:'',
+        no_sale:this.dashboardData[0].proposal_status,
+        proposal_amount:this.dashboardData[0].proposal_amt,
+        first_payment:this.dashboardData[0].first_pay?.substr(0,10),
+        final_payment:this.dashboardData[0].final_pay?.substr(0,10)
+      })
+      console.log(this.dashboardData[0].remarks)
+    
+    },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+
     get f(){return this.hotelInfo.controls}
     
   updatehotelInfo(){

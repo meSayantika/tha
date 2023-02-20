@@ -15,7 +15,8 @@ import { DialogBoxComponent } from 'src/app/Core/dialogBox/dialogBox.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'restaurant_name', 'date_enquiry','edit', 'delete'];
+  displayedColumns: string[] = ['id', 'restaurant_name', 'date_enquiry','country','setup','edit', 'delete'];
+  displaySubSales: string[] = ['id', 'name', 'contact','edit', 'delete'];
   salesDashboardData: any;
   subsalesInfo!: FormGroup;
   id: any;
@@ -25,8 +26,11 @@ export class DashboardComponent implements OnInit {
   del_id: any;
   delData: any;
   dataSource = new MatTableDataSource();
+  hotelDataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) matsort!: MatSort;
+  subSalesData: any;
+  hotelData: any;
  constructor(private activatedRoute:ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private dataServe: DataService,private msg: MessageService,public dialog: MatDialog) { }
  show_spinner = false;
 
@@ -36,6 +40,8 @@ export class DashboardComponent implements OnInit {
     this.fetchdata();
     this.id = localStorage.getItem('user_id')
     // console.log();
+    this.fetchSubdata();
+     this.fetchHoteldata();
 
     this.dashboardInfo = this.formBuilder.group({
       agent_name: ['', [Validators.required]],
@@ -56,25 +62,6 @@ export class DashboardComponent implements OnInit {
     if(this.id>0){
     this.getAgentDtls()
     }
-    // this.subsalesInfo = this.formBuilder.group({
-    //   agent_name: ['', [Validators.required]],
-    //   address: ['', [Validators.required]],
-    //   phone: ['', [Validators.required]],
-    //   whatsapp: ['', [Validators.required]],
-    //   email: ['', [Validators.required, Validators.email]],
-    //   start_date: ['', [Validators.required]],
-    //   territory: ['', [Validators.required]],
-    //   commission: ['', [Validators.required]],
-    //   commission1: ['', [Validators.required]],
-    //   comments: ['', [Validators.required]],
-    //   email_send_date: [''],
-    //   email_body: ['', [Validators.required]],
-    //   email_title: ['', [Validators.required]],
-
-    // });
-    // if(this.id>0){
-    // this.getAgentDtls()
-    // }
   }
   del_res(v: any) { //to assign the restaurant ID
     console.log(v);
@@ -115,6 +102,27 @@ export class DashboardComponent implements OnInit {
       this.putdata(this.userData.msg)
     },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
   }
+  fetchSubdata() { //fetching the restaurant record
+    //Call APi
+    this.dataServe.global_service(0,'/sub_sales_agent',`sales_id=${this.id}`).subscribe(data => {
+      console.log(data)
+      this.subSalesData = data
+      // this.userData = this.userData.msg;
+      // this.show_spinner=true;
+      this.putdata(this.subSalesData.msg)
+    },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+
+  fetchHoteldata() { //fetching the restaurant record
+    //Call APi
+    this.dataServe.global_service(0,'/res_dtls_custom',`flag=S`).subscribe(data => {
+      console.log(data)
+      this.hotelData = data
+      // this.userData = this.userData.msg;
+      // this.show_spinner=true;
+      this.putHotelData(this.hotelData.msg)
+    },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
   putdata(v: any) { //assign pagination and sort header to datatable
     this.dataSource = new MatTableDataSource(v);
     this.dataSource.paginator = this.paginator;
@@ -126,6 +134,46 @@ export class DashboardComponent implements OnInit {
       // this.divid.style.display='none'
 
     }
+
+  }
+  putHotelData(v: any) { //assign pagination and sort header to datatable
+    this.hotelDataSource = new MatTableDataSource(v);
+    this.hotelDataSource.paginator = this.paginator;
+    this.hotelDataSource.sort = this.matsort;
+    for (let i = 0; i < v.length; i++) {
+      console.log('setup' + (i + 1));
+      // this.divid=document.getElementById('setup'+(i+1));
+      // console.log(this.divid)
+      // this.divid.style.display='none'
+
+    }
+
+  }
+  click_setup(v: any, id: any) { //to change mode to either setup, pending or approval
+    console.log(id)
+    // this.setupmode = document.getElementById('setupmodeid' + id);
+    // console.log("checked:" + v.checked);
+    // this.divid = document.getElementById('setup' + id);
+    // if (v.checked) {
+    //   this.flag = 'Y'
+    //   this.m = 'Setup Mode: On'
+    // }
+    // else {
+    //   this.flag = 'N'
+    //   this.m = 'Setup Mode: Off'
+    // }
+    // this.dataServe.global_service(0,'/update_approval',`flag=${this.flag}&id=${id}`).subscribe(data => {
+    //   console.log(data)
+    //   this.modeData = data;
+    //   if (this.modeData.suc == 1) {
+
+    //   }
+    //   else {
+    //     this.msg.globalError('Error! Cannot change support mode. Please try again later!')
+
+    //   }
+
+    // },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
 
   }
   applyFilter(event: Event) { //search input
@@ -229,6 +277,14 @@ export class DashboardComponent implements OnInit {
     })
     
   }
+  go_addhotel(v: any) { //route to the particular restaurant on clicking on the edit option
+    // alert(v);
+    this.router.navigate(['main/sales/salesaddhotel',btoa(v)]).catch(data=>{
+      this.msg.globalError(data);
+    })
+    
+  }
+  
   go_hotelinfo(v:any){
     this.router.navigate(['main/sales/saleshotelinfo',btoa(v)]).catch(data=>{
       this.msg.globalError(data);

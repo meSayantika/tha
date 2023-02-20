@@ -131,6 +131,117 @@
             <mat-icon> restaurant</mat-icon> &nbsp;
             Platform Setup
           </ng-template>
+          <mat-tab-group color="warn" style="background-color:white">
+            <mat-tab label="Personal Concierge Avatar"> 
+              <ng-template mat-tab-label>
+                <mat-icon> face</mat-icon> &nbsp;
+                Personal Concierge Avatar
+              </ng-template>
+              <mat-card>
+                <app-avatar></app-avatar>
+              </mat-card>
+               </mat-tab>
+            <mat-tab label="Setup"> 
+              <ng-template mat-tab-label>
+                <mat-icon> settings</mat-icon> &nbsp;
+                Setup
+              </ng-template>
+              <app-view-hotel></app-view-hotel>
+            </mat-tab>
+            <mat-tab label="Communications"> 
+              <ng-template mat-tab-label>
+                <mat-icon> local_phone</mat-icon> &nbsp;
+                Communications
+              </ng-template>
+              <mat-card>
+                <app-communications></app-communications>
+
+              </mat-card>
+               </mat-tab>
+               <mat-tab label="Emergency Reports"> 
+                <ng-template mat-tab-label>
+                  <mat-icon> offline_bolt</mat-icon> &nbsp;
+                  Emergency Reports
+                </ng-template>
+                <mat-card>
+                 <app-emergency-report></app-emergency-report>
+                </mat-card>
+                 </mat-tab>
+                 <mat-tab label="Department Managers"> 
+                  <ng-template mat-tab-label>
+                    <mat-icon> people</mat-icon> &nbsp;
+                    Department Managers
+                  </ng-template>
+                  <mat-card>
+                  <app-add-dept-mng></app-add-dept-mng>
+
+                  </mat-card>
+                   </mat-tab>
+                
+                 <mat-tab label="FAQs"> 
+                  <ng-template mat-tab-label>
+                    <mat-icon> not_listed_location</mat-icon> &nbsp;
+                    FAQs
+                  </ng-template>
+                  <mat-card>
+                    FAQs
+                  </mat-card>
+                   </mat-tab>
+                   <mat-tab label="Calendars"> 
+                    <ng-template mat-tab-label>
+                      <mat-icon> date_range</mat-icon> &nbsp;
+                      Calendars
+                    </ng-template>
+                    <mat-card>
+                      Calendars
+                    </mat-card>
+                     </mat-tab>
+                     <mat-tab label="QR Codes / Signage / Holders"> 
+                      <ng-template mat-tab-label>
+                        <mat-icon> subtitles</mat-icon> &nbsp;
+                        QR Codes / Signage / Holders
+                      </ng-template>
+                      <mat-card>
+                        QR Codes / Signage / Holders
+                      </mat-card>
+                       </mat-tab>
+                       <mat-tab label="Your Directory"> 
+                        <ng-template mat-tab-label>
+                          <mat-icon> folder_special</mat-icon> &nbsp;
+                          Your Directory
+                        </ng-template>
+                        <mat-card>
+                          Your Directory
+                        </mat-card>
+                         </mat-tab>
+                         <mat-tab label="Promotions / Photo OPS"> 
+                          <ng-template mat-tab-label>
+                            <mat-icon> add_a_photo</mat-icon> &nbsp;
+                            Promotions / Photo OPS 
+                          </ng-template>
+                          <mat-card>
+                            Promotions / Photo OPS 
+                          </mat-card>
+                           </mat-tab>
+                           <mat-tab label="Lost & Found"> 
+                            <ng-template mat-tab-label>
+                              <mat-icon> report_problem</mat-icon> &nbsp;
+                              Lost & Found
+                            </ng-template>
+                            <mat-card>
+                              Lost & Found
+                            </mat-card>
+                             </mat-tab>
+                             <mat-tab label="Suggestion Box"> 
+                              <ng-template mat-tab-label>
+                                <mat-icon> playlist_play</mat-icon> &nbsp;
+                                Suggestion Box
+                              </ng-template>
+                              <mat-card>
+                                Suggestion Box
+                              </mat-card>
+                               </mat-tab>
+          </mat-tab-group>
       </mat-tab>
       </mat-tab-group>
   </div>

@@ -1,0 +1,129 @@
+<div class="content-div">
+
+  <mat-card>
+   
+    
+      <div class="row">
+        <div class="col-6">
+          <h2><strong><mat-icon>home</mat-icon> Add a hotel  </strong>
+          </h2>
+        </div>
+       <div class="col-2"></div>
+       
+      </div>
+   <div>
+    <form [formGroup]="regForm" (ngSubmit)="regSubmit()">
+      <!-- <form (ngSubmit)="regSubmit()"> -->
+      <div class="row mt-4">
+      <div class="col-6">
+        <input  class="form-control p-3" type="text" placeholder="Restaurant Name" formControlName="name" >
+      <mat-label *ngIf="f.name.errors?.required && (f.name.dirty || f.name.touched)" class="text-danger">* Name is required</mat-label>
+      </div>
+      <div class="col-6"><input class="form-control p-3"  type="text" placeholder="Contact Name" formControlName="contact" name="contact">
+        <mat-label *ngIf="f.contact.errors?.required && (f.contact.dirty || f.contact.touched)" class="text-danger">* Contact is required</mat-label>
+      </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <input  class="form-control p-3" type="text" placeholder="Contact Position" formColName="cnct_position" >
+        <mat-label *ngIf="f.cnct_position.errors?.required && (f.cnct_position.dirty || f.cnct_position.touched)" class="text-danger">* Position is required</mat-label>
+        </div>
+        <div class="col-6"><input class="form-control p-3"  type="text" placeholder="Contact Person Phone" formControlName="cnct_phone_no" name="cnct_phone_no">
+          <mat-label *ngIf="f.cnct_phone_no.errors?.required && (f.cnct_phone_no.dirty || f.cnct_phone_no.touched)" class="text-danger">* Contact Phone is required</mat-label>
+        </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-6">
+            <input  class="form-control p-3" type="text" placeholder="Contact WhatsApp" formControlName="cnct_whatsapp_no" >
+          <mat-label *ngIf="f.cnct_whatsapp_no.errors?.required && (f.cnct_whatsapp_no.dirty || f.cnct_whatsapp_no.touched)" class="text-danger">* Contact WhatsApp is required</mat-label>
+          </div>
+          <div class="col-6"><input class="form-control p-3"  type="text" placeholder="WhatsApp" formControlName="whatsapp_no" name="whatsapp_no">
+            <mat-label *ngIf="f.whatsapp_no.errors?.required && (f.whatsapp_no.dirty || f.whatsapp_no.touched)" class="text-danger">* WhatsApp is required</mat-label>
+          </div>
+          </div>
+          <div class="row mt-4">
+         
+            <div class="col-6"><input  class="form-control p-3" id="tel" type="text"  placeholder="Telephone" required formControlName="phone" name="phone" (change)="check_mail($event)">
+              <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)" class="text-danger">* Telephone is required</mat-label>
+            <!-- validation messages -->
+            </div>
+            <div class="col-6"><input class="form-control p-3" id="em" type="text" placeholder="Email" formControlName="mail" name="mail" (change)="check_mail($event)"> 
+              <div *ngIf="f.mail.errors?.required  && (f.mail.dirty || f.mail.touched)" class="text-danger">
+                <mat-label class="text-danger" [hidden]="!f.mail.errors?.required">
+                  * Email is required
+               </mat-label>
+              <!-- </div> -->
+             <div *ngIf="f.mail.touched">
+              <mat-label class="text-danger" *ngIf="f.mail.errors?.pattern">
+                * Not a valid email
+             </mat-label>
+            </div>
+            <!-- <div *ngIf="show_msg==true" class="text-danger">Email already exists</div> -->
+            </div>
+            </div>
+            </div>
+      <div class="row mt-4">
+      <!-- <div class="col-6"><input  class="form-control p-3" id="tel" type="text"  placeholder="Telephone" required name="Telephone"   (change)="check_mail($event)"> -->
+      <!-- <div class="col-6"><input class="form-control p-3" id="em" type="text" placeholder="Email" formControlName="mail" name="mail" (change)="check_mail($event)">  -->
+      
+      <div class="col-6"><input class="form-control p-3" type="text" placeholder="Address 1" name="addr1" formControlName="addr1">
+      
+        <mat-label *ngIf="f.addr1.errors?.required && (f.addr1.dirty || f.addr1.touched)" class="text-danger">* Address is required</mat-label>
+      </div>
+      <div class="col-6"><input class="form-control p-3" type="text" placeholder="Address 2" name="addr2" formControlName="addr2"></div>
+
+    </div>
+      <div class="row mt-4">
+     
+     
+      <div class="col-6"><input class="form-control p-3" type="text" placeholder="City/State" required name="cityState" formControlName="cityState">
+        <mat-label *ngIf="f.cityState.errors?.required && (f.cityState.dirty || f.cityState.touched)" class="text-danger">* City/State is required</mat-label>
+      
+      </div>
+      <div class="col-6"><input class="form-control p-3" type="text" placeholder="Zip/Postal code*" name="zip" formControlName="zip">
+        <mat-label *ngIf="f.zip.errors?.required && (f.zip.dirty || f.zip.touched)" class="text-danger">* Zip code is required</mat-label>
+      
+      </div>
+    </div>
+      <div class="row mt-4">
+     
+      
+      <div class="col-6">
+        <select class="form-select p-3" name="country"  formControlName="country" >
+          <option value="">Select Country</option>
+          <option *ngFor="let c of countryData" value="{{c.id}}">{{c.name}}</option>
+        </select>
+         
+        <mat-label *ngIf="f.country.errors?.required && (f.country.dirty || f.country.touched)" class="text-danger">* Country is required</mat-label>
+  
+        </div>
+        <div class="col-6"><input class="form-control p-3" type="text" placeholder="Website" formControlName="website" name="Website" >
+        </div>
+      </div>
+        
+     <div class="row mt-4">
+     
+      
+   
+      <div class="col-12">
+        <select class="form-select p-3"  formControlName="timeZone">
+          <option value="">Select Timezone</option>
+          <option *ngFor="let d of timezone" value="{{d.name}}">{{d.time_zone}}</option>
+        </select>
+      
+        
+        <mat-label *ngIf="f.timeZone.errors?.required && (f.timeZone.dirty || f.timeZone.touched)" class="text-danger">* Timezone is required</mat-label>
+
+        </div>
+      </div>
+   
+      <div class="form-row">
+      <!-- <div class="fieldFull"><button class="w3-button w3-highway-blue" [disabled]="regForm.invalid">SUBMIT</button></div> -->
+      <div class="col-12 pt-3">
+        <button  style="width:100%" mat-raised-button class="btn btn-success" [disabled]="regForm.invalid">Submit</button>
+      </div>
+      </div>
+    </form>
+   </div>
+  
+  </mat-card>

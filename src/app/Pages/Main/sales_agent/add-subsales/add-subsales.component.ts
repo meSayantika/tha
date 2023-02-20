@@ -53,7 +53,7 @@ export class AddSubsalesComponent implements OnInit {
     }
   }
   getAgentDtls() {
-    this.dataServe.global_service(0, '/sales_agent', `id=${this.id}`).subscribe(dt => {
+    this.dataServe.global_service(0, '/sub_sales_agent', `id=${this.id}`).subscribe(dt => {
       console.log(dt);
       this.salesDashboardData = dt
       this.subsalesInfo.patchValue({
@@ -64,9 +64,12 @@ export class AddSubsalesComponent implements OnInit {
         email: this.salesDashboardData.msg[0].email,
         start_date: this.salesDashboardData.msg[0].start_date,
         territory: this.salesDashboardData.msg[0].territory,
-        commission: this.salesDashboardData.msg[0].commission,
+        commission: this.salesDashboardData.msg[0].frst_comm,
+        commission1: this.salesDashboardData.msg[0].snd_comm,
         comments: this.salesDashboardData.msg[0].comments,
         email_send_date: this.salesDashboardData.msg[0].edited_send_date,
+        email_title:this.salesDashboardData.msg[0].email_title,
+        email_body:this.salesDashboardData.msg[0].email_body,
       })
 
     })
