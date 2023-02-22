@@ -159,7 +159,7 @@ export class SalesAccountFormComponent implements OnInit {
   }
   fetchHoteldata() { //fetching the restaurant record
     //Call APi
-    this.dataServe.global_service(0,'/res_dtls_custom',`flag=H`).subscribe(data => {
+    this.dataServe.global_service(0,'/res_dtls_custom',`flag=S&sales_id=${this.id}`).subscribe(data => {
       console.log(data)
       this.hotelData = data
       // this.userData = this.userData.msg;

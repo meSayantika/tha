@@ -159,7 +159,7 @@
           </div>
           <div class="col-6">
             <button class="btn btn-success float-end" mat-mini-fab color="accent" matTooltip="Add sales person"
-              aria-label="Button that displays a tooltip when focused or hovered over">
+              aria-label="Button that displays a tooltip when focused or hovered over" [disabled] = 'id > 0 ? false : true'>
               <a class="" (click)="next(0)">
                 <mat-icon>add</mat-icon>
               </a>
@@ -167,7 +167,7 @@
           </div>
         </div>
         <div *ngIf="this.subSalesData?.msg?.length">
-          <mat-form-field appearance="outline" class="float-end mt-2">
+          <mat-form-field appearance="standard" class="srch mt-2">
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
           </mat-form-field>
@@ -228,17 +228,17 @@
     </mat-tab>
     <mat-tab label="Hotel Accounts">
       <ng-template mat-tab-label>
-        <mat-icon>hotel</mat-icon> &nbsp;
+        <mat-icon>home</mat-icon> &nbsp;
         Hotel Accounts
       </ng-template>
       <mat-card>
         <div class="row">
           <div class="col-6">
-            <h2 class="float-start"><strong> <mat-icon> hotel</mat-icon> Hotel Accounts</strong></h2>
+            <h2 class="float-start"><strong> <mat-icon> home</mat-icon> Hotel Accounts</strong></h2>
           </div>
           <div class="col-6">
             <button class="btn btn-success float-end" mat-mini-fab color="accent" matTooltip="Add sales person"
-              aria-label="Button that displays a tooltip when focused or hovered over">
+              aria-label="Button that displays a tooltip when focused or hovered over" [disabled] = 'id > 0 ? false : true'>
               <a class="" (click)="go_addhotel(0)">
                 <mat-icon>add</mat-icon>
               </a>
@@ -246,7 +246,7 @@
           </div>
         </div>
         <div *ngIf="this.hotelData?.msg?.length">
-          <mat-form-field appearance="outline" class="float-end mt-2">
+          <mat-form-field appearance="standard" class="srch mt-2" >
             <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
           </mat-form-field>

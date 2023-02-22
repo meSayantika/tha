@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   subsalesInfo!: FormGroup;
   id: any;
   dashboardInfo!: FormGroup;
+  pwdInfo!: FormGroup;
   salesData: any;
   userData: any;
   del_id: any;
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
   hotelData: any;
  constructor(private activatedRoute:ActivatedRoute,private router:Router,private formBuilder: FormBuilder,private dataServe: DataService,private msg: MessageService,public dialog: MatDialog) { }
  show_spinner = false;
-
+ isEqual=false
  displayedHotelColumns: string[] = ['id', 'restaurant_name', 'date_enquiry','country','setup','edit', 'delete'];
 
   ngOnInit() {
@@ -62,6 +63,12 @@ export class DashboardComponent implements OnInit {
     if(this.id>0){
     this.getAgentDtls()
     }
+    this.pwdInfo = this.formBuilder.group({
+      agent_old_pwd:['',[Validators.required]],
+      agent_new_pwd:['',[Validators.required]],
+      agent_con_pwd:['',[Validators.required]],
+    });
+
   }
   del_res(v: any) { //to assign the restaurant ID
     console.log(v);
@@ -115,7 +122,7 @@ export class DashboardComponent implements OnInit {
 
   fetchHoteldata() { //fetching the restaurant record
     //Call APi
-    this.dataServe.global_service(0,'/res_dtls_custom',`flag=S`).subscribe(data => {
+    this.dataServe.global_service(0,'/res_dtls_custom',`flag=S&sales_id=${this.id}`).subscribe(data => {
       console.log(data)
       this.hotelData = data
       // this.userData = this.userData.msg;
@@ -205,6 +212,7 @@ export class DashboardComponent implements OnInit {
   }
   get f() { return this.dashboardInfo.controls }
   // get g() { return this.subsalesInfo.controls }
+  get h() { return this.pwdInfo.controls }
 
 
   updatedashboardInfo(){
@@ -237,6 +245,15 @@ export class DashboardComponent implements OnInit {
       this.msg.globalError(error.status + ' ' + error.statusText + ' in ' + error.url)
       // console.log(dt);
     })
+  }
+  updatepwdInfo(){
+    var store={
+      id: this.id,
+      user: localStorage.getItem('email'),
+      agent_old_pwd: this.h.agent_old_pwd.value,
+    agent_new_pwd: this.h.agent_new_pwd.value,
+    agent_con_pwd:  this.h.agent_con_pwd.value,
+    }
   }
   // updatedsubsalesInfo(){
   //   var data = {
@@ -328,5 +345,9 @@ export class DashboardComponent implements OnInit {
   //     this.msg.globalError('Please enter name and phone first')
   //   }
   // }
+
+  check_pass(){
+    this.isEqual=this.h.agent_con_pwd.value==this.h.agent_new_pwd.value? true : false
+  }
   
 }

@@ -9,70 +9,126 @@
         <mat-icon>person</mat-icon> &nbsp;
         Sales Person Information
       </ng-template>
-      <mat-card>
-        <form [formGroup]="dashboardInfo">
-          <div class="row">
-            <div class="col-12">
-              <div style="overflow-x:auto;" class="p-3">
-                <div class="row">
-                  <div class="col-6">
-                    <label for="">Name</label>
-                    <input class="form-control p-2" type="text" placeholder="name" formControlName="agent_name"
-                      name="agent_name">
-                    <mat-label *ngIf="f.agent_name.errors?.required && (f.agent_name.dirty || f.agent_name.touched)"
-                      class="text-danger">*
-                      Name is required</mat-label>
-                  </div>
-                  <div class="col-6">
-                    <label for="">Address</label>
-                    <!-- <input class="form-control p-2" type="text" formControlName="address" name="address"> -->
-                    <textarea name="comments" class="form-control" placeholder="address" formControlName="address"
-                      name="address" id="" cols="30" rows="1"></textarea>
-                    <mat-label *ngIf="f.address.errors?.required && (f.address.dirty || f.address.touched)"
-                      class="text-danger">* Address is required</mat-label>
-                  </div>
-                </div> <br>
-                <div class="row pb-2">
-                  <div class="col-4">
-                    <label for="">Phone</label>
-                    <input readonly class="form-control p-2" type="text" placeholder="phone" formControlName="phone"
-                      name="phone">
-                    <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)"
-                      class="text-danger">*
-                      phone No is required</mat-label>
-                  </div>
-                  <div class="col-4">
-                    <label for="">WhatsApp</label>
-                    <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp"
-                      name="whatsapp">
-                    <mat-label *ngIf="f.whatsapp.errors?.required && (f.whatsapp.dirty || f.whatsapp.touched)"
-                      class="text-danger">* whatsapp is required</mat-label>
-                  </div> <br>
-                  <div class="col-4">
-                    <label for="">Email</label>
-                    <input readonly class="form-control p-2" type="text" placeholder="email" formControlName="email"
-                      name="email">
-                    <div *ngIf="f.email.errors?.required  && (f.email.dirty || f.email.touched)" class="text-danger">
-                      <mat-label class="text-danger" [hidden]="!f.email.errors?.required">
-                        * Email is required
-                      </mat-label>
-                      <div *ngIf="f.email.touched">
-                        <mat-label class="text-danger" *ngIf="f.email.errors?.pattern">
-                          * Not a valid email
-                        </mat-label>
+      <mat-tab-group dynamicHeight mat-stretch-tabs color="primary" style="background-color:white">
+        <mat-tab label="Profile">
+          <ng-template mat-tab-label>
+            <mat-icon>face</mat-icon> &nbsp;
+            Profile
+          </ng-template>
+          <mat-card>
+            <form [formGroup]="dashboardInfo">
+              <div class="row">
+                <div class="col-12">
+                  <div style="overflow-x:auto;" class="p-3">
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="">Name</label>
+                        <input class="form-control p-2" type="text" placeholder="name" formControlName="agent_name"
+                          name="agent_name">
+                        <mat-label *ngIf="f.agent_name.errors?.required && (f.agent_name.dirty || f.agent_name.touched)"
+                          class="text-danger">*
+                          Name is required</mat-label>
                       </div>
+                      <div class="col-6">
+                        <label for="">Address</label>
+                        <!-- <input class="form-control p-2" type="text" formControlName="address" name="address"> -->
+                        <textarea name="comments" class="form-control" placeholder="address" formControlName="address"
+                          name="address" id="" cols="30" rows="1"></textarea>
+                        <mat-label *ngIf="f.address.errors?.required && (f.address.dirty || f.address.touched)"
+                          class="text-danger">* Address is required</mat-label>
+                      </div>
+                    </div> <br>
+                    <div class="row pb-2">
+                      <div class="col-4">
+                        <label for="">Phone</label>
+                        <input readonly class="form-control p-2" type="text" placeholder="phone" formControlName="phone"
+                          name="phone">
+                        <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)"
+                          class="text-danger">*
+                          phone No is required</mat-label>
+                      </div>
+                      <div class="col-4">
+                        <label for="">WhatsApp</label>
+                        <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp"
+                          name="whatsapp">
+                        <mat-label *ngIf="f.whatsapp.errors?.required && (f.whatsapp.dirty || f.whatsapp.touched)"
+                          class="text-danger">* whatsapp is required</mat-label>
+                      </div> <br>
+                      <div class="col-4">
+                        <label for="">Email</label>
+                        <input readonly class="form-control p-2" type="text" placeholder="email" formControlName="email"
+                          name="email">
+                        <div *ngIf="f.email.errors?.required  && (f.email.dirty || f.email.touched)"
+                          class="text-danger">
+                          <mat-label class="text-danger" [hidden]="!f.email.errors?.required">
+                            * Email is required
+                          </mat-label>
+                          <div *ngIf="f.email.touched">
+                            <mat-label class="text-danger" *ngIf="f.email.errors?.pattern">
+                              * Not a valid email
+                            </mat-label>
+                          </div>
+                        </div>
+                      </div>
+                    </div><br>
+                    <div class="text-center">
+                      <button mat-raised-button class="btn btn-success" (click)="updatedashboardInfo()">Submit</button>
+                      &nbsp;
                     </div>
                   </div>
-                </div><br>
-                <div class="text-center">
-                  <button mat-raised-button class="btn btn-success" (click)="updatedashboardInfo()">Submit</button>
-                  &nbsp;
                 </div>
               </div>
-            </div>
-          </div>
-        </form>
-      </mat-card>
+            </form>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Password">
+          <ng-template mat-tab-label>
+            <mat-icon> lock</mat-icon> &nbsp;
+            Password
+          </ng-template>
+          <mat-card>
+            <form  [formGroup]="pwdInfo">
+              <div class="row">
+                <!-- <div style="overflow-x:auto;" class="p-4"> -->
+                  <div class="col-md-4">&nbsp;</div>
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                    <label for="">Old Password</label>
+                    <input class="form-control p-2" type="password" placeholder="old password"
+                      formControlName="agent_old_pwd" name="agent_old_pwd">
+                      <mat-label *ngIf="h.agent_old_pwd.errors?.required && (h.agent_old_pwd.dirty || h.agent_old_pwd.touched)"
+                          class="text-danger">*
+                          old password is required</mat-label>
+                          </div>
+                    <div class="mb-3">
+                    <label for="">New Password</label>
+                    <input (input)="check_pass()" class="form-control p-2" type="password" placeholder="new password"
+                      formControlName="agent_new_pwd" name="agent_new_pwd">
+                      <mat-label *ngIf="h.agent_new_pwd.errors?.required && (h.agent_new_pwd.dirty || h.agent_new_pwd.touched)"
+                          class="text-danger">*
+                          new password is required</mat-label>
+                      </div>
+                   <!-- </div>&nbsp;
+                  <div class="col-6"> -->
+                    <div class="mb-3">
+                    <label for="">Confirm Password</label>
+                    <input (input)="check_pass()" class="form-control p-2" type="password" placeholder="confirm password"
+                      formControlName="agent_con_pwd" name="agent_con_pwd">
+                      <mat-label *ngIf="h.agent_con_pwd.errors?.required && (h.agent_con_pwd.dirty || h.agent_con_pwd.touched)"
+                          class="text-danger">*
+                          confirm password is required</mat-label>
+                      </div>
+                  </div>&nbsp;
+                 <mat-label *ngIf="!isEqual && h.agent_con_pwd.dirty"  class="text-danger"> Password and confirmed password should match!</mat-label>
+                  <div class="text-center">
+                    <button mat-raised-button class="btn btn-success" (click)="updatepwdInfo()" [disabled]=" pwdInfo.invalid || !isEqual" >Submit</button>
+                    &nbsp;
+                  </div>
+              </div>
+            </form>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
     </mat-tab>
     <mat-tab label="SUB-Sales People">
       <ng-template mat-tab-label>
