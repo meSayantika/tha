@@ -9,7 +9,7 @@
         <mat-icon>person</mat-icon> &nbsp;
         Sales Person Information
       </ng-template>
-      <mat-tab-group dynamicHeight mat-stretch-tabs color="primary" style="background-color:white">
+      <mat-tab-group dynamicHeight mat-stretch-tabs color="accent" style="background-color:white">
         <mat-tab label="Profile">
           <ng-template mat-tab-label>
             <mat-icon>face</mat-icon> &nbsp;
@@ -83,13 +83,12 @@
         </mat-tab>
         <mat-tab label="Password">
           <ng-template mat-tab-label>
-            <mat-icon> lock</mat-icon> &nbsp;
+            <mat-icon> lock</mat-icon>
             Password
           </ng-template>
           <mat-card>
             <form  [formGroup]="pwdInfo">
               <div class="row">
-                <!-- <div style="overflow-x:auto;" class="p-4"> -->
                   <div class="col-md-4">&nbsp;</div>
                   <div class="col-md-4">
                     <div class="mb-3">
@@ -108,8 +107,6 @@
                           class="text-danger">*
                           new password is required</mat-label>
                       </div>
-                   <!-- </div>&nbsp;
-                  <div class="col-6"> -->
                     <div class="mb-3">
                     <label for="">Confirm Password</label>
                     <input (input)="check_pass()" class="form-control p-2" type="password" placeholder="confirm password"
@@ -314,7 +311,7 @@
     </mat-tab>
     <mat-tab label="Commission Payments">
       <ng-template mat-tab-label>
-        <mat-icon> attach_money</mat-icon> &nbsp;
+        <mat-icon> attach_money</mat-icon>
         Commission Payments
       </ng-template>
     </mat-tab>

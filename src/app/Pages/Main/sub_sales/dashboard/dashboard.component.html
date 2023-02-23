@@ -1,0 +1,94 @@
+<div class="content-div">
+  <mat-card>
+    <h2><strong><mat-icon>home</mat-icon>Sub Sales Account Details</strong></h2>
+  </mat-card>
+
+  <mat-tab-group dynamicHeight mat-stretch-tabs>
+    <mat-tab label="Sub Sales Account Details">
+      <ng-template mat-tab-label>
+        <mat-icon>person</mat-icon> &nbsp;
+        Sub Sales Person Information
+      </ng-template>
+      <mat-tab-group dynamicHeight mat-stretch-tabs color="accent" style="background-color: white;">
+        <mat-tab label="Profile">
+          <ng-template mat-tab-label>
+            <mat-icon>face</mat-icon>
+            Profile
+          </ng-template>
+          <mat-card>
+            <form [formGroup]="subprofileInfo">
+              <div class="row">
+                <div class="col-12">
+                  <div style="overflow-x:auto;" class="p-3">
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="">Name</label>
+                        <input class="form-control p-2" type="text" placeholder="name" formControlName="agent_name"
+                          name="agent_name">
+                          <mat-label *ngIf="f.agent_name.errors?.required && (f.agent_name.dirty || f.agent_name.touched)"
+                          class="text-danger">*
+                          Name is required</mat-label>
+                      </div>
+                      <div class="col-6">
+                        <label for="">Address</label>
+                        <textarea name="comments" class="form-control" placeholder="address" formControlName="address"
+                        name="address" id="" cols="30" rows="1"></textarea>
+                        <mat-label *ngIf="f.address.errors?.required && (f.address.dirty || f.address.touched)"
+                        class="text-danger">*
+                      Address is required</mat-label>
+                        </div>
+                      </div><br>
+                      <div class="row pb-2">
+                        <div class="col-4">
+                          <label for="">Phone</label>
+                          <input readonly class="form-control p-2" type="text" placeholder="phone" formControlName="phone" name="phone">
+                          <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)"
+                          class="text-danger">*
+                        Phone is required</mat-label>
+                        </div>
+                        <div class="col-4">
+                          <label for="">Whatsapp</label>
+                          <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp" name="whatsapp">
+                          <mat-label *ngIf="f.whatsapp.errors?.required && (f.whatsapp.dirty || f.whatsapp.touched)"
+                          class="text-danger">*
+                        Whatsapp is required</mat-label>
+                        </div>
+                        <div class="col-4">
+                          <label for="">Email</label>
+                          <input readonly  class="form-control p-2" type="email" placeholder="email" formControlName="email" name="email">
+                          <mat-label *ngIf="f.email.errors?.required && (f.email.dirty || f.email.touched)"
+                          class="text-danger">*
+                        Email is required</mat-label>
+                        </div>
+                        <div>
+                          <button></button>
+                        </div>
+                      </div>  
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+        </mat-tab>
+        <mat-tab label="Password">
+          <ng-template mat-tab-label>
+            <mat-icon>lock</mat-icon>
+            Password
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="SUB-Sales People">
+      <ng-template mat-tab-label>
+        <mat-icon>people</mat-icon>
+        Sub-Sales People
+      </ng-template>
+      </mat-tab>
+      <mat-tab label="Commission Payments">
+        <ng-template mat-tab-label>
+          <mat-icon>attach_money</mat-icon>
+          Commission Payments
+        </ng-template>
+        </mat-tab>
+  </mat-tab-group>
+</div>
