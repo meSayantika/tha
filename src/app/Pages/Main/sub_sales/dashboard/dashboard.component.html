@@ -25,45 +25,55 @@
                         <label for="">Name</label>
                         <input class="form-control p-2" type="text" placeholder="name" formControlName="agent_name"
                           name="agent_name">
-                          <mat-label *ngIf="f.agent_name.errors?.required && (f.agent_name.dirty || f.agent_name.touched)"
+                        <mat-label *ngIf="f.agent_name.errors?.required && (f.agent_name.dirty || f.agent_name.touched)"
                           class="text-danger">*
                           Name is required</mat-label>
                       </div>
                       <div class="col-6">
                         <label for="">Address</label>
                         <textarea name="comments" class="form-control" placeholder="address" formControlName="address"
-                        name="address" id="" cols="30" rows="1"></textarea>
+                          name="address" id="" cols="30" rows="1"></textarea>
                         <mat-label *ngIf="f.address.errors?.required && (f.address.dirty || f.address.touched)"
-                        class="text-danger">*
-                      Address is required</mat-label>
-                        </div>
-                      </div><br>
-                      <div class="row pb-2">
-                        <div class="col-4">
-                          <label for="">Phone</label>
-                          <input readonly class="form-control p-2" type="text" placeholder="phone" formControlName="phone" name="phone">
-                          <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)"
                           class="text-danger">*
-                        Phone is required</mat-label>
-                        </div>
-                        <div class="col-4">
-                          <label for="">Whatsapp</label>
-                          <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp" name="whatsapp">
-                          <mat-label *ngIf="f.whatsapp.errors?.required && (f.whatsapp.dirty || f.whatsapp.touched)"
+                          Address is required</mat-label>
+                      </div>
+                    </div><br>
+                    <div class="row pb-2">
+                      <div class="col-4">
+                        <label for="">Phone</label>
+                        <input readonly class="form-control p-2" type="text" placeholder="phone" formControlName="phone"
+                          name="phone">
+                        <mat-label *ngIf="f.phone.errors?.required && (f.phone.dirty || f.phone.touched)"
                           class="text-danger">*
-                        Whatsapp is required</mat-label>
-                        </div>
-                        <div class="col-4">
-                          <label for="">Email</label>
-                          <input readonly  class="form-control p-2" type="email" placeholder="email" formControlName="email" name="email">
-                          <mat-label *ngIf="f.email.errors?.required && (f.email.dirty || f.email.touched)"
+                          Phone is required</mat-label>
+                      </div>
+                      <div class="col-4">
+                        <label for="">Whatsapp</label>
+                        <input class="form-control p-2" type="text" placeholder="whatsapp" formControlName="whatsapp"
+                          name="whatsapp">
+                        <mat-label *ngIf="f.whatsapp.errors?.required && (f.whatsapp.dirty || f.whatsapp.touched)"
                           class="text-danger">*
-                        Email is required</mat-label>
+                          Whatsapp is required</mat-label>
+                      </div>
+                      <div class="col-4">
+                        <label for="">Email</label>
+                        <input readonly class="form-control p-2" type="email" placeholder="email"
+                          formControlName="email" name="email">
+                        <div *ngIf="f.email.errors?.required && (f.email.dirty || f.email.touched)" class="text-danger">
+                          <mat-label class="text-danger" [hidden]="!f.email.errors?.required">
+                            * Email is required
+                          </mat-label>
+                          <div *ngIf="f.email.touched">
+                            <mat-label class="text-danger" *ngIf="f.email.errors?.pattern">
+                              * Not a valid email
+                            </mat-label>
+                          </div>
                         </div>
-                        <div>
-                          <button></button>
-                        </div>
-                      </div>  
+                      </div>
+                    </div><br>
+                    <div class="text-center">
+                      <button mat-raised-button class="btn btn-success" (click)="updatesubprofile">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -75,20 +85,85 @@
             <mat-icon>lock</mat-icon>
             Password
           </ng-template>
+          <mat-card>
+            <form [formGroup]="subpwdInfo">
+              <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                  <div>
+                    <label for="">Old Password</label>
+                    <input class="form-control p-2" type="password" placeholder="old password"
+                      formControlName="agent_old_pwd" name="agent_old_pwd">
+                    <mat-label
+                      *ngIf="h.agent_old_pwd.errors?.required && (h.agent_old_pwd.dirty || h.agent_old_pwd.touched)"
+                      class="text-danger">*
+                      old password is required</mat-label>
+                  </div>&nbsp;
+                  <div>
+                    <label for="">New Password</label>
+                    <input (input)="check_pass()" class="form-control p-2" type="password" placeholder="new password"
+                      formControlName="agent_new_pwd" name="agent_new_pwd">
+                    <mat-label
+                      *ngIf="h.agent_new_pwd.errors?.required && (h.agent_new_pwd.dirty || h.agent_new_pwd.touched)"
+                      class="text-danger">*
+                      new password is required</mat-label>
+                  </div>&nbsp;
+                  <div>
+                    <label for="">Confirm Password</label>
+                    <input (input)="check_pass()" class="form-control p-2" type="password"
+                      placeholder="confirm password" formControlName="agent_con_pwd" name="agent_con_pwd">
+                    <mat-label
+                      *ngIf="h.agent_con_pwd.errors?.required && (h.agent_con_pwd.dirty || h.agent_con_pwd.touched)"
+                      class="text-danger">*
+                      confirm password is required</mat-label>
+                  </div>&nbsp;
+                  <mat-label *ngIf="!isEqual && h.agent_con_pwd.dirty" class="text-danger"> Password and confirmed
+                    password should match!</mat-label>
+                  <div class="text-center">
+                    <button mat-raised-button class="btn btn-success" (click)="updatesubpwd"
+                      [disabled]="subpwdInfo.invalid || !isEqual">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-card>
         </mat-tab>
       </mat-tab-group>
     </mat-tab>
     <mat-tab label="SUB-Sales People">
       <ng-template mat-tab-label>
-        <mat-icon>people</mat-icon>
-        Sub-Sales People
+        <mat-icon>home</mat-icon>
+        Hotel Accounts
       </ng-template>
-      </mat-tab>
-      <mat-tab label="Commission Payments">
-        <ng-template mat-tab-label>
-          <mat-icon>attach_money</mat-icon>
-          Commission Payments
-        </ng-template>
-        </mat-tab>
+      <mat-card>
+        <div class="row">
+          <div class="col-6">
+            <h2 class="float-start"><strong><mat-icon>home</mat-icon>Hotel Accounts</strong></h2>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-success float-end" mat-mini-fab color="accent" matTooltips="Add sales person"
+              aria-label="Button that displays tooltip when focused or hovered over">
+              <a class="" (click)="add_hotel(0)">
+                <mat-icon>add</mat-icon>
+              </a>
+            </button>
+          </div>
+          <div *ngIf="this.hotelData?.msg?.length">
+            <mat-form-field appearance="outline" class="float-end mt-2">
+              <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search restaurant" #input>
+            </mat-form-field>
+          <table mat-table [dataSource]="hotelDataSource" class="mat-elevation-z8" matSort>
+            </table>
+          </div>
+        </div>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Commission Payments">
+      <ng-template mat-tab-label>
+        <mat-icon>attach_money</mat-icon>
+        Commission Payments
+      </ng-template>
+    </mat-tab>
   </mat-tab-group>
 </div>
