@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
     console.log(this.f)
     var dt = {
       "uname": this.f.email_address.value,
-      "psw": this.f.password.value
+      "psw": this.f.password.value,
+      "user_type":'U'
     }
     this.dataServe.global_service(1,'/sales_login', dt).subscribe((data: any) => {
       this.getLoginData = data;

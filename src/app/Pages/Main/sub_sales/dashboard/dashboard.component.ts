@@ -16,6 +16,7 @@ import { DialogBoxComponent } from 'src/app/Core/dialogBox/dialogBox.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  displaySubSales: string[] = ['id', 'restaurant_name', 'date_enquiry','country','setup','edit', 'delete'];
   subprofileInfo!: FormGroup;
   id: any;
   salesData: any;
@@ -28,12 +29,16 @@ export class DashboardComponent implements OnInit {
   isEqual=false;
   hotelData:any;
   hotelDataSource = new MatTableDataSource();
+  del_id: any;
+  delData: any;
 
   constructor(private activatedRoute:ActivatedRoute,private formBuilder:FormBuilder,private router:Router,private dataServe:DataService,private msg: MessageService,public dialog: MatDialog) { }
 
   ngOnInit() {
-       this.id=localStorage.getItem('user_id')
-
+    this.fetchdata();
+    this.id=localStorage.getItem('user_id')
+    this.fetchHoteldata();
+    
 
     this.subprofileInfo = this.formBuilder.group({
       agent_name: ['',Validators.required],
@@ -57,6 +62,58 @@ export class DashboardComponent implements OnInit {
   get f() { return this.subprofileInfo.controls }
   get h() { return this.subpwdInfo.controls }
 
+  del_subres(v: any) { //to assign the restaurant ID
+    console.log(v);
+    this.del_id = v;
+    var f='delete'
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      // width: '250px',
+      data: { flag: f, content: v }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result, f)
+      if(result==1)
+      // debugger
+      this.delete_restaurant()
+      
+    })
+  }
+  del_res(v: any) { //to assign the restaurant ID
+    console.log(v);
+    this.del_id = v;
+    var f='delete'
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      // width: '250px',
+      data: { flag: f, content: v }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result, f)
+      if(result==1)
+      // debugger
+      this.delete_restaurant()
+      
+    })
+  }
+  
+  go_hotelinfo(v:any){
+    this.router.navigate(['main/subsales/subsaleshotelinfo',btoa(v)]).catch(data=>{
+      this.msg.globalError(data);
+    })
+  }
+  delete_restaurant() { //function for deletin a restaurant
+    this.dataServe.global_service(0,'/del_res',`id=${this.del_id}`).subscribe(data=>{console.log(data)
+    this.delData=data;
+    if(this.delData.suc==1){
+      this.fetchdata()
+      this.msg.successMsg('SD')
+      
+    }
+    else{
+     this.msg.errorMsg('ED')
+    }
+    },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+
   fetchdata() { //fetching the restaurant record
     //Call APi
     this.dataServe.global_service(0,'/sales_agent',null).subscribe(data => {
@@ -66,6 +123,29 @@ export class DashboardComponent implements OnInit {
       // this.show_spinner=true;
       this.putdata(this.userData.msg)
     },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+  fetchHoteldata() { //fetching the restaurant record
+    //Call APi
+    this.dataServe.global_service(0,'/res_dtls_custom',`flag=U&sales_id=${this.id}`).subscribe(data => {
+      console.log(data)
+      this.hotelData = data
+      // this.userData = this.userData.msg;
+      // this.show_spinner=true;
+      this.putHotelData(this.hotelData.msg)
+    },error=>{this.msg.globalError(error.status+' '+error.statusText+' in '+error.url)})
+  }
+  putHotelData(v: any) { //assign pagination and sort header to datatable
+    this.hotelDataSource = new MatTableDataSource(v);
+    this.hotelDataSource.paginator = this.paginator;
+    this.hotelDataSource.sort = this.matsort;
+    for (let i = 0; i < v.length; i++) {
+      console.log('setup' + (i + 1));
+      // this.divid=document.getElementById('setup'+(i+1));
+      // console.log(this.divid)
+      // this.divid.style.display='none'
+
+    }
+
   }
   putdata(v: any) { //assign pagination and sort header to datatable
     this.dataSource = new MatTableDataSource(v);
@@ -91,7 +171,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAgentDtls(){
-     this.dataServe.global_service(0, '/sales_agent',`id=${this.id}`).subscribe(dt =>{
+     this.dataServe.global_service(0, '/sub_sales_agent',`id=${this.id}`).subscribe(dt =>{
       console.log(dt);
       this.salesDashboardData = dt
       this.subprofileInfo.patchValue({
@@ -144,8 +224,16 @@ check_pass(){
 }
 
 add_hotel(v: any){
-  this.router.navigate(['main/sales/salesaddhotel',btoa(v)]).catch(data=>{
+  this.router.navigate(['main/subsales/subsalesaddhotel',btoa(v)]).catch(data=>{
     this.msg.globalError(data);
   })
+}
+
+go_subdetails(v: any) { //route to the particular restaurant on clicking on the edit option
+  // alert(v);
+  this.router.navigate(['main/sales/addsubsales',btoa(v)]).catch(data=>{
+    this.msg.globalError(data);
+  })
+  
 }
 }

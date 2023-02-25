@@ -10,6 +10,8 @@ const routes:Routes=[
   children: [
     { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
     { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+    { path: 'subsalesaddhotel/:id', loadChildren: () => import('./subsales_add_hotel/subsales_add_hotel.module').then(m => m.Subsales_add_hotelModule) },
+    { path: 'subsaleshotelinfo/:id', loadChildren: () => import('./subsales_hotel_info/subsales_hotel_info.module').then(m => m.Subsales_hotel_infoModule) },
     { path:'',redirectTo:'login',pathMatch:'full'}
 
   ]
